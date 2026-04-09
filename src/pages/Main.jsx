@@ -19,7 +19,7 @@ const INITIAL_CREW = Array.from({ length: 26 }, (_, i) => ({
   id: `CREW-${100 + i}`,
   name: [`김항해`, `이갑판`, `박기관`, `정통신`, `최조리`, `강항해`, `윤보급`, `임안전`, `한앵커`, `오레이더`, `조소나`, `배엔진`, `고갑판`, `문해역`, `송나침`, `양프로`, `백키`, `권로그`, `황비콘`, `서구명`, `어그물`, `남항구`, `유파도`, `심해안`, `노부표`, `장윈치`][i] || `선원-${i+1}`,
   role: ['선장', '일등항해사', '기관장', '통신장', '조리장', '조타수', '갑판원'][i % 7],
-  age: 30 + (i % 25),
+  age: i === 0 ? 52 : 30 + (i % 25),
   blood: ['A+', 'B+', 'O+', 'AB+'][i % 4],
   history: i === 0 ? '고혈압 (2022~)\n페니실린 알레르기 있음' : '특이사항 없음',
   status: '건강'
@@ -62,6 +62,7 @@ export default function Main() {
   const [history, setHistory] = useState(Array.from({ length: 30 }, (_, i) => ({ t: i, v: 80 + Math.random()*10 })))
   
   const [activeEmergencyGuide, setActiveEmergencyGuide] = useState(null) // null, 'CARDIAC', 'TRAUMA', 'RESP'
+  const [activeStep, setActiveStep] = useState(2)
   const [expandedSection, setExpandedSection] = useState(null) // null, 'HISTORY', 'LOG', 'TRANSFER'
   const [prompt, setPrompt] = useState('')
   const [chat, setChat] = useState([{ role: 'ai', text: 'MDTS 엣지 AI가 활성화되었습니다. 환자의 상태를 실시간 분석 중입니다.' }])
@@ -245,7 +246,7 @@ export default function Main() {
                         <span style={{ fontWeight: 800, color: '#38bdf8' }}>2026-03-15</span>
                         <span>단순 감기</span>
                       </div>
-                      <div style={{ lineHeight: 1.6 }}>- 처방: 타이레놀 500mg <br/>- 특이사항: 알레르기 반응 없음</div>
+                      <div style={{ lineHeight: 1.6 }}>- 처방 : 타이레놀 500mg <br/>- 특이사항 : 알레르기 반응 없음</div>
                     </div>
                   </div>
 
@@ -258,7 +259,7 @@ export default function Main() {
                         <span style={{ padding: '4px 12px', borderRadius: 6, background: '#38bdf830', color: '#38bdf8', fontSize: 16, fontWeight: 900 }}>14:10</span>
                         <span style={{ fontWeight: 800, color: '#e2e8f0' }}>아스피린 300mg 투여</span>
                       </div>
-                      <div style={{ lineHeight: 1.6 }}>처치자: 이갑판 (일등항해사)</div>
+                      <div style={{ lineHeight: 1.6 }}>처치자 : 이갑판 (일등항해사)</div>
                     </div>
                   </div>
 
@@ -275,7 +276,7 @@ export default function Main() {
               </div>
 
               {/* Fixed Bottom Button Area */}
-              <div style={{ padding: '20px 28px 40px 28px', borderTop: '1px solid rgba(255,255,255,0.05)', background: '#05070a', zIndex: 10 }}>
+              <div style={{ padding: '20px 28px 60px 28px', borderTop: '1px solid rgba(255,255,255,0.05)', background: '#05070a', zIndex: 10 }}>
                 <button 
                   onClick={() => startEmergencyAction('CARDIAC')}
                   className="emergency-action-btn"
@@ -296,77 +297,138 @@ export default function Main() {
             <section style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
               
               {/* Center Vitals Row */}
-              <div style={{ padding: '32px 45px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: '#080b12' }}>
-                <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ padding: '14px 45px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: '#080b12' }}>
+                <div style={{ marginBottom: 10, display: 'flex', alignItems: 'center', gap: 12 }}>
                   <Activity size={24} color="#38bdf8" />
                   <span style={{ fontSize: 18, fontWeight: 900, color: '#38bdf8', letterSpacing: '1px' }}>VITAL SENSOR REAL-TIME MONITORING</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 22 }}>
-                  <DashboardVital label="심박수 (실시간)" value={hr} unit="bpm" color="#fb7185" />
-                  <DashboardVital label="산소포화도 (실시간)" value={spo2} unit="%" color="#38bdf8" />
-                  <DashboardVital label="호흡수 (실시간)" value={rr} unit="/min" color="#2dd4bf" />
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12 }}>
+                  <DashboardVital label="심박수" value={hr} unit="bpm" color="#fb7185" live />
+                  <DashboardVital label="산소포화도" value={spo2} unit="%" color="#38bdf8" live />
+                  <DashboardVital label="호흡수" value={rr} unit="/min" color="#2dd4bf" live />
                   <DashboardVital label="혈압 (입력)" value={bp} unit="mmHg" color="#e2e8f0" editable onEdit={() => {}} />
                   <DashboardVital label="체온 (입력)" value={bt} unit="°C" color="#fbbf24" editable onEdit={() => {}} />
                 </div>
               </div>
 
               {/* Dynamic Content Area */}
-              <div style={{ flex: 1, overflowY: 'auto', padding: 45 }}>
+              <div style={{ flex: 1, overflowY: 'auto', padding: '20px 45px 45px 45px' }}>
                 {activeTab === 'DASHBOARD' && (
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ position: 'relative', paddingLeft: 45, marginTop: 10 }}>
                       <div style={{ position: 'absolute', left: 8.5, top: 0, bottom: 0, width: 3, background: 'rgba(255,255,255,0.05)' }} />
                       <TimelineItem time="14:02" label="현장 도착 및 바이탈 측정 시작" detail="환자 의식 명료, 흉부 통증 호소" />
-                      <TimelineItem time="14:05" label="AI 분석: 심근경색(STEMI) 의심" detail="엣지 AI가 ECG 데이터 기반 고위험도 판정" highlight />
-                      <TimelineItem time="14:10" label="아스피린 300mg 설하 투여" detail="처치자: 이갑판" />
+                      <TimelineItem time="14:05" label="AI 분석 : 심근경색(STEMI) 의심" detail="엣지 AI가 ECG 데이터 기반 고위험도 판정" highlight />
+                      <TimelineItem time="14:10" label="아스피린 300mg 설하 투여" detail="처치자 : 이갑판" />
                     </div>
                   </div>
                 )}
 
                 {activeTab === 'GUIDE' && (
                   <div className="fade-in">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                       <h2 style={{ fontSize: 32, fontWeight: 900 }}>증상별 응급 처치 가이드</h2>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 24px', background: 'rgba(251,113,133,0.1)', borderRadius: 18, border: '1px solid rgba(251,113,133,0.2)' }}>
                         <Timer size={24} color="#fb7185" />
-                        <span style={{ fontSize: 20, fontWeight: 800, color: '#fb7185' }}>골든타임: 42:15</span>
+                        <span style={{ fontSize: 20, fontWeight: 800, color: '#fb7185' }}>골든타임 : 42:15</span>
                       </div>
                     </div>
                     
-                    <div style={{ display: 'flex', gap: 18, marginBottom: 45 }}>
-                      <SymptomTab label="흉통/심정지" active onClick={() => setActiveEmergencyGuide('CARDIAC')} />
-                      <SymptomTab label="중증 외상/출혈" onClick={() => setActiveEmergencyGuide('TRAUMA')} />
-                      <SymptomTab label="의식 저하" onClick={() => setActiveEmergencyGuide('UNCONSCIOUS')} />
-                      <SymptomTab label="호흡 곤란" onClick={() => setActiveEmergencyGuide('RESPIRATORY')} />
+                    <div style={{ display: 'flex', gap: 18, marginBottom: 20 }}>
+                      <SymptomTab label="흉통/심정지" active={activeEmergencyGuide === 'CARDIAC'} onClick={() => { setActiveEmergencyGuide('CARDIAC'); setActiveStep(1) }} />
+                      <SymptomTab label="중증 외상/출혈" active={activeEmergencyGuide === 'TRAUMA'} onClick={() => { setActiveEmergencyGuide('TRAUMA'); setActiveStep(1) }} />
+                      <SymptomTab label="의식 저하" active={activeEmergencyGuide === 'UNCONSCIOUS'} onClick={() => { setActiveEmergencyGuide('UNCONSCIOUS'); setActiveStep(1) }} />
+                      <SymptomTab label="호흡 곤란" active={activeEmergencyGuide === 'RESPIRATORY'} onClick={() => { setActiveEmergencyGuide('RESPIRATORY'); setActiveStep(1) }} />
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 45 }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                        <StepItem num="1" title="의식 확인 및 도움 요청" desc="환자의 어깨를 가볍게 두드리며 의식을 확인하고 주변에 도움을 요청하십시오." />
-                        <StepItem num="2" title="흉부 압박 시행" desc="분당 100~120회의 속도로 5cm 깊이로 강하고 빠르게 압박하십시오." active />
-                        <StepItem num="3" title="AED 사용" desc="자동심장충격기가 도착하면 안내 음성에 따라 패드를 부착하십시오." />
-                      </div>
-                      <div style={{ background: 'rgba(56,189,248,0.05)', borderRadius: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(56,189,248,0.1)', minHeight: 300 }}>
-                        <div style={{ textAlign: 'center' }}>
-                          <div style={{ width: 180, height: 180, borderRadius: '50%', border: '6px solid #38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, animation: 'pulse 1.5s infinite' }}>
-                            <Heart size={80} color="#38bdf8" />
+                    {(() => {
+                      const GUIDES = {
+                        CARDIAC: {
+                          steps: [
+                            { title: '의식 확인 및 도움 요청', desc: '환자의 어깨를 가볍게 두드리며 의식을 확인하고 주변에 도움을 요청하십시오.' },
+                            { title: '흉부 압박 시행', desc: '분당 100~120회의 속도로 5cm 깊이로 강하고 빠르게 압박하십시오.' },
+                            { title: 'AED 사용', desc: '자동심장충격기가 도착하면 안내 음성에 따라 패드를 부착하십시오.' },
+                          ],
+                          illustrations: [
+                            { Icon: User,          color: '#38bdf8', bg: 'rgba(56,189,248,0.05)',  border: 'rgba(56,189,248,0.1)',  label: '의식 확인 가이드',  anim: '2s' },
+                            { Icon: Heart,         color: '#38bdf8', bg: 'rgba(56,189,248,0.05)',  border: 'rgba(56,189,248,0.1)',  label: 'CPR 애니메이션 가이드', anim: '1.5s' },
+                            { Icon: Activity,      color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: 'AED 사용 가이드',   anim: '1.2s' },
+                          ],
+                        },
+                        TRAUMA: {
+                          steps: [
+                            { title: '출혈 부위 압박', desc: '깨끗한 천이나 거즈로 상처 부위를 강하게 압박하여 지혈하십시오.' },
+                            { title: '환부 고정 및 거상', desc: '손상된 사지를 심장보다 높게 유지하고 움직이지 않도록 고정하십시오.' },
+                            { title: '쇼크 예방', desc: '환자를 눕히고 보온을 유지하며 음식이나 음료를 제공하지 마십시오.' },
+                          ],
+                          illustrations: [
+                            { Icon: Droplets,      color: '#f43f5e', bg: 'rgba(244,63,94,0.05)',   border: 'rgba(244,63,94,0.15)', label: '지혈 처치 가이드',   anim: '1s' },
+                            { Icon: AlertTriangle, color: '#f43f5e', bg: 'rgba(244,63,94,0.05)',   border: 'rgba(244,63,94,0.15)', label: '환부 고정 가이드',   anim: '1.2s' },
+                            { Icon: Shield,        color: '#94a3b8', bg: 'rgba(148,163,184,0.05)', border: 'rgba(148,163,184,0.15)', label: '쇼크 예방 가이드', anim: '2s' },
+                          ],
+                        },
+                        UNCONSCIOUS: {
+                          steps: [
+                            { title: '기도 확보', desc: '환자의 머리를 뒤로 젖히고 턱을 들어 기도를 열어주십시오.' },
+                            { title: '회복 자세 유지', desc: '환자를 옆으로 눕혀 기도가 막히지 않도록 하고 발을 높게 유지하십시오.' },
+                            { title: '지속 모니터링', desc: '호흡과 맥박을 지속적으로 확인하고 의식 회복 여부를 관찰하십시오.' },
+                          ],
+                          illustrations: [
+                            { Icon: Wind,     color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: '기도 확보 가이드',    anim: '1.5s' },
+                            { Icon: User,     color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: '회복 자세 가이드',    anim: '2s' },
+                            { Icon: Activity, color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)',  border: 'rgba(45,212,191,0.15)', label: '모니터링 가이드',     anim: '1.8s' },
+                          ],
+                        },
+                        RESPIRATORY: {
+                          steps: [
+                            { title: '상체 거상 및 안정', desc: '환자를 앉히거나 반좌위로 유지하여 호흡을 편하게 해주십시오.' },
+                            { title: '산소 공급', desc: '산소 마스크를 착용시키고 분당 10~15L 속도로 산소를 공급하십시오.' },
+                            { title: '기관지 확장제 투여', desc: '천식이나 COPD 병력이 있는 경우 기관지 확장제 흡입을 보조하십시오.' },
+                          ],
+                          illustrations: [
+                            { Icon: User,    color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '상체 거상 가이드',      anim: '2s' },
+                            { Icon: Wind,    color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '산소 공급 가이드',      anim: '2.5s' },
+                            { Icon: Pill,    color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '기관지 확장제 가이드',  anim: '1.8s' },
+                          ],
+                        },
+                      }
+                      const guide = GUIDES[activeEmergencyGuide]
+                      if (!guide) return null
+                      const illus = guide.illustrations[activeStep - 1]
+                      const { Icon, color, bg, border, label, anim } = illus
+                      return (
+                        <div key={`${activeEmergencyGuide}-${activeStep}`} className="fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: 45 }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                            {guide.steps.map((s, i) => (
+                              <StepItem key={i} num={i + 1} title={s.title} desc={s.desc}
+                                active={activeStep === i + 1}
+                                onClick={() => setActiveStep(i + 1)}
+                              />
+                            ))}
                           </div>
-                          <div style={{ fontSize: 18, color: '#38bdf8', fontWeight: 700 }}>CPR 애니메이션 가이드</div>
+                          <div style={{ background: bg, borderRadius: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${border}`, minHeight: 300 }}>
+                            <div style={{ textAlign: 'center' }}>
+                              <div style={{ width: 180, height: 180, borderRadius: '50%', border: `6px solid ${color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24, animation: `pulse ${anim} infinite` }}>
+                                <Icon size={80} color={color} />
+                              </div>
+                              <div style={{ fontSize: 18, color, fontWeight: 700 }}>{label}</div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      )
+                    })()}
                   </div>
                 )}
               </div>
 
               {/* Center Bottom Chat Bar */}
-              <div style={{ padding: '0 45px 60px 45px', background: 'transparent', position: 'relative', marginTop: -40, zIndex: 10 }}>
-                <div style={{ 
-                  display: 'flex', gap: 18, background: 'rgba(15, 23, 42, 0.95)', 
-                  borderRadius: 27, padding: '18px 22px', border: '1px solid rgba(56,189,248,0.4)',
+              <div style={{ padding: '0 45px 60px 45px', background: 'transparent', position: 'relative', marginTop: -24, zIndex: 10 }}>
+                <div style={{
+                  display: 'flex', gap: 14, background: 'rgba(15, 23, 42, 0.95)',
+                  borderRadius: 20, padding: '12px 16px', border: '1px solid rgba(56,189,248,0.4)',
                   boxShadow: '0 0 40px rgba(0,0,0,0.5)', backdropFilter: 'blur(15px)'
                 }}>
-                  <button style={{ width: 64, height: 64, borderRadius: 20, background: '#1e293b', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}><Mic size={32} color="#38bdf8" /></button>
+                  <button style={{ width: 48, height: 48, borderRadius: 14, background: '#1e293b', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}><Mic size={24} color="#38bdf8" /></button>
                   <input 
                     placeholder="환자 증상 입력 또는 AI 의료 어시스턴트에게 질문하기..." 
                     value={prompt}
@@ -393,9 +455,6 @@ export default function Main() {
                   </div>
                   <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>Edge-AI Diagnostic Center</div>
                 </div>
-                <div style={{ padding: '6px 14px', borderRadius: 9, background: mews >= 3 ? '#fb718520' : '#2dd4bf20', color: mews >= 3 ? '#fb7185' : '#2dd4bf', fontSize: 13, fontWeight: 800 }}>
-                  위험도(MEWS): {mews}
-                </div>
               </div>
               <div style={{ flex: 1, overflowY: 'auto', padding: 27, display: 'flex', flexDirection: 'column', gap: 22 }}>
                 {chat.map((m, i) => (
@@ -415,14 +474,14 @@ export default function Main() {
                   "현재 혈압 140/90, 심박수 110입니다. 위험한가요?"
                 </div>
               </div>
-              <div style={{ padding: 27, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', gap: 18, background: '#0a0f1d' }}>
+              <div style={{ padding: '27px 27px 60px 27px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', gap: 18, background: '#0a0f1d' }}>
                 <button 
                   onClick={() => {
                     setView('dashboard')
                     setActiveTab('DASHBOARD')
                     setChat(prev => [...prev, { role: 'ai', text: '외상 이미지 분석을 시작합니다... [MobileNet V3 활성]' }])
                     setTimeout(() => {
-                      setChat(prev => [...prev, { role: 'ai', text: '분석 완료: 중증 열상(Laceration)이 감지되었습니다. 즉시 지혈 처치 가이드를 확인하십시오.' }])
+                      setChat(prev => [...prev, { role: 'ai', text: '분석 완료 : 중증 열상(Laceration)이 감지되었습니다. 즉시 지혈 처치 가이드를 확인하십시오.' }])
                       setActiveEmergencyGuide('TRAUMA')
                       setActiveTab('GUIDE')
                     }, 2000)
@@ -580,12 +639,12 @@ export default function Main() {
                       <ModalField label="사번 (ID)" value={selectedCrew?.id} readOnly />
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-                      <ModalField label="직책" value={selectedCrew?.role} onChange={v => setSelectedCrew({...selectedCrew, role: v})} placeholder="직책 입력 (예: 선장)" />
+                      <ModalField label="직책" value={selectedCrew?.role} onChange={v => setSelectedCrew({...selectedCrew, role: v})} placeholder="직책 입력 (예 : 선장)" />
                       <ModalField label="나이" value={selectedCrew?.age} onChange={v => setSelectedCrew({...selectedCrew, age: v})} placeholder="숫자만 입력" />
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-                      <ModalField label="혈액형" value={selectedCrew?.blood} onChange={v => setSelectedCrew({...selectedCrew, blood: v})} placeholder="예: A+" />
-                      <ModalField label="현재 상태" value={selectedCrew?.status} onChange={v => setSelectedCrew({...selectedCrew, status: v})} placeholder="예: 건강" />
+                      <ModalField label="혈액형" value={selectedCrew?.blood} onChange={v => setSelectedCrew({...selectedCrew, blood: v})} placeholder="예 : A+" />
+                      <ModalField label="현재 상태" value={selectedCrew?.status} onChange={v => setSelectedCrew({...selectedCrew, status: v})} placeholder="예 : 건강" />
                     </div>
                     <div style={{ marginTop: 12 }}>
                       <label style={{ fontSize: 13, color: '#64748b', display: 'block', marginBottom: 8, fontWeight: 700 }}>과거력 (Past History)</label>
@@ -689,10 +748,18 @@ function NavTab({ label, active, onClick }) {
   )
 }
 
-function DashboardVital({ label, value, unit, color, editable, onEdit }) {
+function DashboardVital({ label, value, unit, color, editable, onEdit, live }) {
   return (
-    <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, padding: '30px 14px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative' }}>
-      <div style={{ fontSize: 22, fontWeight: 800, color: '#64748b', marginBottom: 16 }}>{label}</div>
+    <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, padding: '14px 14px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative' }}>
+      {live && (
+        <div style={{
+          position: 'absolute', top: 12, right: 12,
+          width: 8, height: 8, borderRadius: '50%',
+          background: color,
+          animation: 'pulse-dot 1.4s ease-in-out infinite'
+        }} />
+      )}
+      <div style={{ fontSize: 18, fontWeight: 800, color: '#64748b', marginBottom: 16 }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10 }}>
         <span style={{ fontSize: 36, fontWeight: 950, color }}>{value}</span>
         <span style={{ fontSize: 22, color: '#64748b', fontWeight: 700 }}>{unit}</span>
@@ -717,25 +784,35 @@ function TimelineItem({ time, label, detail, highlight }) {
   )
 }
 
-function StepItem({ num, title, desc, active }) {
+function StepItem({ num, title, desc, active, onClick }) {
   return (
-    <div style={{ display: 'flex', gap: 20, padding: 20, borderRadius: 20, background: active ? 'rgba(56,189,248,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${active ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.05)'}` }}>
-      <div style={{ width: 32, height: 32, borderRadius: '50%', background: active ? '#38bdf8' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 900, color: active ? '#000' : '#64748b' }}>{num}</div>
+    <div onClick={onClick} style={{ display: 'flex', gap: 20, padding: 20, borderRadius: 20, cursor: 'pointer', background: active ? 'rgba(56,189,248,0.05)' : 'rgba(255,255,255,0.02)', border: `1px solid ${active ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.05)'}`, transition: 'all 0.2s' }}>
+      <div style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0, background: active ? '#38bdf8' : '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, fontWeight: 900, color: active ? '#000' : '#64748b' }}>{num}</div>
       <div>
         <div style={{ fontSize: 16, fontWeight: 800, marginBottom: 4, color: active ? '#38bdf8' : '#fff' }}>{title}</div>
-        <div style={{ fontSize: 13, color: '#94a3b8', lineHeight: 1.5 }}>{desc}</div>
+        <div style={{ fontSize: 18, color: '#94a3b8', lineHeight: 1.5 }}>{desc}</div>
       </div>
     </div>
   )
 }
 
-function SymptomTab({ label, active }) {
+function SymptomTab({ label, active, onClick }) {
+  const [hovered, setHovered] = useState(false)
   return (
-    <button style={{ 
-      padding: '12px 24px', borderRadius: 12, border: 'none',
-      background: active ? '#38bdf8' : 'rgba(255,255,255,0.03)',
-      color: active ? '#000' : '#64748b', fontWeight: 800, fontSize: 13, cursor: 'pointer'
-    }}>{label}</button>
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        padding: '12px 24px', borderRadius: 12, border: `1px solid ${active ? '#38bdf8' : hovered ? 'rgba(56,189,248,0.4)' : 'rgba(255,255,255,0.05)'}`,
+        background: active ? '#38bdf8' : hovered ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.03)',
+        color: active ? '#000' : hovered ? '#38bdf8' : '#64748b',
+        fontWeight: 800, fontSize: 20, cursor: 'pointer',
+        transform: hovered && !active ? 'translateY(-2px)' : 'translateY(0)',
+        transition: 'all 0.2s ease',
+        boxShadow: active ? '0 4px 16px rgba(56,189,248,0.3)' : hovered ? '0 4px 12px rgba(56,189,248,0.1)' : 'none'
+      }}
+    >{label}</button>
   )
 }
 
