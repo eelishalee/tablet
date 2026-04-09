@@ -17,11 +17,11 @@ const SHIP_INFO = {
 
 const INITIAL_CREW = Array.from({ length: 26 }, (_, i) => ({
   id: `CREW-${100 + i}`,
-  name: [`김선장`, `이갑판`, `박기관`, `정통신`, `최조리`, `강항해`, `윤보급`, `임안전`, `한앵커`, `오레이더`, `조소나`, `배엔진`, `고갑판`, `문해역`, `송나침`, `양프로`, `백키`, `권로그`, `황비콘`, `서구명`, `어그물`, `남항구`, `유파도`, `심해안`, `노부표`, `장윈치`][i] || `선원-${i+1}`,
+  name: [`김항해`, `이갑판`, `박기관`, `정통신`, `최조리`, `강항해`, `윤보급`, `임안전`, `한앵커`, `오레이더`, `조소나`, `배엔진`, `고갑판`, `문해역`, `송나침`, `양프로`, `백키`, `권로그`, `황비콘`, `서구명`, `어그물`, `남항구`, `유파도`, `심해안`, `노부표`, `장윈치`][i] || `선원-${i+1}`,
   role: ['선장', '일등항해사', '기관장', '통신장', '조리장', '조타수', '갑판원'][i % 7],
   age: 30 + (i % 25),
   blood: ['A+', 'B+', 'O+', 'AB+'][i % 4],
-  history: i === 0 ? '고혈압 (2022~), 알레르기 없음' : '특이사항 없음',
+  history: i === 0 ? '고혈압 (2022~)\n페니실린 알레르기 있음' : '특이사항 없음',
   status: '건강'
 }))
 
@@ -219,20 +219,21 @@ export default function Main() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                       <div style={{ fontSize: 37, fontWeight: 950, marginBottom: 6, letterSpacing: '-0.6px' }}>{activePatient.name}</div>
-                      <div style={{ fontSize: 23, color: '#38bdf8', fontWeight: 800, marginBottom: 6 }}>{activePatient.role}</div>
-                      <div style={{ fontSize: 16, color: '#475569', fontWeight: 600 }}>(ID: {activePatient.id})</div>
+                      <div style={{ fontSize: 23, color: '#38bdf8', fontWeight: 800, marginBottom: 4 }}>{activePatient.role}</div>
+                      <div style={{ fontSize: 18, color: '#475569', fontWeight: 700 }}>ID : {activePatient.id}</div>
                     </div>
+
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 30 }}>
-                    <InfoItem label="나이/성별" value={`${activePatient.age}세 / 남`} size="xl_max" />
-                    <InfoItem label="혈액형" value={activePatient.blood} size="xl_max" />
-                    <div style={{ gridColumn: 'span 2', marginTop: 16 }}>
-                      <div style={{ fontSize: 15, color: '#64748b', marginBottom: 10, fontWeight: 700 }}>과거력 (Past History)</div>
-                      <div style={{ fontSize: 26, fontWeight: 800, color: '#e2e8f0', lineHeight: 1.5 }}>{activePatient.history || '고혈압 (2022~), 알레르기 없음'}</div>
-                    </div>
-                  </div>
-                </div>
+                    <InfoItem label="나이/성별" value={`${activePatient.age}세 / 남`} size="xl_ultra" />
+                    <InfoItem label="혈액형" value={activePatient.blood} size="xl_ultra" />
+                    <div style={{ gridColumn: 'span 2', marginTop: 20 }}>
+                      <div style={{ fontSize: 18, color: '#64748b', marginBottom: 12, fontWeight: 700 }}>과거력 (Past History)</div>
+                      <div style={{ fontSize: 22, fontWeight: 800, color: '#e2e8f0', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{activePatient.history}</div>
+                      </div>
 
+                  </div>
+                  </div>
                 {/* Emergency History & Data - Always Expanded */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -312,23 +313,12 @@ export default function Main() {
               {/* Dynamic Content Area */}
               <div style={{ flex: 1, overflowY: 'auto', padding: 45 }}>
                 {activeTab === 'DASHBOARD' && (
-                  <div style={{ display: 'grid', gap: 45 }}>
-                    <div>
-                      <SectionTitle label="처치 및 상태 변화 타임라인" />
-                      <div style={{ position: 'relative', paddingLeft: 45 }}>
-                        <div style={{ position: 'absolute', left: 11, top: 0, bottom: 0, width: 3, background: 'rgba(255,255,255,0.05)' }} />
-                        <TimelineItem time="14:02" label="현장 도착 및 바이탈 측정 시작" detail="환자 의식 명료, 흉부 통증 호소" />
-                        <TimelineItem time="14:05" label="AI 분석: 심근경색(STEMI) 의심" detail="엣지 AI가 ECG 데이터 기반 고위험도 판정" highlight />
-                        <TimelineItem time="14:10" label="아스피린 300mg 설하 투여" detail="처치자: 이갑판" />
-                      </div>
-                    </div>
-                    
-                    <div style={{ height: 250, background: 'rgba(56,189,248,0.02)', borderRadius: 27, padding: 32, border: '1px solid rgba(56,189,248,0.1)' }}>
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart data={history}>
-                          <Area type="monotone" dataKey="v" stroke="#38bdf8" fill="rgba(56,189,248,0.1)" isAnimationActive={false} />
-                        </AreaChart>
-                      </ResponsiveContainer>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ position: 'relative', paddingLeft: 45, marginTop: 10 }}>
+                      <div style={{ position: 'absolute', left: 8.5, top: 0, bottom: 0, width: 3, background: 'rgba(255,255,255,0.05)' }} />
+                      <TimelineItem time="14:02" label="현장 도착 및 바이탈 측정 시작" detail="환자 의식 명료, 흉부 통증 호소" />
+                      <TimelineItem time="14:05" label="AI 분석: 심근경색(STEMI) 의심" detail="엣지 AI가 ECG 데이터 기반 고위험도 판정" highlight />
+                      <TimelineItem time="14:10" label="아스피린 300mg 설하 투여" detail="처치자: 이갑판" />
                     </div>
                   </div>
                 )}
@@ -691,9 +681,9 @@ export default function Main() {
 function NavTab({ label, active, onClick }) {
   return (
     <button onClick={onClick} style={{ 
-      background: 'none', border: 'none', padding: '0 24px', height: '100%',
-      color: active ? '#38bdf8' : '#64748b', fontSize: 16, fontWeight: 800,
-      borderBottom: `4px solid ${active ? '#38bdf8' : 'transparent'}`,
+      background: 'none', border: 'none', padding: '0 28px', height: '100%',
+      color: active ? '#38bdf8' : '#64748b', fontSize: 24, fontWeight: 900,
+      borderBottom: `5px solid ${active ? '#38bdf8' : 'transparent'}`,
       cursor: 'pointer', transition: '0.2s'
     }}>{label}</button>
   )
@@ -701,15 +691,15 @@ function NavTab({ label, active, onClick }) {
 
 function DashboardVital({ label, value, unit, color, editable, onEdit }) {
   return (
-    <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, padding: '24px 14px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative' }}>
-      <div style={{ fontSize: 17, fontWeight: 800, color: '#64748b', marginBottom: 12 }}>{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 8 }}>
+    <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, padding: '30px 14px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', position: 'relative' }}>
+      <div style={{ fontSize: 22, fontWeight: 800, color: '#64748b', marginBottom: 16 }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10 }}>
         <span style={{ fontSize: 36, fontWeight: 950, color }}>{value}</span>
-        <span style={{ fontSize: 20, color: '#64748b', fontWeight: 700 }}>{unit}</span>
+        <span style={{ fontSize: 22, color: '#64748b', fontWeight: 700 }}>{unit}</span>
       </div>
       {editable && (
-        <button onClick={onEdit} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
-          <Edit3 size={18} />
+        <button onClick={onEdit} style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
+          <Edit3 size={22} />
         </button>
       )}
     </div>
@@ -719,10 +709,10 @@ function DashboardVital({ label, value, unit, color, editable, onEdit }) {
 function TimelineItem({ time, label, detail, highlight }) {
   return (
     <div style={{ marginBottom: 48, position: 'relative' }}>
-      <div style={{ position: 'absolute', left: -46, top: 14, width: 22, height: 22, borderRadius: '50%', background: highlight ? '#f43f5e' : '#38bdf8', boxShadow: highlight ? '0 0 25px #f43f5e' : '0 0 15px rgba(56,189,248,0.4)' }} />
-      <div style={{ fontSize: 18.5, color: '#64748b', marginBottom: 10, fontWeight: 700 }}>{time}</div>
-      <div style={{ fontSize: 29, fontWeight: 950, color: highlight ? '#fb7185' : '#e2e8f0', letterSpacing: '-0.8px', lineHeight: 1.3 }}>{label}</div>
-      <div style={{ fontSize: 24, color: '#94a3b8', marginTop: 14, lineHeight: 1.6 }}>{detail}</div>
+      <div style={{ position: 'absolute', left: -45, top: 12, width: 20, height: 20, borderRadius: '50%', background: highlight ? '#f43f5e' : '#38bdf8', boxShadow: highlight ? '0 0 25px #f43f5e' : '0 0 15px rgba(56,189,248,0.4)' }} />
+      <div style={{ fontSize: 18.5, color: '#64748b', marginBottom: 8, fontWeight: 700 }}>{time}</div>
+      <div style={{ fontSize: 22, fontWeight: 950, color: highlight ? '#fb7185' : '#e2e8f0', letterSpacing: '-0.5px', lineHeight: 1.3 }}>{label}</div>
+      <div style={{ fontSize: 24, color: '#94a3b8', marginTop: 12, lineHeight: 1.6 }}>{detail}</div>
     </div>
   )
 }
@@ -754,10 +744,10 @@ function SectionTitle({ label }) {
 }
 
 function InfoItem({ label, value, span = 1, size }) {
-  const valueSize = size === 'xl_max' ? 28 : (size === 'xl_plus' ? 25 : (size === 'xl' ? 22 : (size === 'large' ? 18 : 13)))
+  const valueSize = size === 'xl_ultra' ? 32 : (size === 'xl_max' ? 28 : (size === 'xl_plus' ? 25 : (size === 'xl' ? 22 : (size === 'large' ? 18 : 13))))
   return (
     <div style={{ gridColumn: `span ${span}` }}>
-      <div style={{ fontSize: 15, color: '#64748b', marginBottom: 6, fontWeight: 700 }}>{label}</div>
+      <div style={{ fontSize: 18, color: '#64748b', marginBottom: 8, fontWeight: 700 }}>{label}</div>
       <div style={{ fontSize: valueSize, fontWeight: 800 }}>{value}</div>
     </div>
   )
