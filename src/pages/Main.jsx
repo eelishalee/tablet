@@ -65,7 +65,7 @@ export default function Main() {
   const [activeStep, setActiveStep] = useState(2)
   const [expandedSection, setExpandedSection] = useState(null) // null, 'HISTORY', 'LOG', 'TRANSFER'
   const [prompt, setPrompt] = useState('')
-  const [chat, setChat] = useState([{ role: 'ai', text: 'MDTS 엣지 AI가 활성화되었습니다. 환자의 상태를 실시간 분석 중입니다.' }])
+  const [chat, setChat] = useState([{ role: 'ai', text: 'MDTS 엣지 AI 활성화. 환자 상태 실시간 분석 중.' }])
   const [crewSearch, setCrewSearch] = useState('')
   const [crewRoleTab, setCrewRoleTab] = useState('전체')
   
@@ -126,13 +126,13 @@ export default function Main() {
     setPrompt('');
 
     setTimeout(() => {
-      let aiResponse = '입력하신 내용을 분석 중입니다. 증상을 좀 더 구체적으로 말씀해 주시면 정확한 분석이 가능합니다.';
+      let aiResponse = '입력 내용 분석 중. 증상 상세 입력 시 정확한 판정 가능.';
       if (userInput.includes('아프') || userInput.includes('통증') || userInput.includes('결려')) {
-        aiResponse = '흉부 및 복부 통증은 심혈관 질환의 전조 증상일 수 있습니다. 현재 바이탈은 안정적이나, 통증이 지속될 경우 즉시 안정을 취하고 산소 공급을 준비하십시오.';
+        aiResponse = '심혈관 질환 전조 증상 판정. 바이탈 안정 상태이나 즉시 안정 및 산소 공급 권고.';
       } else if (userInput.includes('피') || userInput.includes('다치') || userInput.includes('베였')) {
-        aiResponse = '출혈이 감지되었습니다. 상처 부위를 압박하여 지혈하고, AI 외상 분석을 위해 환부를 촬영해 주십시오. 필요 시 즉시 원격 의료진을 호출합니다.';
+        aiResponse = '출혈 감지. 상처 압박 지혈 및 AI 외상 분석 촬영 권고. 원격 의료진 호출 준비 완료.';
       } else if (userInput.includes('어지럽') || userInput.includes('쓰러')) {
-        aiResponse = '의식 저하 가능성이 있습니다. 기도를 확보하고 환자를 눕힌 후 발을 높게 유지하십시오. MEWS 위험도를 모니터링합니다.';
+        aiResponse = '의식 저하 가능성 농후. 기도 확보 및 하체 거상 처치 권고. MEWS 위험도 상시 모니터링 중.';
       }
       setChat([...newChat, { role: 'ai', text: aiResponse }]);
     }, 1000);
@@ -201,41 +201,49 @@ export default function Main() {
         {view === 'dashboard' && (
           <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '420px 1fr 440px', overflow: 'hidden' }}>
             
-            {/* [Left] Patient Permanent Info */}
+            {/* [Left] Patient Info Panel */}
             <aside style={{ 
               borderRight: '1px solid rgba(255,255,255,0.05)', 
               background: '#05070a',
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              height: '100%'
             }}>
               
-              {/* Scrollable Content Area */}
-              <div style={{ flex: 1, overflowY: 'auto', padding: '36px 28px' }}>
+              {/* Left Scrollable Body */}
+              <div style={{ flex: 1, overflowY: 'auto', padding: '28px' }}>
                 {/* Patient Profile Box */}
-                <div style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.1)', borderRadius: 24, padding: 30, marginBottom: 40 }}>
-                  <div style={{ display: 'flex', gap: 27, marginBottom: 36 }}>
-                    <div style={{ width: 110, height: 110, borderRadius: 27, background: '#1e293b', border: '2px solid #38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxShadow: '0 0 24px rgba(56,189,248,0.2)' }}>
-                      <User size={68} color="#38bdf8" />
+                <div style={{ background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.1)', borderRadius: 24, padding: '24px 24px 20px 24px', marginBottom: 30 }}>
+                  <div style={{ display: 'flex', gap: 24, marginBottom: 24 }}>
+                    <div style={{ width: 110, height: 110, borderRadius: 27, background: '#fff', border: '2px solid #38bdf8', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxShadow: '0 0 24px rgba(56,189,248,0.2)' }}>
+                      {activePatient.id.includes('100') ? (
+                        <img 
+                          src="photo.jpeg" 
+                          alt="Captain" 
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 5px' }} 
+                          onError={(e) => { e.target.src = ''; e.target.style.display='none'; }}
+                        />
+                      ) : (
+                        <User size={68} color="#38bdf8" />
+                      )}
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                      <div style={{ fontSize: 37, fontWeight: 950, marginBottom: 6, letterSpacing: '-0.6px' }}>{activePatient.name}</div>
-                      <div style={{ fontSize: 23, color: '#38bdf8', fontWeight: 800, marginBottom: 4 }}>{activePatient.role}</div>
+                      <div style={{ fontSize: 37, fontWeight: 950, marginBottom: 4, letterSpacing: '-0.6px' }}>{activePatient.name}</div>
+                      <div style={{ fontSize: 23, color: '#38bdf8', fontWeight: 800, marginBottom: 2 }}>{activePatient.role}</div>
                       <div style={{ fontSize: 18, color: '#475569', fontWeight: 700 }}>ID : {activePatient.id}</div>
                     </div>
-
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 30 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                     <InfoItem label="나이/성별" value={`${activePatient.age}세 / 남`} size="xl_ultra" />
                     <InfoItem label="혈액형" value={activePatient.blood} size="xl_ultra" />
-                    <div style={{ gridColumn: 'span 2', marginTop: 20 }}>
-                      <div style={{ fontSize: 18, color: '#64748b', marginBottom: 12, fontWeight: 700 }}>과거력 (Past History)</div>
-                      <div style={{ fontSize: 22, fontWeight: 800, color: '#e2e8f0', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>{activePatient.history}</div>
-                      </div>
+                    <div style={{ gridColumn: 'span 2', marginTop: 0 }}>
+                      <div style={{ fontSize: 17, color: '#64748b', marginBottom: 8, fontWeight: 700 }}>과거력 (Past History)</div>
+                      <div style={{ fontSize: 21, fontWeight: 800, color: '#e2e8f0', lineHeight: 1.4, whiteSpace: 'pre-wrap' }}>{activePatient.history}</div>
+                    </div>
+                  </div>
+                </div>
 
-                  </div>
-                  </div>
-                {/* Emergency History & Data - Always Expanded */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: '#38bdf8', fontSize: 21, fontWeight: 800 }}>
@@ -249,7 +257,6 @@ export default function Main() {
                       <div style={{ lineHeight: 1.6 }}>- 처방 : 타이레놀 500mg <br/>- 특이사항 : 알레르기 반응 없음</div>
                     </div>
                   </div>
-
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: '#38bdf8', fontSize: 21, fontWeight: 800 }}>
                       <Droplets size={26}/> 투약/처치 로그
@@ -269,26 +276,26 @@ export default function Main() {
                     </div>
                     <div style={{ padding: '22px', background: 'rgba(45, 212, 191, 0.05)', borderRadius: 18, border: '1px solid rgba(45, 212, 191, 0.1)', fontSize: 20, color: '#2dd4bf' }}>
                       <div style={{ fontWeight: 800, marginBottom: 8 }}>육상 의료 센터 동기화</div>
-                      <div style={{ lineHeight: 1.6 }}>- 바이탈 데이터 전송 완료 <br/>- 처치 로그 전송 완료 (14:12)</div>
+                      <div style={{ lineHeight: 1.6 }}>- 바이탈 데이터 실시간 전송 중 <br/>- 처치 로그 전송 완료 (14:12)</div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Fixed Bottom Button Area */}
-              <div style={{ padding: '20px 28px 60px 28px', borderTop: '1px solid rgba(255,255,255,0.05)', background: '#05070a', zIndex: 10 }}>
+              {/* Left Fixed Footer (Button) */}
+              <div style={{ padding: '20px 28px 24px 28px', borderTop: '1px solid rgba(255,255,255,0.05)', background: '#05070a', flexShrink: 0, zIndex: 10 }}>
                 <button 
                   onClick={() => startEmergencyAction('CARDIAC')}
                   className="emergency-action-btn"
                   style={{ 
-                    width: '100%', padding: '27px', borderRadius: 22, 
+                    width: '100%', padding: '22px', borderRadius: 18, 
                     background: '#f43f5e', color: '#fff', border: 'none', 
                     fontWeight: 900, cursor: 'pointer', display: 'flex', 
-                    alignItems: 'center', justifyContent: 'center', gap: 16, 
-                    fontSize: 23, transition: '0.2s'
+                    alignItems: 'center', justifyContent: 'center', gap: 14, 
+                    fontSize: 20, transition: '0.2s'
                   }}
                 >
-                  <AlertTriangle size={32} /> 응급 처치 액션 시작
+                  <AlertTriangle size={26} /> 응급 처치 액션 시작
                 </button>
               </div>
             </aside>
@@ -314,13 +321,12 @@ export default function Main() {
               {/* Dynamic Content Area */}
               <div style={{ flex: 1, overflowY: 'auto', padding: '20px 45px 45px 45px' }}>
                 {activeTab === 'DASHBOARD' && (
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ position: 'relative', paddingLeft: 45, marginTop: 10 }}>
-                      <div style={{ position: 'absolute', left: 8.5, top: 0, bottom: 0, width: 3, background: 'rgba(255,255,255,0.05)' }} />
-                      <TimelineItem time="14:02" label="현장 도착 및 바이탈 측정 시작" detail="환자 의식 명료, 흉부 통증 호소" />
-                      <TimelineItem time="14:05" label="AI 분석 : 심근경색(STEMI) 의심" detail="엣지 AI가 ECG 데이터 기반 고위험도 판정" highlight />
-                      <TimelineItem time="14:10" label="아스피린 300mg 설하 투여" detail="처치자 : 이갑판" />
-                    </div>
+                  <div style={{ position: 'relative', paddingLeft: 45 }}>
+                    <div style={{ position: 'absolute', left: 8.5, top: 0, bottom: 0, width: 3, background: 'rgba(255,255,255,0.05)' }} />
+                    <TimelineItem time="14:02" label="급성 흉부 통증 발생 및 최초 발견" detail="선교 내 이동 중 갑작스러운 심장 쪼임 호소하며 쓰러짐" />
+                    <TimelineItem time="14:05" label="AI 분석 : 심근경색(STEMI) 고위험 판정" detail="ECG 데이터 및 증상 기반 엣지 AI 정밀 분석 완료" highlight />
+                    <TimelineItem time="14:08" label="응급 처치 액션 개시 및 산소 공급" detail="환자 안정 유도 및 비재호흡 마스크 산소 투여" />
+                    <TimelineItem time="14:10" label="아스피린 300mg 설하 투여 완료" detail="처치자 : 이갑판 (일등항해사)" />
                   </div>
                 )}
 
@@ -421,12 +427,12 @@ export default function Main() {
                 )}
               </div>
 
-              {/* Center Bottom Chat Bar */}
-              <div style={{ padding: '0 45px 60px 45px', background: 'transparent', position: 'relative', marginTop: -24, zIndex: 10 }}>
+              {/* Fixed Bottom Chat Bar */}
+              <div style={{ padding: '24px 45px 48px 45px', background: 'rgba(2, 4, 8, 0.9)', borderTop: '1px solid rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', zIndex: 20 }}>
                 <div style={{
                   display: 'flex', gap: 14, background: 'rgba(15, 23, 42, 0.95)',
                   borderRadius: 20, padding: '12px 16px', border: '1px solid rgba(56,189,248,0.4)',
-                  boxShadow: '0 0 40px rgba(0,0,0,0.5)', backdropFilter: 'blur(15px)'
+                  boxShadow: '0 0 40px rgba(0,0,0,0.5)'
                 }}>
                   <button style={{ width: 48, height: 48, borderRadius: 14, background: '#1e293b', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}><Mic size={24} color="#38bdf8" /></button>
                   <input 
@@ -436,35 +442,34 @@ export default function Main() {
                     onKeyPress={e => e.key === 'Enter' && handlePromptAnalysis()}
                     style={{ flex: 1, background: 'none', border: 'none', color: '#fff', fontSize: 20, outline: 'none' }}
                   />
-                  <button 
-                    onClick={handlePromptAnalysis}
-                    style={{ padding: '0 40px', borderRadius: 20, background: '#38bdf8', color: '#000', border: 'none', fontWeight: 900, cursor: 'pointer', fontSize: 20 }}
-                  >
-                    분석 실행
-                  </button>
+                  <button onClick={handlePromptAnalysis} style={{ padding: '0 40px', borderRadius: 20, background: '#38bdf8', color: '#000', border: 'none', fontWeight: 900, cursor: 'pointer', fontSize: 20 }}>분석 실행</button>
                 </div>
               </div>
             </section>
 
             {/* [Right] AI Assistant Panel */}
             <aside style={{ borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', background: '#080b12' }}>
-              <div style={{ padding: 32, borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ padding: 32, borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
                 <div>
                   <div style={{ fontSize: 18, fontWeight: 900, display: 'flex', alignItems: 'center', gap: 11 }}>
                     <Activity size={22} color="#38bdf8" /> MDTS AI 의료 어시스턴트
                   </div>
                   <div style={{ fontSize: 13, color: '#64748b', marginTop: 4 }}>Edge-AI Diagnostic Center</div>
                 </div>
+                <div className="flow-light-bar"></div>
               </div>
               <div style={{ flex: 1, overflowY: 'auto', padding: 27, display: 'flex', flexDirection: 'column', gap: 22 }}>
                 {chat.map((m, i) => (
-                  <div key={i} style={{ 
-                    padding: 22, borderRadius: 22, 
-                    background: m.role === 'ai' ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.03)',
-                    border: `1px solid ${m.role === 'ai' ? 'rgba(56,189,248,0.2)' : 'rgba(255,255,255,0.05)'}`,
-                    alignSelf: m.role === 'ai' ? 'flex-start' : 'flex-end',
-                    maxWidth: '100%'
-                  }}>
+                  <div key={i} 
+                    className={m.role === 'ai' ? 'ai-message-highlight' : ''}
+                    style={{ 
+                      padding: 22, borderRadius: 22, 
+                      background: m.role === 'ai' ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.03)',
+                      border: `1px solid ${m.role === 'ai' ? 'rgba(56,189,248,0.2)' : 'rgba(255,255,255,0.05)'}`,
+                      alignSelf: m.role === 'ai' ? 'flex-start' : 'flex-end',
+                      maxWidth: '100%'
+                    }}
+                  >
                     {m.role === 'ai' && <div style={{ fontSize: 12, fontWeight: 800, color: '#38bdf8', marginBottom: 9 }}>AI 어시스턴트</div>}
                     <div style={{ fontSize: 16, lineHeight: 1.6 }}>{m.text}</div>
                   </div>
@@ -725,7 +730,28 @@ export default function Main() {
       <style>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes aiHighlight {
+          0% { border-color: rgba(56,189,248,0.2); box-shadow: 0 0 0px rgba(56,189,248,0); }
+          50% { border-color: rgba(56,189,248,0.6); box-shadow: 0 0 20px rgba(56,189,248,0.3); }
+          100% { border-color: rgba(56,189,248,0.2); box-shadow: 0 0 0px rgba(56,189,248,0); }
+        }
+        @keyframes flowLight {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        .flow-light-bar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+          animation: flowLight 2s infinite linear;
+        }
+        .ai-message-highlight { animation: aiHighlight 2s infinite ease-in-out; }
         .emergency-action-btn:hover { background: #e11d48 !important; }
+        .trauma-capture-btn:hover { background: #0ea5e9 !important; }
+        .trauma-capture-btn:active { background: #0369a1 !important; }
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
@@ -759,10 +785,10 @@ function DashboardVital({ label, value, unit, color, editable, onEdit, live }) {
           animation: 'pulse-dot 1.4s ease-in-out infinite'
         }} />
       )}
-      <div style={{ fontSize: 18, fontWeight: 800, color: '#64748b', marginBottom: 16 }}>{label}</div>
+      <div style={{ fontSize: 18, fontWeight: 800, color: '#64748b', marginBottom: 8 }}>{label}</div>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 10 }}>
         <span style={{ fontSize: 36, fontWeight: 950, color }}>{value}</span>
-        <span style={{ fontSize: 22, color: '#64748b', fontWeight: 700 }}>{unit}</span>
+        <span style={{ fontSize: 20, color: '#64748b', fontWeight: 500 }}>{unit}</span>
       </div>
       {editable && (
         <button onClick={onEdit} style={{ position: 'absolute', top: 16, right: 16, background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
