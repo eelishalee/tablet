@@ -1,0 +1,116 @@
+import { useState } from 'react'
+import { Timer } from 'lucide-react'
+import { StepItem, SymptomTab } from '../../../components/ui'
+
+export default function EmergencyGuide({ activeEmergencyGuide, setActiveEmergencyGuide, activeStep, setActiveStep }) {
+  const GUIDES = {
+    CARDIAC: {
+      steps: [
+        { title: '의식 확인 · 도움 요청', desc: '어깨 가볍게 두드림 · 의식 여부 확인 · 주변 도움 요청' },
+        { title: '흉부 압박', desc: '100~120회/분 · 5cm 깊이 · 강하고 빠른 압박' },
+        { title: 'AED 사용', desc: '자동심장충격기 도착 즉시 패드 부착 · 안내 음성 준수' },
+      ],
+      illustrations: [
+        { color: '#38bdf8', bg: 'rgba(56,189,248,0.05)',  border: 'rgba(56,189,248,0.1)',  label: '의식 확인 가이드' },
+        { color: '#38bdf8', bg: 'rgba(56,189,248,0.05)',  border: 'rgba(56,189,248,0.1)',  label: 'CPR 가이드' },
+        { color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: 'AED 사용 가이드' },
+      ],
+    },
+    TRAUMA: {
+      steps: [
+        { title: '출혈 부위 압박 · 지혈', desc: '거즈 또는 깨끗한 천 · 상처 강하게 압박 · 지혈 유지' },
+        { title: '환부 고정 · 거상', desc: '손상 사지 심장보다 높게 유지 · 고정 및 부동화' },
+        { title: '쇼크 예방 · 보온', desc: '수평 눕힘 · 보온 유지 · 음식·음료 금지' },
+      ],
+      illustrations: [
+        { color: '#f43f5e', bg: 'rgba(244,63,94,0.05)',   border: 'rgba(244,63,94,0.15)',  label: '지혈 처치 가이드' },
+        { color: '#f43f5e', bg: 'rgba(244,63,94,0.05)',   border: 'rgba(244,63,94,0.15)',  label: '환부 고정 가이드' },
+        { color: '#94a3b8', bg: 'rgba(148,163,184,0.05)', border: 'rgba(148,163,184,0.15)',label: '쇼크 예방 가이드' },
+      ],
+    },
+    UNCONSCIOUS: {
+      steps: [
+        { title: '기도 확보', desc: '머리 후굴 · 턱 거상 · 기도 개방' },
+        { title: '회복 자세 유지', desc: '측와위 자세 · 기도 폐쇄 방지 · 발 거상' },
+        { title: '지속 모니터링', desc: '호흡·맥박 지속 확인 · 의식 회복 여부 관찰' },
+      ],
+      illustrations: [
+        { color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: '기도 확보 가이드' },
+        { color: '#fbbf24', bg: 'rgba(251,191,36,0.05)',  border: 'rgba(251,191,36,0.15)', label: '회복 자세 가이드' },
+        { color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)',  border: 'rgba(45,212,191,0.15)', label: '모니터링 가이드' },
+      ],
+    },
+    RESPIRATORY: {
+      steps: [
+        { title: '상체 거상 · 안정', desc: '좌위 또는 반좌위 유지 · 호흡 편의 확보' },
+        { title: '산소 공급', desc: '산소 마스크 착용 · 10~15L/분 공급' },
+        { title: '기관지 확장제 투여', desc: '천식·COPD 병력 확인 · 흡입 보조' },
+      ],
+      illustrations: [
+        { color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '상체 거상 가이드' },
+        { color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '산소 공급 가이드' },
+        { color: '#2dd4bf', bg: 'rgba(45,212,191,0.05)', border: 'rgba(45,212,191,0.15)', label: '기관지 확장제 가이드' },
+      ],
+    },
+  }
+
+  const guide = GUIDES[activeEmergencyGuide]
+  if (!guide) return null
+  const illus = guide.illustrations[activeStep - 1]
+  const { color, bg, border, label } = illus
+
+  const Anim3D = () => {
+    const S = { width: 240, height: 260 }
+    const vb = "0 0 240 260"
+    if (activeEmergencyGuide === 'CARDIAC' && activeStep === 1) return (
+      <svg viewBox={vb} {...S}>
+        <defs>
+          <linearGradient id="skC1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#fde8c8"/><stop offset="60%" stopColor="#f0b07a"/><stop offset="100%" stopColor="#c47d45"/></linearGradient>
+          <linearGradient id="scC1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#4db8d4"/><stop offset="100%" stopColor="#1e6a8a"/></linearGradient>
+          <linearGradient id="glC1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient>
+          <filter id="shC1"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.35"/></filter>
+        </defs>
+        <ellipse cx="120" cy="248" rx="80" ry="8" fill="rgba(0,0,0,0.18)"/>
+        <path d="M28 160 Q28 142 50 140 L200 140 Q220 140 220 158 Q220 176 200 178 L50 178 Q28 178 28 160Z" fill="url(#skC1)" filter="url(#shC1)"/>
+        <circle cx="210" cy="158" r="22" fill="url(#skC1)" filter="url(#shC1)"/>
+        <path d="M194 144 Q210 136 226 144" fill="#3d2b1f"/>
+        <circle cx="205" cy="160" r="2.5" fill="#1e1e2e"/><circle cx="217" cy="160" r="2.5" fill="#1e1e2e"/>
+        <path d="M75 52 Q75 36 110 32 Q145 36 145 52 L148 138 Q148 148 110 150 Q72 148 72 138Z" fill="url(#scC1)" filter="url(#shC1)"/>
+        <circle cx="110" cy="20" r="20" fill="url(#skC1)" filter="url(#shC1)"/>
+        <path d="M93 10 Q110 2 127 10" fill="#3d2b1f"/>
+        <path d="M75 90 Q52 100 38 128 Q42 140 55 136 Q66 112 82 104Z" fill="url(#glC1)" filter="url(#shC1)"/>
+        <circle cx="36" cy="132" r="20" fill="none" stroke="#38bdf8" strokeWidth="1.5" opacity="0.6" style={{animation:'pingRing 1.8s infinite'}}/>
+      </svg>
+    )
+    return <div style={{width:240, height:260, background:'rgba(255,255,255,0.03)', borderRadius:20}} />
+  }
+
+  return (
+    <div className="fade-in">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <h2 style={{ fontSize: 32, fontWeight: 900 }}>증상별 응급 처치 가이드</h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 24px', background: 'rgba(251,113,133,0.1)', borderRadius: 18, border: '1px solid rgba(251,113,133,0.2)' }}>
+          <Timer size={24} color="#fb7185" />
+          <span style={{ fontSize: 20, fontWeight: 800, color: '#fb7185' }}>골든타임 : 42:15</span>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 18, marginBottom: 20 }}>
+        <SymptomTab label="흉통/심정지" active={activeEmergencyGuide === 'CARDIAC'} onClick={() => { setActiveEmergencyGuide('CARDIAC'); setActiveStep(1) }} />
+        <SymptomTab label="중증 외상/출혈" active={activeEmergencyGuide === 'TRAUMA'} onClick={() => { setActiveEmergencyGuide('TRAUMA'); setActiveStep(1) }} />
+        <SymptomTab label="의식 저하" active={activeEmergencyGuide === 'UNCONSCIOUS'} onClick={() => { setActiveEmergencyGuide('UNCONSCIOUS'); setActiveStep(1) }} />
+        <SymptomTab label="호흡 곤란" active={activeEmergencyGuide === 'RESPIRATORY'} onClick={() => { setActiveEmergencyGuide('RESPIRATORY'); setActiveStep(1) }} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 36 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          {guide.steps.map((s, i) => (
+            <StepItem key={i} num={i + 1} title={s.title} desc={s.desc} active={activeStep === i + 1} onClick={() => setActiveStep(i + 1)} />
+          ))}
+        </div>
+        <div style={{ background: bg, borderRadius: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: `1px solid ${border}`, minHeight: 280, boxShadow: `0 8px 40px ${color}22`, position: 'relative', overflow: 'hidden', padding: '24px 16px' }}>
+          <Anim3D />
+          <div style={{ fontSize: 14, color, fontWeight: 800, letterSpacing: '0.04em', marginTop: 12, textAlign: 'center' }}>{label}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
