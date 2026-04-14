@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts'
 import MdtsLogo from '../components/MdtsLogo'
+import logoImg from '../assets/logo.png'
 
 // --- Mock Data & Constants ---
 const SHIP_INFO = {
@@ -160,15 +161,7 @@ export default function Main() {
 
         {/* ══ 상단 네비 바 ══ */}
         <div style={{ position:'relative', zIndex:10, display:'flex', alignItems:'center', justifyContent:'space-between', padding:'22px 48px' }}>
-          <div style={{ display:'flex', alignItems:'center', gap:10 }}>
-            <div style={{ width:36, height:36, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 4px 16px rgba(0,229,200,0.22)', border:'1px solid rgba(0,229,200,0.22)', background:'rgba(4,18,32,0.6)' }}>
-              <MdtsLogo size={30} />
-            </div>
-            <div>
-              <div style={{ fontSize:10, fontWeight:700, color:'rgba(56,189,248,0.7)', letterSpacing:2.5 }}>MEDITISING</div>
-              <div style={{ fontSize:15, fontWeight:900, letterSpacing:0.5, lineHeight:1 }}>MDTS</div>
-            </div>
-          </div>
+          <div/>
           <div/>
           <div/>
         </div>
@@ -208,13 +201,11 @@ export default function Main() {
                 color:'#ffffff',
                 filter:'drop-shadow(0 4px 24px rgba(255,255,255,0.18))' }}>선박 의료</div>
               <div style={{ fontSize:64, fontWeight:800, lineHeight:1.05, fontStyle:'italic', letterSpacing:-1, marginTop:10,
+                paddingRight:16, paddingBottom:10,
                 background:'linear-gradient(90deg, #39ff6a 0%, #00ffcc 55%, #00e5ff 100%)',
                 WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text',
                 filter:'drop-shadow(0 2px 20px rgba(0,255,180,0.4))' }}>AI Medical System</div>
             </div>
-            <p style={{ fontSize:14.5, color:'rgba(255,255,255,0.38)', maxWidth:380, lineHeight:1.6, marginBottom:28 }}>
-              네트워크 독립형 엣지 AI 기반 실시간 진단 및 응급처치 지원 플랫폼
-            </p>
             <div style={{ display:'flex', gap:30 }}>
               {[{val:'24H',label:'실시간 바이탈'},{val:'4종',label:'응급처치 분류'},{val:'99%',label:'오프라인 가용'},{val:'12단계',label:'처치 프로토콜'}].map(({val,label})=>(
                 <div key={val}>
@@ -227,47 +218,21 @@ export default function Main() {
 
           {/* 화면 정중앙: 로그인 폼 카드 */}
           <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%, -50%)', width:460 }}>
-            <div style={{ background:'rgba(5,14,28,0.88)', backdropFilter:'blur(32px)', borderRadius:28, border:'1px solid rgba(0,229,200,0.15)', boxShadow:'0 40px 100px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.06)', padding:'48px 44px' }}>
+            {/* 테두리 빛 애니메이션 래퍼 */}
+            <div style={{ position:'relative', borderRadius:29, padding:'1.5px', overflow:'hidden', boxShadow:'0 40px 100px rgba(0,0,0,0.7)' }}>
+              {/* 회전하는 conic-gradient 빛 */}
+              <div style={{
+                position:'absolute', inset:'-150%',
+                background:'conic-gradient(from 0deg, transparent 0%, transparent 25%, #00e5cc 38%, #00d4ff 44%, #ffffff 47%, #00d4ff 50%, #00e5cc 56%, transparent 68%, transparent 100%)',
+                animation:'borderSpin 4s linear infinite',
+                zIndex:0,
+              }}/>
+            <div style={{ position:'relative', zIndex:1, background:'rgba(5,14,28,0.95)', backdropFilter:'blur(32px)', borderRadius:28, boxShadow:'inset 0 1px 0 rgba(255,255,255,0.06)', padding:'48px 44px' }}>
               <div style={{ textAlign:'center', marginBottom:36 }}>
-                <div style={{ width:72, height:72, borderRadius:22, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 16px', boxShadow:'0 8px 32px rgba(0,229,200,0.28)', border:'1px solid rgba(0,229,200,0.22)', background:'rgba(4,18,32,0.7)' }}>
-                  <MdtsLogo size={60} />
-                </div>
-                <div style={{ fontSize:22, fontWeight:900, letterSpacing:0.3, marginBottom:6 }}>MDTS 시스템 접속</div>
+                <img src={logoImg} alt="logo" style={{ width:72, height:72, margin:'0 auto 16px', display:'block', objectFit:'contain' }} />
+                <div style={{ fontSize:22, fontWeight:900, letterSpacing:0.3, marginBottom:6 }}>MDTS</div>
                 <div style={{ display:'inline-block' }}>
-                <div style={{ fontSize:13.5, color:'rgba(100,116,139,0.9)' }}>바다 위 어디서든, 멈추지 않는 의료 AI</div>
-                {/* 심장박동 ECG 라인 — 텍스트 너비에 맞춤 */}
-                <div style={{ position:'relative', height:18, margin:'6px 0 0', overflow:'hidden' }}>
-                  <svg
-                    width="200%" height="18"
-                    viewBox="0 0 800 18"
-                    preserveAspectRatio="none"
-                    style={{ position:'absolute', left:0, top:0, animation:'ecgScroll 5s linear infinite' }}
-                  >
-                    <defs>
-                      <linearGradient id="ecg-grad" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%"   stopColor="rgba(0,229,200,0)"/>
-                        <stop offset="20%"  stopColor="rgba(0,229,200,0.15)"/>
-                        <stop offset="45%"  stopColor="#00e5cc"/>
-                        <stop offset="55%"  stopColor="#00d4ff"/>
-                        <stop offset="80%"  stopColor="rgba(0,212,255,0.15)"/>
-                        <stop offset="100%" stopColor="rgba(0,212,255,0)"/>
-                      </linearGradient>
-                      <filter id="ecg-glow">
-                        <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#00e5cc" floodOpacity="0.6"/>
-                      </filter>
-                    </defs>
-                    {/* QRS 스파이크 2회 반복 (400 unit/cycle) */}
-                    <path
-                      d="M0,9 L175,9 L178,12 L182,1 L186,17 L190,9 L400,9 L575,9 L578,12 L582,1 L586,17 L590,9 L800,9"
-                      stroke="url(#ecg-grad)"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      filter="url(#ecg-glow)"
-                    />
-                  </svg>
-                </div>
+                <div style={{ fontSize:17.5, color:'rgba(100,116,139,0.9)' }}>바다 위 어디서든, 멈추지 않는 의료 AI</div>
                 </div>
               </div>
               <form onSubmit={handleLogin} style={{ display:'flex', flexDirection:'column', gap:13 }}>
@@ -287,6 +252,7 @@ export default function Main() {
                 ))}
               </div>
             </div>
+            </div>{/* 테두리 빛 애니메이션 래퍼 닫기 */}
           </div>
         </div>
 
