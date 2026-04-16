@@ -5,7 +5,7 @@ const NAV = [
   { id: 'main',      label: '메인' },
   { id: 'patients',  label: '환자 차트' },
   { id: 'crew',      label: '선원 관리' },
-  { id: 'emergency', label: '정밀 판독 및 응급처치', badge: '1', isAI: true },
+  { id: 'emergency', label: '정밀 판독 및 응급처치', badge: '1' },
   { id: 'settings',  label: '설정' },
 ]
 
@@ -32,7 +32,7 @@ export default function Layout({ activePage, onNavigate, auth, onLogout }) {
 
       {/* Nav tabs */}
       <nav style={{ display: 'flex', gap: 8, flex: 1, height: '100%' }}>
-        {NAV.map(({ id, label, badge, isAI }) => {
+        {NAV.map(({ id, label, badge }) => {
           const active = activePage === id
           return (
             <button
@@ -50,7 +50,6 @@ export default function Layout({ activePage, onNavigate, auth, onLogout }) {
                 display: 'flex', alignItems: 'center', gap: 10,
               }}
             >
-              {isAI && <Brain size={24} />}
               {label}
               {active && (
                 <div style={{
