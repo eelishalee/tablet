@@ -1,22 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Brain, Heart, Zap, Shield, Cpu, AlertCircle, Wind, Clock, Video, Pill, History, User, Info, Activity, Scissors, Plus, Thermometer, Mic, X, ChevronRight } from 'lucide-react'
+import { Brain, Heart, Zap, Shield, Cpu, AlertCircle, Wind, Clock, Video, Pill, History, User, Info, Activity, Scissors, Plus, Thermometer, Mic, X, ChevronRight, HeartPulse } from 'lucide-react'
 import { ResponsiveContainer, LineChart, Line } from 'recharts'
-
-// ── 데이터 시뮬레이션 ──
-const WAVE_DATA = Array.from({ length: 40 }, (_, i) => ({ val: 60 + Math.random() * 20 }))
 
 export default function Emergency({ patient }) {
   const [ready, setReady] = useState(false)
   const [elapsed, setElapsed] = useState(0)
-  const [activeAction, setActiveAction] = useState(null)
 
   useEffect(() => {
     const t = setInterval(() => setElapsed(p => p + 1), 1000)
     setTimeout(() => setReady(true), 400)
     return () => clearInterval(t)
   }, [])
-
-  const formatTime = (s) => `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`
 
   if (!ready) return <div style={{ height: 'calc(100vh - 72px)', background: '#020408' }} />
 
@@ -26,157 +20,198 @@ export default function Emergency({ patient }) {
       fontFamily: '"Pretendard", sans-serif', position: 'relative', overflow: 'hidden'
     }}>
       
-      {/* ── 배경 : 실전 현장 그래픽 ── */}
+      {/* ── 배경 ── */}
       <div style={{ 
         position: 'absolute', inset: 0, 
         backgroundImage: 'url("https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=2000")',
-        backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.25, filter: 'grayscale(0.5) brightness(0.4)'
+        backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.1, filter: 'grayscale(0.5) brightness(0.2)'
       }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #020408 85%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #020408 98%)' }} />
 
-      {/* ── 메인 대시보드 레이아웃 ── */}
-      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '380px 1fr 400px', gridTemplateRows: '1fr 180px', gap: '24px', padding: '24px', height: '100%', boxSizing: 'border-box' }}>
+      {/* ── 메인 레이아웃 ── */}
+      <div style={{ 
+        position: 'relative', zIndex: 1, display: 'grid', 
+        gridTemplateColumns: '0.7fr 2.3fr 1fr', 
+        gridTemplateRows: '1fr auto', 
+        gap: '20px', padding: '20px', height: '100%', boxSizing: 'border-box' 
+      }}>
         
-        {/* [LEFT] VITAL AID - 정밀 모니터링 (메인 대시보드 컬러 동기화) */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <BentoCard label="VITAL AID - ECG" icon={<Activity size={20} color="#ff3b5c"/>} height="240px">
-            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-              <div style={{ flex: 1 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={WAVE_DATA}>
-                    <Line type="monotone" dataKey="val" stroke="#ff3b5c" strokeWidth={3} dot={false} isAnimationActive={false} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                <div style={{ fontSize: '64px', fontWeight: 950, color: '#ff3b5c' }}>96<span style={{ fontSize: '20px', color: '#64748b', marginLeft: '8px' }}>BPM</span></div>
-                <div style={{ textAlign: 'right', fontSize: '16px', fontWeight: 800, color: '#00d4aa' }}>● LIVE</div>
-              </div>
-            </div>
-          </BentoCard>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-            <BentoCard label="SPO2" icon={<Wind size={18} color="#00aaff"/>}>
-              <div style={{ fontSize: '42px', fontWeight: 950, color: '#00aaff' }}>94<span style={{ fontSize: '18px', opacity: 0.6 }}>%</span></div>
-              <div style={{ fontSize: '14px', color: '#ff3b5c', fontWeight: 800, marginTop: 4 }}>LOW</div>
-            </BentoCard>
-            <BentoCard label="TEMP" icon={<Thermometer size={18} color="#ff6a00"/>}>
-              <div style={{ fontSize: '42px', fontWeight: 950, color: '#ff6a00' }}>37.6<span style={{ fontSize: '18px', opacity: 0.6 }}>°C</span></div>
-              <div style={{ fontSize: '14px', color: '#94a3b8', fontWeight: 800, marginTop: 4 }}>STABLE</div>
-            </BentoCard>
-          </div>
-
-          <BentoCard label="BLOOD PRESSURE" icon={<Zap size={18} color="#c084fc"/>}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '12px' }}>
-              <div style={{ fontSize: '48px', fontWeight: 950, color: '#c084fc' }}>158</div>
-              <div style={{ fontSize: '24px', color: '#64748b', fontWeight: 800 }}>/ 95 <span style={{ fontSize: '14px' }}>mmHg</span></div>
-            </div>
-          </BentoCard>
-
-          <BentoCard label="RESPONSE SESSION" icon={<Clock size={18}/>} variant="vivid" color="#1e1b4b">
-            <div style={{ fontSize: '52px', fontWeight: 950, color: '#ff3b5c', fontFamily: 'monospace', textAlign: 'center' }}>{formatTime(elapsed)}</div>
-          </BentoCard>
-        </section>
-
-        {/* [CENTER] SITUATION VIEW */}
-        <section style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <div style={{ fontSize: '14px', color: '#0ea5e9', fontWeight: 900, letterSpacing: '4px', marginBottom: '8px' }}>MDTS MISSION CONTROL</div>
-            <div style={{ fontSize: '32px', fontWeight: 950, textShadow: '0 0 20px rgba(0,0,0,0.8)' }}>현장 처치 진행 중</div>
-          </div>
-          <button style={{ 
-            background: 'rgba(14, 165, 233, 0.1)', border: '2.5px solid #0ea5e9', padding: '24px 48px', borderRadius: '40px',
-            fontSize: '24px', fontWeight: 900, color: '#fff', backdropFilter: 'blur(10px)', cursor: 'pointer',
-            boxShadow: '0 0 40px rgba(14, 165, 233, 0.25)', transition: '0.2s'
-          }} onMouseOver={e => e.currentTarget.style.background = 'rgba(14, 165, 233, 0.2)'} onMouseOut={e => e.currentTarget.style.background = 'rgba(14, 165, 233, 0.1)'}>
-            진단 리포트 최종 전송
-          </button>
-        </section>
-
-        {/* [RIGHT] FIRST AID - 뇌 아이콘 제거 완료 */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          <BentoCard label="REMOTE DOCTOR" icon={<Video size={18} color="#ff3b5c"/>} noPadding height="200px">
-            <div style={{ height: '100%', position: 'relative', background: '#000' }}>
-              <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.6 }} />
-              <div style={{ position: 'absolute', bottom: '12px', left: '16px' }}>
-                <div style={{ fontSize: '18px', fontWeight: 900 }}>Dr. 박지민 (대기 중)</div>
-                <div style={{ fontSize: '12px', color: '#94a3b8' }}>부산대학교병원 응급의학과</div>
-              </div>
-            </div>
-          </BentoCard>
-
-          {/* AI 정밀 판독 결과 섹션 - icon={<Brain/>} 제거됨 */}
-          <BentoCard label="정밀 판독 리포트" icon={null} noPadding flex={1}>
-            <div style={{ height: '100%', position: 'relative', display: 'flex', justifyContent: 'center', background: 'rgba(0,0,0,0.4)' }}>
-              <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200" style={{ height: '100%', objectFit: 'cover', filter: 'grayscale(1) brightness(0.3) contrast(1.5)', opacity: 0.6 }} />
-              <div style={{ position: 'absolute', top: '22%', left: '45%', width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,59,92,0.3)', border: '2px solid #ff3b5c', animation: 'pulse 1.5s infinite' }} />
-              <div style={{ position: 'absolute', bottom: '20px', width: '85%', background: 'rgba(15,23,42,0.92)', padding: '20px', borderRadius: '24px', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}>
-                <div style={{ fontSize: '12px', fontWeight: 900, color: '#ff3b5c', marginBottom: 4 }}>AI ANALYSIS</div>
-                <div style={{ fontSize: '18px', fontWeight: 950 }}>좌측 제 4~6번 늑골 골절</div>
-                <div style={{ fontSize: '14px', color: '#94a3b8', marginTop: 4 }}>외상성 기흉 및 내출혈 의심 (94%)</div>
-              </div>
-            </div>
-          </BentoCard>
-
-          <div style={{ padding: '20px', background: 'rgba(255,59,92,0.08)', border: '1.5px solid rgba(255,59,92,0.2)', borderRadius: '24px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#ff3b5c', marginBottom: 8 }}>
+        {/* [LEFT] 긴급 경고 및 바이탈 센서 영역 */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0, overflowY: 'auto' }}>
+          
+          {/* 긴급 경고 */}
+          <div style={{ padding: '20px', background: 'linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%)', border: '2px solid #b91c1c', borderRadius: '24px', boxShadow: '0 8px 20px rgba(0,0,0,0.4)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#f87171', marginBottom: 8 }}>
               <AlertCircle size={20} />
-              <span style={{ fontSize: '14px', fontWeight: 900, letterSpacing: '1px' }}>ALLERGY WARNING</span>
+              <span style={{ fontSize: '13px', fontWeight: 900, letterSpacing: '1px' }}>긴급 경보 (CRITICAL)</span>
             </div>
-            <div style={{ fontSize: '20px', fontWeight: 950 }}>아스피린 (ASPIRIN) 절대 금기</div>
+            <div style={{ fontSize: '20px', fontWeight: 950, color: '#fff' }}>아스피린 절대 금기</div>
+            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginTop: 4 }}>과거 병력: 아나필락시스 쇼크 반응</div>
+          </div>
+
+          {/* 바이탈 센서 영역 */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '24px', padding: '20px', backdropFilter: 'blur(20px)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+                <Activity size={18} color="#ff3b5c"/>
+                <span style={{ fontSize: '14px', fontWeight: 900, color: 'rgba(255,255,255,0.7)' }}>정밀 생체 모니터링 (BPM)</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                <span style={{ fontSize: '56px', fontWeight: 950, color: '#ff3b5c', lineHeight: 1 }}>96</span>
+                <span style={{ fontSize: '20px', color: '#64748b', fontWeight: 800 }}>BPM</span>
+                <div style={{ marginLeft: 'auto', textAlign: 'right', fontSize: '12px', fontWeight: 800, color: '#00d4aa' }}>정상 범위</div>
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <VitalMiniCard label="산소포화도" value="94" unit="%" color="#00aaff" status="위험" />
+              <VitalMiniCard label="호흡수" value="18" unit="/min" color="#00d4aa" status="정상" />
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <VitalMiniCard label="혈압" value="158/95" unit="mmHg" color="#c084fc" status="높음" />
+              <VitalMiniCard label="체온" value="37.6" unit="°C" color="#ff6a00" status="미열" />
+            </div>
+          </div>
+        </section>
+
+        {/* [CENTER] AI 리포트(상단) 및 상황 관제(하단) */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 20, minHeight: 0 }}>
+          
+          {/* AI 분석 리포트 */}
+          <div style={{ background: 'rgba(15, 23, 42, 0.8)', border: '1.5px solid rgba(13, 217, 197, 0.2)', borderRadius: '28px', padding: '24px', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: 0, left: 0, width: '4px', height: '100%', background: '#0dd9c5' }} />
+            <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
+              <div style={{ width: 60, height: 60, borderRadius: '18px', background: 'rgba(13, 217, 197, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Brain size={32} color="#0dd9c5" />
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
+                  <span style={{ fontSize: '12px', fontWeight: 900, color: '#0dd9c5', letterSpacing: '1px' }}>AI 종합 진단 리포트</span>
+                  <span style={{ fontSize: '11px', padding: '2px 8px', borderRadius: '4px', background: 'rgba(255,59,92,0.1)', color: '#ff3b5c', fontWeight: 800 }}>신뢰도 94%</span>
+                </div>
+                <div style={{ fontSize: '22px', fontWeight: 950, color: '#fff' }}>좌측 제 4~6번 늑골 골절 및 외상성 기흉 의심</div>
+                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.5)', marginTop: 4 }}>호흡 부조화 및 흉부 압박 통증 수치 상승 기반 판독 결과</div>
+              </div>
+              <button style={{ padding: '12px 24px', borderRadius: '16px', background: 'rgba(13, 217, 197, 0.15)', border: '1px solid rgba(13, 217, 197, 0.3)', color: '#0dd9c5', fontSize: '14px', fontWeight: 800, cursor: 'pointer' }}>
+                상세 보기
+              </button>
+            </div>
+          </div>
+
+          {/* 중앙 상황 관제 뷰 */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+              <div style={{ fontSize: '12px', color: '#0ea5e9', fontWeight: 900, letterSpacing: '3px', marginBottom: '8px' }}>MDTS MISSION CONTROL</div>
+              <div style={{ fontSize: '32px', fontWeight: 950, textShadow: '0 0 30px rgba(14, 165, 233, 0.4)' }}>응급 처치 지침 수행 중</div>
+            </div>
+            
+            <div style={{ position: 'relative' }}>
+              <div style={{ position: 'absolute', inset: -20, background: 'radial-gradient(circle, rgba(14, 165, 233, 0.2) 0%, transparent 70%)', filter: 'blur(10px)' }} />
+              <button style={{ 
+                position: 'relative',
+                background: 'linear-gradient(180deg, #0ea5e9 0%, #0284c7 100%)', border: '1px solid rgba(255,255,255,0.4)', padding: '24px 60px', borderRadius: '50px',
+                fontSize: '24px', fontWeight: 950, color: '#fff', cursor: 'pointer',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4)', transition: 'all 0.2s'
+              }}>
+                진단 결과 최종 전송
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* [RIGHT] 환자 정보 영역 */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ fontSize: '11px', fontWeight: 900, color: 'rgba(255,255,255,0.4)', letterSpacing: '1px', marginBottom: 20, textTransform: 'uppercase' }}>환자 기본 정보</div>
+            
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
+              <div style={{ width: 64, height: 64, borderRadius: '20px', background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <User size={32} color="#8da2c0" />
+              </div>
+              <div>
+                <div style={{ fontSize: '24px', fontWeight: 950, color: '#fff' }}>{patient?.name || '김항해'}</div>
+                <div style={{ fontSize: '14px', color: '#8da2c0', fontWeight: 600 }}>기관장 / 55세</div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <InfoRow label="혈액형" value={patient?.blood || 'A+ (Rh+)'} />
+              <InfoRow label="키/몸무게" value="178cm / 82kg" />
+              <InfoRow label="기저질환" value={patient?.chronic || '고혈압, 당뇨'} color="#ff9f43" />
+              <InfoRow label="복용약물" value="아스피린(중단), 리피토" />
+            </div>
+
+            <div style={{ marginTop: '24px', padding: '16px', background: 'rgba(255,255,255,0.02)', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ fontSize: '12px', fontWeight: 800, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>특이사항</div>
+              <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>최근 3개월 내 협심증 증상으로 내원 이력 있음. 약물 알레르기 주의 요망.</div>
+            </div>
+
+            {/* 좌측에서 이동된 센서 데이터 상태 라벨 */}
+            <div style={{ marginTop: 'auto', paddingTop: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+              <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#00d4aa', boxShadow: '0 0 10px #00d4aa' }} />
+              <div style={{ fontSize: '12px', fontWeight: 800, color: '#00d4aa', letterSpacing: '0.5px' }}>센서 실시간 데이터 수신 중</div>
+            </div>
           </div>
         </section>
 
         {/* [BOTTOM] ACTION SELECTOR */}
-        <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 20 }}>
-          <ActionButton icon={<Pill size={28}/>} label="약물 투여" color="#c084fc" desc="진통제/항생제" />
-          <ActionButton icon={<Scissors size={28}/>} label="소독/처치" color="#00d4aa" desc="상처 드레싱" />
-          <ActionButton icon={<Shield size={28}/>} label="부목 고정" color="#00aaff" desc="골절 부위 고정" />
-          <ActionButton icon={<Zap size={28}/>} label="지혈/압박" color="#ff3b5c" desc="직접 압박 지혈" />
-          <ActionButton icon={<Wind size={28}/>} label="기도 확보" color="#0ea5e9" desc="산소 공급 장치" />
-          <ActionButton icon={<History size={28}/>} label="처치 기록" color="#94a3b8" desc="세션 로그 기록" />
+        <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, paddingTop: '10px' }}>
+          <ActionButton icon={<Pill size={22}/>} label="약물 투여" color="#e2c483" desc="진통제/항생제" />
+          <ActionButton icon={<Scissors size={22}/>} label="소독/처치" color="#a5c6ff" desc="상처 드레싱" />
+          <ActionButton icon={<Shield size={22}/>} label="부목 고정" color="#c5a8ff" desc="골절 부위 고정" />
+          <ActionButton icon={<Zap size={22}/>} label="지혈/압박" color="#fb7185" desc="직접 압박 지혈" />
+          <ActionButton icon={<Wind size={22}/>} label="기도 확보" color="#67d4ff" desc="산소 공급 장치" />
+          <ActionButton icon={<History size={22}/>} label="처치 기록" color="#94a3b8" desc="세션 로그 기록" />
         </section>
 
       </div>
 
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
-        button:hover { filter: brightness(1.2); transform: translateY(-2px); transition: 0.2s; }
+        .action-btn:hover { transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.5); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); borderRadius: 10px; }
       `}</style>
     </div>
   )
 }
 
-function BentoCard({ children, label, icon, height, noPadding = false, variant = 'glass', color, flex }) {
+function VitalMiniCard({ label, value, unit, color, status }) {
   return (
-    <div style={{ 
-      height: height || 'auto', flex: flex || 'none', borderRadius: '32px', overflow: 'hidden', display: 'flex', flexDirection: 'column',
-      background: variant === 'glass' ? 'rgba(255, 255, 255, 0.03)' : color,
-      border: '1px solid rgba(255, 255, 255, 0.08)', backdropFilter: 'blur(20px)'
-    }}>
-      <div style={{ padding: '14px 24px', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(0,0,0,0.2)', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
-        {icon && <div style={{ display: 'flex', alignItems: 'center' }}>{icon}</div>}
-        <div style={{ fontSize: '13px', fontWeight: 950, letterSpacing: '1.5px', textTransform: 'uppercase', opacity: 0.8 }}>{label}</div>
+    <div style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid rgba(255, 255, 255, 0.05)', borderRadius: '20px', padding: '16px' }}>
+      <div style={{ fontSize: '13px', fontWeight: 900, color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+        <span style={{ fontSize: '24px', fontWeight: 950, color }}>{value}</span>
+        <span style={{ fontSize: '12px', opacity: 0.5, fontWeight: 700 }}>{unit}</span>
       </div>
-      <div style={{ flex: 1, padding: noPadding ? 0 : '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        {children}
-      </div>
+      <div style={{ fontSize: '10px', color: status === '정상' ? color : '#ff3b5c', fontWeight: 800, marginTop: 4 }}>{status}</div>
+    </div>
+  )
+}
+
+function InfoRow({ label, value, color = 'rgba(255,255,255,0.8)' }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.03)', paddingBottom: '8px' }}>
+      <span style={{ fontSize: '13px', fontWeight: 700, color: 'rgba(255,255,255,0.4)' }}>{label}</span>
+      <span style={{ fontSize: '14px', fontWeight: 800, color }}>{value}</span>
     </div>
   )
 }
 
 function ActionButton({ icon, label, color, desc }) {
   return (
-    <button style={{ 
-      background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px',
-      padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px',
-      cursor: 'pointer', transition: 'all 0.2s', backdropFilter: 'blur(10px)'
+    <button className="action-btn" style={{ 
+      position: 'relative', background: `linear-gradient(165deg, ${color} 0%, ${color}dd 100%)`, 
+      border: '1px solid rgba(255,255,255,0.3)', borderRadius: '20px', padding: '14px 10px', 
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '6px',
+      cursor: 'pointer', transition: 'all 0.2s ease', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', overflow: 'hidden'
     }}>
-      <div style={{ color }}>{icon}</div>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '18px', fontWeight: 900 }}>{label}</div>
-        <div style={{ fontSize: '12px', color: '#64748b', fontWeight: 600, marginTop: '2px' }}>{desc}</div>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '45%', background: 'linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 100%)', pointerEvents: 'none' }} />
+      <div style={{ color: '#020617', opacity: 0.9 }}>{icon}</div>
+      <div style={{ textAlign: 'center', zIndex: 1 }}>
+        <div style={{ fontSize: '15px', fontWeight: 900, color: '#020617', whiteSpace: 'nowrap' }}>{label}</div>
+        <div style={{ fontSize: '11px', color: 'rgba(2,6,23,0.55)', fontWeight: 800, whiteSpace: 'nowrap' }}>{desc}</div>
       </div>
     </button>
   )

@@ -40,7 +40,7 @@ const { createServer } = await import('vite')
 const server = await createServer({
   root: SAFE_ROOT,
   configFile: path.join(SAFE_ROOT, 'vite.config.js'),
-  server: { port: 5173 },
+  server: { port: 5174 },
 })
 
 await server.listen()
