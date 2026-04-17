@@ -235,7 +235,7 @@ export default function Emergency({ patient, initialAction }) {
                 </div>
               </div>
               <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {stepImage ? (
+                {stepImage && activeAction === '심폐소생술' ? (
                   <img 
                     key={stepImage} 
                     src={stepImage} 
@@ -243,8 +243,13 @@ export default function Emergency({ patient, initialAction }) {
                     alt="처치 가이드"
                   />
                 ) : (
-                  <div style={{ width: '80%', height: '80%' }}>
-                    {renderIllustration()}
+                  <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.02)', padding: 40, textAlign: 'center' }}>
+                    <div style={{ color: '#38bdf8', fontSize: 22, fontWeight: 950, letterSpacing: -0.5, marginBottom: 12 }}>
+                      {activeAction} 일러스트가 노출될 예정입니다
+                    </div>
+                    <div style={{ color: '#64748b', fontSize: 16, fontWeight: 700, maxWidth: 320, lineHeight: 1.5 }}>
+                      표준 운영 절차(SOP)에 따른<br/>전문 시각 가이드를 준비 중입니다.
+                    </div>
                   </div>
                 )}
 
@@ -297,7 +302,7 @@ export default function Emergency({ patient, initialAction }) {
             <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 32, border: '1px solid rgba(255,255,255,0.05)', padding: 32, position: 'relative', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
                 <div>
-                  <div style={{ fontSize: 14, color: '#38bdf8', fontWeight: 900, letterSpacing: 2 }}>SOP AUTONOMOUS GUIDANCE</div>
+                  <div style={{ fontSize: 14, color: '#38bdf8', fontWeight: 900, letterSpacing: 1 }}>표준 절차에 따른 응급처치 가이드</div>
                   <h2 style={{ fontSize: 36, fontWeight: 950, margin: '4px 0' }}>{ACTION_GUIDES[activeAction].title}</h2>
                 </div>
                 <button onClick={() => {setActiveAction(null); setCompletedSteps([])}} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: '#64748b', cursor: 'pointer', padding: 12, borderRadius: '50%' }}><X/></button>
