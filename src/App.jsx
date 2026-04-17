@@ -5,6 +5,7 @@ import Main from './pages/Main'
 import CrewManagement from './pages/CrewManagement'
 import Emergency from './pages/Emergency'
 import Patients from './pages/Patients'
+import PatientChart from './pages/PatientChart'
 import Settings from './pages/Settings'
 
 export default function App() {
@@ -45,14 +46,14 @@ export default function App() {
       />
       <div style={{ flex: 1, overflow: 'hidden' }}>
         {page === 'main'      && <Main patient={activePatient} onNavigate={handleNavigate} />}
-        {page === 'patients'  && (
-          <Patients onSelectPatient={p => { setActivePatient(p); handleNavigate('main') }} />
-        )}
         {page === 'crew'      && (
           <CrewManagement onSelectPatient={p => { setActivePatient(p); handleNavigate('main') }} />
         )}
         {page === 'emergency' && (
           <Emergency patient={activePatient} />
+        )}
+        {page === 'chart'     && (
+          <PatientChart patient={activePatient} />
         )}
         {page === 'settings'  && <Settings />}
       </div>

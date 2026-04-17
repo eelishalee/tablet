@@ -3,7 +3,7 @@ import logoImg from '../assets/logo_new.png'
 
 const NAV = [
   { id: 'main',      label: '메인' },
-  { id: 'patients',  label: '환자 차트' },
+  { id: 'chart',     label: '환자 차트' },
   { id: 'crew',      label: '선원 관리' },
   { id: 'emergency', label: '응급 처치' },
   { id: 'settings',  label: '시스템 설정' },
