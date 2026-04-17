@@ -6,6 +6,7 @@ const ACTION_GUIDES = {
     title: '심폐소생술 및 AED 사용',
     protocol: 'SOP-CPR-01',
     hasMetronome: true,
+    image: '/assets/CPR1.jpeg',
     steps: [
       { title: '의식 및 호흡 동시 확인', desc: '어깨를 두드리며 말을 걸고 가슴의 움직임(호흡)을 관찰하십시오.', tip: '의식과 호흡이 모두 없을 때만 시행합니다.' },
       { title: '도움 및 AED 요청', desc: '주변 사람을 지목하여 신고를 부탁하고 AED를 가져오게 하십시오.' },
@@ -170,27 +171,41 @@ export default function Emergency({ patient }) {
     <div style={{ height: 'calc(100vh - 72px)', width: '100%', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #020617 98%)' }} />
 
-      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '420px 1.2fr 440px', gridTemplateRows: '1fr 120px', gap: '20px', padding: '20px', height: '100%', boxSizing: 'border-box' }}>
+      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '480px 1fr 440px', gridTemplateRows: '1fr 120px', gap: '30px', padding: '24px', height: '100%', boxSizing: 'border-box' }}>
         
-        <section style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
-          <div style={{ background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', border: '2px solid #334155', borderRadius: 24, padding: 24 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#94a3b8', marginBottom: 12 }}><Shield size={20} /><span style={{ fontSize: 14, fontWeight: 900, letterSpacing: 1 }}>LEGAL DEFENSE MODE</span></div>
-            <div style={{ fontSize: 16, fontWeight: 800, color: '#e2e8f0', lineHeight: 1.5 }}>본 시스템은 의료인 부재 시 수행된 선원의 구조 활동을 실시간 기록합니다.</div>
-          </div>
-
-          <div style={{ flex: 1, background: 'rgba(255,255,255,0.03)', borderRadius: 24, padding: 24, display: 'flex', flexDirection: 'column', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, color: '#00d4aa' }}><FileText size={20}/><span style={{ fontWeight: 900 }}>사고 대응 타임라인 (자동 기록)</span></div>
-            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {sessionLogs.length > 0 ? sessionLogs.map((log, i) => (
-                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
-                  <div style={{ fontSize: 13, color: log.type === 'ALERT' ? '#ef4444' : '#64748b', fontWeight: 800, whiteSpace: 'nowrap' }}>[{log.time}]</div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: log.type === 'ALERT' ? '#fda4af' : '#e2e8f0' }}>{log.text}</div>
+        {/* [1열 - LEFT] 시각적 처치 가이드 이미지 */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+          {activeAction && ACTION_GUIDES[activeAction].image ? (
+            <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 32, border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ padding: '20px 24px', borderBottom: '1px solid rgba(255,255,255,0.05)', background: 'rgba(255,255,255,0.02)' }}>
+                <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 900, letterSpacing: 1.5, marginBottom: 4 }}>VISUAL REFERENCE</div>
+                <div style={{ fontSize: 18, fontWeight: 950 }}>처치 동작 시각 가이드</div>
+              </div>
+              <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: '#000' }}>
+                <img 
+                  src={ACTION_GUIDES[activeAction].image} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.9 }} 
+                  alt="처치 가이드"
+                />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '30px 24px', background: 'linear-gradient(to top, rgba(2,6,23,0.9), transparent)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#0dd9c5' }}>
+                    <Info size={18} />
+                    <span style={{ fontSize: 15, fontWeight: 800 }}>이미지의 정확한 압박 위치를 확인하십시오.</span>
+                  </div>
                 </div>
-              )) : <div style={{ color: '#475569', textAlign: 'center', marginTop: 40 }}>처치 동작 수행 시 즉시 기록됩니다</div>}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div style={{ flex: 1, background: 'rgba(255,255,255,0.01)', borderRadius: 32, border: '1px dashed rgba(255,255,255,0.1)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: 40 }}>
+              <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.02)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+                <Camera size={32} color="#475569" />
+              </div>
+              <div style={{ fontSize: 18, fontWeight: 800, color: '#475569' }}>대응 항목을 선택하면<br/>시각 가이드가 표시됩니다.</div>
+            </div>
+          )}
         </section>
 
+        {/* [2열 - CENTER] 메인 가이드 영역 */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 20, minHeight: 0 }}>
           {activeAction ? (
             <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 32, border: '1px solid rgba(255,255,255,0.05)', padding: 32, position: 'relative', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
@@ -267,20 +282,22 @@ export default function Emergency({ patient }) {
           )}
         </section>
 
-        <aside style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-          <div style={{ padding: 24, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 28 }}>
-             <div style={{ display: 'flex', gap: 20, marginBottom: 20 }}>
-              <div style={{ width: 64, height: 64, borderRadius: 16, overflow: 'hidden' }}><img src={patient?.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
+        {/* [3열 - RIGHT] 바이탈 및 기록 영역 */}
+        <aside style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
+          {/* 환자 정보 및 바이탈 */}
+          <div style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 28 }}>
+             <div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+              <div style={{ width: 56, height: 56, borderRadius: 14, overflow: 'hidden' }}><img src={patient?.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
               <div>
-                <div style={{ fontSize: 24, fontWeight: 950 }}>{patient?.name}</div>
-                <div style={{ fontSize: 14, color: '#64748b', fontWeight: 800 }}>ID: {patient?.id} | 혈액형: {patient?.blood}</div>
+                <div style={{ fontSize: 22, fontWeight: 950 }}>{patient?.name}</div>
+                <div style={{ fontSize: 13, color: '#64748b', fontWeight: 800 }}>ID: {patient?.id} | 혈액형: {patient?.blood}</div>
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <VitalMini label="심박수" value={vitals.hr} unit="BPM" color="#ef4444" icon={<HeartPulse size={14}/>} status="주의" />
-              <VitalMini label="산소포화도" value={vitals.spo2} unit="%" color="#38bdf8" icon={<Wind size={14}/>} status="위험" />
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+              <VitalMini label="심박수" value={vitals.hr} unit="BPM" color="#ef4444" icon={<HeartPulse size={12}/>} status="주의" />
+              <VitalMini label="산소" value={vitals.spo2} unit="%" color="#38bdf8" icon={<Wind size={12}/>} status="위험" />
               <div style={{ position: 'relative' }}>
-                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={14}/>} onClick={() => setEditingVital('bp')} isManual status="높음" />
+                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={12}/>} onClick={() => setEditingVital('bp')} isManual />
                 {editingVital === 'bp' && (
                   <div style={{ position: 'absolute', inset: 0, background: '#1e293b', borderRadius: 16, padding: 12, display: 'flex', gap: 8, zIndex: 10 }}>
                     <input autoFocus placeholder="120/80" onBlur={e => updateVital('bp', e.target.value)} onKeyDown={e => e.key === 'Enter' && updateVital('bp', e.target.value)} style={{ width: '100%', background: 'transparent', border: '1px solid #38bdf8', color: '#fff', outline: 'none', padding: '0 8px', borderRadius: 8, fontSize: 14 }} />
@@ -288,7 +305,7 @@ export default function Emergency({ patient }) {
                 )}
               </div>
               <div style={{ position: 'relative' }}>
-                <VitalMini label="체온" value={vitals.temp} unit="°C" color="#fb923c" icon={<Thermometer size={14}/>} onClick={() => setEditingVital('temp')} isManual status="미열" />
+                <VitalMini label="체온" value={vitals.temp} unit="°C" color="#fb923c" icon={<Thermometer size={12}/>} onClick={() => setEditingVital('temp')} isManual />
                 {editingVital === 'temp' && (
                   <div style={{ position: 'absolute', inset: 0, background: '#1e293b', borderRadius: 16, padding: 12, display: 'flex', gap: 8, zIndex: 10 }}>
                     <input autoFocus placeholder="36.5" type="number" step="0.1" onBlur={e => updateVital('temp', e.target.value)} onKeyDown={e => e.key === 'Enter' && updateVital('temp', e.target.value)} style={{ width: '100%', background: 'transparent', border: '1px solid #38bdf8', color: '#fff', outline: 'none', padding: '0 8px', borderRadius: 8, fontSize: 14 }} />
@@ -297,9 +314,28 @@ export default function Emergency({ patient }) {
               </div>
             </div>
           </div>
+
+          {/* LEGAL DEFENSE MODE (슬림화) */}
+          <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 16, padding: '14px 20px', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <Shield size={18} color="#ef4444" />
+            <div style={{ fontSize: 13, fontWeight: 900, color: '#ef4444', letterSpacing: 0.5 }}>LEGAL DEFENSE MODE : 자동 기록 중</div>
+          </div>
+
+          {/* 사고 대응 타임라인 */}
+          <div style={{ flex: 1, background: 'rgba(255,255,255,0.03)', borderRadius: 28, padding: 24, display: 'flex', flexDirection: 'column', border: '1px solid rgba(255,255,255,0.05)', minHeight: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20, color: '#00d4aa' }}><FileText size={20}/><span style={{ fontWeight: 900 }}>사고 대응 타임라인 (자동 기록)</span></div>
+            <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12 }} className="timeline-scroll">
+              {sessionLogs.length > 0 ? sessionLogs.map((log, i) => (
+                <div key={i} style={{ display: 'flex', gap: 12, alignItems: 'flex-start', paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                  <div style={{ fontSize: 12, color: log.type === 'ALERT' ? '#ef4444' : '#64748b', fontWeight: 800, whiteSpace: 'nowrap', fontFamily: 'monospace' }}>[{log.time}]</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: log.type === 'ALERT' ? '#fda4af' : '#e2e8f0', lineHeight: 1.4 }}>{log.text}</div>
+                </div>
+              )) : <div style={{ color: '#475569', textAlign: 'center', marginTop: 40, fontSize: 14 }}>처치 동작 수행 시 즉시 기록됩니다</div>}
+            </div>
+          </div>
         </aside>
 
-        {/* [BOTTOM] 우선순위 버튼 바 - 완벽 고정 레이아웃 */}
+        {/* [BOTTOM] 우선순위 버튼 바 */}
         <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, paddingTop: 10 }}>
           {Object.keys(ACTION_GUIDES).map(key => (
             <button key={key} onClick={() => {setActiveAction(key); setCompletedSteps([])}} style={{ 
