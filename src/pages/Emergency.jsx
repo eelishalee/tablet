@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Brain, Heart, Zap, Shield, Cpu, AlertCircle, Wind, Clock, Video, Pill, History, User, Info, Activity, Scissors, Plus, Thermometer, Mic, X, ChevronRight, HeartPulse, ChevronLeft, CheckCircle2, AlertTriangle, ArrowDown, FileText, Ruler, Droplets, MapPin, Phone, Upload, Camera, Edit3 } from 'lucide-react'
 
 const ACTION_GUIDES = {
-  'CPR': {
+  '심폐소생술': {
     title: '심폐소생술 및 AED 사용',
     protocol: 'SOP-CPR-01',
     hasMetronome: true,
@@ -47,7 +47,7 @@ const ACTION_GUIDES = {
     warning: '호흡음이 거칠거나 청색증이 보이면 즉시 CPR을 준비하십시오.',
     color: '#00d4aa'
   },
-  '부목 고정': {
+  '골절 / 탈구': {
     title: '골절 부위 고정 및 보호',
     protocol: 'SOP-FRC-04',
     steps: [
@@ -60,9 +60,22 @@ const ACTION_GUIDES = {
     warning: '신경 손상을 방지하기 위해 과도한 움직임은 엄금합니다.',
     color: '#38bdf8'
   },
+  '익수 / 저체온': {
+    title: '익수자 구조 및 체온 관리',
+    protocol: 'SOP-HYP-05',
+    steps: [
+      { title: '젖은 의복 제거', desc: '환자를 따뜻한 곳으로 옮기고 젖은 옷을 가위로 잘라 제거하십시오.' },
+      { title: '점진적 가온', desc: '담요나 알루미늄 시트로 전신을 감싸고 겨드랑이, 사타구니에 온팩을 대십시오.' },
+      { title: '건조 및 단열', desc: '환자의 몸을 마른 수건으로 닦고 차가운 바닥으로부터 단열시키십시오.' }
+    ],
+    dos: ['의식이 있다면 따뜻하고 달콤한 음료를 주십시오', '실내 온도를 25도 이상으로 유지하세요'],
+    donts: ['팔다리를 심하게 주무르지 마세요 (심장에 무리)', '뜨거운 물에 환자를 직접 담그지 마세요'],
+    warning: '심한 저체온증 환자는 아주 약한 충격에도 심정지가 올 수 있으니 조심히 다루십시오.',
+    color: '#a78bfa'
+  },
   '상처 세척': {
     title: '환부 세척 및 감염 방지',
-    protocol: 'SOP-WND-05',
+    protocol: 'SOP-WND-06',
     steps: [
       { title: '식염수 세척', desc: '멸균 식염수나 흐르는 물로 이물질을 충분히 씻어내십시오.' },
       { title: '거즈 드레싱', desc: '연고 없이 멸균 거즈로 덮고 반창고로 고정하십시오.' }
@@ -83,23 +96,21 @@ export default function Emergency({ patient }) {
   const [bpm, setBpm] = useState(110)
   const [beat, setBeat] = useState(false)
 
-  // 수동 입력 바이탈 관리
   const [vitals, setVitals] = useState({ hr: 96, spo2: 94, bp: '158/95', temp: 37.6, rr: 24 })
-  const [editingVital, setEditingVital] = useState(null) // 'bp' | 'temp'
+  const [editingVital, setEditingVital] = useState(null)
 
   const updateVital = (key, value) => {
     if (!value) { setEditingVital(null); return; }
     const now = new Date().toLocaleTimeString('ko-KR', { hour12: false })
     const labels = { bp: '혈압', temp: '체온' }
     const units = { bp: 'mmHg', temp: '°C' }
-    
     setVitals({ ...vitals, [key]: value })
     setSessionLogs([{ time: now, text: `🔹 ${labels[key]} 측정값 수동 기록: ${value}${units[key]}`, type: 'INFO' }, ...sessionLogs])
     setEditingVital(null)
   }
 
   useEffect(() => {
-    if (activeAction === 'CPR') {
+    if (activeAction === '심폐소생술') {
       const interval = setInterval(() => setBeat(b => !b), 60000 / bpm / 2)
       return () => clearInterval(interval)
     }
@@ -133,9 +144,9 @@ export default function Emergency({ patient }) {
 
   const triageData = [
     { label: '눈을 뜨고 말을 하나요?', desc: '정상 의식 (Alert)', action: '상처 세척', color: '#2dd4bf' },
-    { label: '부르면 대답을 하나요?', desc: '언어 반응 (Verbal)', action: '부목 고정', color: '#38bdf8' },
+    { label: '부르면 대답을 하나요?', desc: '언어 반응 (Verbal)', action: '골절 / 탈구', color: '#38bdf8' },
     { label: '꼬집을 때만 반응하나요?', desc: '통증 반응 (Pain)', action: '기도 확보', color: '#00d4aa' },
-    { label: '전혀 반응이 없나요?', desc: '무반응 (Unresponsive)', action: 'CPR', color: '#ef4444' },
+    { label: '전혀 반응이 없나요?', desc: '무반응 (Unresponsive)', action: '심폐소생술', color: '#ef4444' },
   ]
 
   if (triageStep === 'CHECK') {
@@ -162,7 +173,6 @@ export default function Emergency({ patient }) {
     <div style={{ height: 'calc(100vh - 72px)', width: '100%', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '420px 1.2fr 440px', gap: '20px', padding: '20px', height: '100%', boxSizing: 'border-box' }}>
         
-        {/* [LEFT] 법적 증빙 블랙박스 */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
           <div style={{ background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', border: '2px solid #334155', borderRadius: 24, padding: 24 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#94a3b8', marginBottom: 12 }}><Shield size={20} /><span style={{ fontSize: 14, fontWeight: 900, letterSpacing: 1 }}>LEGAL DEFENSE MODE</span></div>
@@ -182,7 +192,6 @@ export default function Emergency({ patient }) {
           </div>
         </section>
 
-        {/* [CENTER] 자율 처치 통제실 */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: 20, minHeight: 0 }}>
           {activeAction ? (
             <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 32, border: '1px solid rgba(255,255,255,0.05)', padding: 32, position: 'relative', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
@@ -194,7 +203,7 @@ export default function Emergency({ patient }) {
                 <button onClick={() => {setActiveAction(null); setCompletedSteps([])}} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: '#64748b', cursor: 'pointer', padding: 12, borderRadius: '50%' }}><X/></button>
               </div>
 
-              {activeAction === 'CPR' && (
+              {activeAction === '심폐소생술' && (
                 <div style={{ background: 'rgba(239,68,68,0.1)', borderRadius: 20, padding: '16px 24px', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 20, border: `2px solid ${beat ? '#ef4444' : 'transparent'}`, transition: '0.1s' }}>
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: beat ? '#ef4444' : 'rgba(239,68,68,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Heart size={24} fill={beat ? '#fff' : 'none'} color="#fff" /></div>
                   <div>
@@ -265,7 +274,6 @@ export default function Emergency({ patient }) {
           )}
         </section>
 
-        {/* [RIGHT] 정보 자산 및 기록물 */}
         <aside style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ padding: 24, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 28 }}>
              <div style={{ display: 'flex', gap: 20, marginBottom: 20 }}>
@@ -276,28 +284,18 @@ export default function Emergency({ patient }) {
               </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <VitalMini label="심박수" value={vitals.hr} unit="BPM" color="#ef4444" icon={<HeartPulse size={14}/>} />
-              <VitalMini label="산소포화도" value={vitals.spo2} unit="%" color="#38bdf8" icon={<Wind size={14}/>} />
-              
+              <VitalMini label="심박수" value={vitals.hr} unit="BPM" color="#ef4444" icon={<HeartPulse size={14}/>} status="주의" />
+              <VitalMini label="산소포화도" value={vitals.spo2} unit="%" color="#38bdf8" icon={<Wind size={14}/>} status="위험" />
               <div style={{ position: 'relative' }}>
-                <VitalMini 
-                  label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={14}/>} 
-                  onClick={() => setEditingVital('bp')} 
-                  isManual 
-                />
+                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={14}/>} onClick={() => setEditingVital('bp')} isManual status="높음" />
                 {editingVital === 'bp' && (
                   <div style={{ position: 'absolute', inset: 0, background: '#1e293b', borderRadius: 16, padding: 12, display: 'flex', gap: 8, zIndex: 10 }}>
                     <input autoFocus placeholder="120/80" onBlur={e => updateVital('bp', e.target.value)} onKeyDown={e => e.key === 'Enter' && updateVital('bp', e.target.value)} style={{ width: '100%', background: 'transparent', border: '1px solid #38bdf8', color: '#fff', outline: 'none', padding: '0 8px', borderRadius: 8, fontSize: 14 }} />
                   </div>
                 )}
               </div>
-
               <div style={{ position: 'relative' }}>
-                <VitalMini 
-                  label="체온" value={vitals.temp} unit="°C" color="#fb923c" icon={<Thermometer size={14}/>} 
-                  onClick={() => setEditingVital('temp')} 
-                  isManual 
-                />
+                <VitalMini label="체온" value={vitals.temp} unit="°C" color="#fb923c" icon={<Thermometer size={14}/>} onClick={() => setEditingVital('temp')} isManual status="미열" />
                 {editingVital === 'temp' && (
                   <div style={{ position: 'absolute', inset: 0, background: '#1e293b', borderRadius: 16, padding: 12, display: 'flex', gap: 8, zIndex: 10 }}>
                     <input autoFocus placeholder="36.5" type="number" step="0.1" onBlur={e => updateVital('temp', e.target.value)} onKeyDown={e => e.key === 'Enter' && updateVital('temp', e.target.value)} style={{ width: '100%', background: 'transparent', border: '1px solid #38bdf8', color: '#fff', outline: 'none', padding: '0 8px', borderRadius: 8, fontSize: 14 }} />
@@ -308,16 +306,15 @@ export default function Emergency({ patient }) {
           </div>
         </aside>
 
-        {/* [BOTTOM] 우선순위 버튼 바 */}
-        <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 16, paddingTop: 10 }}>
+        <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, paddingTop: 10 }}>
           {Object.keys(ACTION_GUIDES).map(key => (
             <button key={key} onClick={() => {setActiveAction(key); setCompletedSteps([])}} style={{ 
-              background: activeAction === key ? `linear-gradient(135deg, ${ACTION_GUIDES[key].color}, ${ACTION_GUIDES[key].color}dd)` : 'rgba(255,255,255,0.05)', border: activeAction === key ? 'none' : '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '28px 24px', cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', gap: 18
+              background: activeAction === key ? `linear-gradient(135deg, ${ACTION_GUIDES[key].color}, ${ACTION_GUIDES[key].color}dd)` : 'rgba(255,255,255,0.05)', border: activeAction === key ? 'none' : '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '24px 16px', cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', gap: 12
             }} className="action-btn">
               <div style={{ color: activeAction === key ? '#000' : ACTION_GUIDES[key].color }}><ActionButtonIcon label={key} /></div>
               <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: 28, fontWeight: 950, color: activeAction === key ? '#000' : '#fff', letterSpacing: '-0.5px' }}>{key}</div>
-                <div style={{ fontSize: 13, fontWeight: 800, color: activeAction === key ? '#000' : '#64748b', opacity: 0.7, marginTop: 2 }}>프로토콜 활성화</div>
+                <div style={{ fontSize: 18, fontWeight: 950, color: activeAction === key ? '#000' : '#fff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>{key}</div>
+                <div style={{ fontSize: 11, fontWeight: 800, color: activeAction === key ? '#000' : '#64748b', opacity: 0.7, marginTop: 2 }}>프로토콜</div>
               </div>
             </button>
           ))}
@@ -341,25 +338,11 @@ export default function Emergency({ patient }) {
 
 function VitalMini({ label, value, unit, color, icon, onClick, isManual, status }) {
   return (
-    <div 
-      onClick={onClick}
-      style={{ 
-        background: 'rgba(255,255,255,0.02)', padding: '14px 16px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.04)',
-        cursor: isManual ? 'pointer' : 'default', position: 'relative'
-      }}
-    >
+    <div onClick={onClick} style={{ background: 'rgba(255,255,255,0.02)', padding: '14px 16px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.04)', cursor: isManual ? 'pointer' : 'default', position: 'relative' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
         <span style={{ color, opacity: 0.9 }}>{icon}</span>
         <div style={{ fontSize: 17, color: '#94a3b8', fontWeight: 900, letterSpacing: '-0.3px' }}>{label}</div>
-        {status && (
-          <div style={{ 
-            marginLeft: 'auto', background: `${color}15`, color, padding: '2px 8px', borderRadius: '6px', 
-            fontSize: '11px', fontWeight: 950, letterSpacing: '0.5px', border: `1px solid ${color}30` 
-          }}>
-            {status}
-          </div>
-        )}
-        {isManual && !status && <Edit3 size={10} color="#64748b" style={{ marginLeft: 'auto' }} />}
+        {status && <div style={{ marginLeft: 'auto', background: `${color}15`, color, padding: '2px 8px', borderRadius: '6px', fontSize: '11px', fontWeight: 950, border: `1px solid ${color}30` }}>{status}</div>}
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
         <span style={{ fontSize: 24, fontWeight: 950, color }}>{value}</span>
@@ -371,10 +354,11 @@ function VitalMini({ label, value, unit, color, icon, onClick, isManual, status 
 
 function ActionButtonIcon({ label }) {
   const size = 24
-  if (label === 'CPR') return <Heart size={size} />
+  if (label === '심폐소생술') return <Heart size={size} />
   if (label === '지혈/압박') return <Zap size={size} />
   if (label === '기도 확보') return <Wind size={size} />
-  if (label === '부목 고정') return <Shield size={size} />
-  if (label === '상처 세척') return <Droplets size={size} />
+  if (label === '골절 / 탈구') return <Shield size={size} />
+  if (label === '익수 / 저체온') return <Droplets size={size} />
+  if (label === '상처 세척') return <Scissors size={size} />
   return <Info size={size} />
 }
