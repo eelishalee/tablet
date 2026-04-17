@@ -153,7 +153,8 @@ export default function Emergency({ patient }) {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, maxWidth: 1000, width: '100%' }}>
           {triageData.map((t, i) => (
             <button key={i} onClick={() => handleTriageSelect(t.action)} style={{ 
-              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 32, padding: 40, textAlign: 'left', cursor: 'pointer', transition: '0.2s'
+              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 32, padding: 40, textAlign: 'center', cursor: 'pointer', transition: '0.2s',
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'
             }} className="triage-btn">
               <div style={{ fontSize: 24, fontWeight: 950, color: '#fff', marginBottom: 8 }}>{t.label}</div>
               <div style={{ fontSize: 18, color: t.color, fontWeight: 800 }}>• {t.desc}</div>
@@ -308,13 +309,13 @@ export default function Emergency({ patient }) {
               borderRadius: 24, 
               height: '104px', // 고정 높이
               padding: '0 12px',
-              cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', gap: 12,
+              cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12,
               width: '100%', minWidth: 0, boxSizing: 'border-box', overflow: 'hidden'
             }} className="action-btn">
               <div style={{ color: activeAction === key ? '#000' : ACTION_GUIDES[key].color, flexShrink: 0 }}>
                 <ActionButtonIcon label={key} size={30} />
               </div>
-              <div style={{ textAlign: 'left', minWidth: 0, flex: 1, display: 'flex', alignItems: 'center' }}>
+              <div style={{ textAlign: 'center', minWidth: 0, display: 'flex', alignItems: 'center' }}>
                 <div style={{ fontSize: 32, fontWeight: 950, color: activeAction === key ? '#000' : '#fff', letterSpacing: '-1.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: 1 }}>{key}</div>
               </div>
             </button>
