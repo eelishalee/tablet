@@ -7,16 +7,12 @@ const ACTION_GUIDES = {
     protocol: 'SOP-CPR-01',
     hasMetronome: true,
     steps: [
-      { 
-        title: '의식 및 호흡 동시 확인 (10초 이내)', 
-        desc: '어깨를 두드리며 말을 걸고 가슴의 움직임(호흡)을 관찰하십시오.', 
-        tip: '의식이 없고 호흡이 없거나 비정상적(꺽꺽거림)일 때만 시행합니다.' 
-      },
+      { title: '의식 및 호흡 동시 확인', desc: '어깨를 두드리며 말을 걸고 가슴의 움직임(호흡)을 관찰하십시오.', tip: '의식과 호흡이 모두 없을 때만 시행합니다.' },
       { title: '도움 및 AED 요청', desc: '주변 사람을 지목하여 신고를 부탁하고 AED를 가져오게 하십시오.' },
       { title: '가슴 압박 시행', desc: '가슴 중앙을 5cm 깊이로 강하고 빠르게 압박하십시오.', tip: '팔꿈치를 펴고 체중을 실어 수직으로 압박' },
       { title: 'AED 전원 켜기', desc: '도착한 AED의 전원을 켜고 기계의 음성 지시에 따르십시오.' }
     ],
-    dos: ['의식과 가슴 움직임을 5~10초간 보세요', '1초당 2번 속도로 강하게 압박하세요'],
+    dos: ['의식과 가슴 움직임을 10초간 확인하세요', '1초당 2번 속도로 강하게 압박하세요'],
     donts: ['맥박을 잡으려고 시간을 허비하지 마세요', '의식이 있는 환자에게 압박을 하지 마세요'],
     warning: '환자가 눈을 뜨거나 움직일 때까지 절대 멈추지 마십시오.',
     color: '#ef4444'
@@ -25,12 +21,12 @@ const ACTION_GUIDES = {
     title: '출혈 부위 직접 압박',
     protocol: 'SOP-BLD-02',
     steps: [
-      { title: '상처 부위 확인', desc: '옷을 자르거나 걷어내어 정확한 출혈 지점을 확인하십시오.' },
+      { title: '상처 부위 확인', desc: '정확한 출혈 지점을 확인하기 위해 옷을 걷어내십시오.' },
       { title: '직접 압박', desc: '멸균 거즈나 깨끗한 천으로 출혈 부위를 손바닥 전체로 누르십시오.' },
-      { title: '지혈대 적용(필요시)', desc: '사지 절단 등 대량 출혈 시에만 상단 5cm 지점에 지혈대를 조이십시오.' }
+      { title: '지혈대 적용', desc: '대량 출혈이 멈추지 않을 때만 상단 5cm 지점에 지혈대를 조이십시오.' }
     ],
     dos: ['심장보다 높은 위치로 환부를 올리세요', '압박 붕대를 감은 뒤에도 계속 관찰하세요'],
-    donts: ['상처에 박힌 칼이나 유리 조각을 뽑지 마세요 (대량 출혈 위험)', '상처에 가루약이나 된장 등을 바르지 마세요'],
+    donts: ['상처에 박힌 칼이나 유리 조각을 뽑지 마세요', '상처에 가루약이나 된장 등을 바르지 마세요'],
     warning: '지혈대 사용 시 반드시 착용 시간을 환자 몸에 기록하십시오.',
     color: '#ff3b5c'
   },
@@ -39,12 +35,12 @@ const ACTION_GUIDES = {
     protocol: 'SOP-AIR-03',
     steps: [
       { title: '기도 개방', desc: '머리를 뒤로 젖히고 턱을 들어 올려 기도를 확보하십시오.' },
-      { title: '이물질 제거', desc: '입안에 눈에 보이는 이물질이 있다면 손가락으로 제거하십시오.' },
+      { title: '이물질 제거', desc: '입안에 이물질이 있다면 즉시 제거하십시오.' },
       { title: '산소 공급', desc: '산소 마스크를 밀착시키고 유량을 15L로 조절하십시오.' }
     ],
     dos: ['환자를 옆으로 눕히는 회복 자세를 취하세요', '구토 시 즉시 몸을 옆으로 돌리세요'],
     donts: ['경추 손상이 의심되면 머리를 과하게 젖히지 마세요', '의식이 없는 환자에게 물을 먹이지 마세요'],
-    warning: '호흡음이 거칠거나 청색증이 보이면 즉시 CPR을 준비하십시오.',
+    warning: '호흡음이 거칠거나 청색증이 보이면 즉시 심폐소생술을 준비하십시오.',
     color: '#00d4aa'
   },
   '골절 / 탈구': {
@@ -53,7 +49,7 @@ const ACTION_GUIDES = {
     steps: [
       { title: '안정화', desc: '환자가 통증을 가장 적게 느끼는 자세로 유지시키십시오.' },
       { title: '부목 적용', desc: '나무판자나 종이박스를 이용해 관절 위아래를 고정하십시오.' },
-      { title: '말단 순환 체크', desc: '고정 후 손발 끝을 눌러 혈액이 잘 통하는지 확인하십시오.' }
+      { title: '순환 체크', desc: '고정 후 손발 끝을 눌러 혈액이 잘 통하는지 확인하십시오.' }
     ],
     dos: ['빈 공간에 옷이나 수건을 채워 흔들림을 방지하세요', '개방된 상처가 있다면 먼저 덮으세요'],
     donts: ['부러진 뼈를 억지로 맞추려 하지 마세요', '환자를 일으켜 세우거나 걷게 하지 마세요'],
@@ -64,9 +60,9 @@ const ACTION_GUIDES = {
     title: '익수자 구조 및 체온 관리',
     protocol: 'SOP-HYP-05',
     steps: [
-      { title: '젖은 의복 제거', desc: '환자를 따뜻한 곳으로 옮기고 젖은 옷을 가위로 잘라 제거하십시오.' },
-      { title: '점진적 가온', desc: '담요나 알루미늄 시트로 전신을 감싸고 겨드랑이, 사타구니에 온팩을 대십시오.' },
-      { title: '건조 및 단열', desc: '환자의 몸을 마른 수건으로 닦고 차가운 바닥으로부터 단열시키십시오.' }
+      { title: '젖은 의복 제거', desc: '따뜻한 곳으로 옮기고 젖은 옷을 가위로 잘라 제거하십시오.' },
+      { title: '점진적 가온', desc: '담요로 전신을 감싸고 겨드랑이, 사타구니에 온팩을 대십시오.' },
+      { title: '건조 및 단열', desc: '몸을 마른 수건으로 닦고 차가운 바닥으로부터 단열시키십시오.' }
     ],
     dos: ['의식이 있다면 따뜻하고 달콤한 음료를 주십시오', '실내 온도를 25도 이상으로 유지하세요'],
     donts: ['팔다리를 심하게 주무르지 마세요 (심장에 무리)', '뜨거운 물에 환자를 직접 담그지 마세요'],
@@ -171,7 +167,9 @@ export default function Emergency({ patient }) {
 
   return (
     <div style={{ height: 'calc(100vh - 72px)', width: '100%', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '420px 1.2fr 440px', gap: '20px', padding: '20px', height: '100%', boxSizing: 'border-box' }}>
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #020617 98%)' }} />
+
+      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '420px 1.2fr 440px', gridTemplateRows: '1fr 120px', gap: '20px', padding: '20px', height: '100%', boxSizing: 'border-box' }}>
         
         <section style={{ display: 'flex', flexDirection: 'column', gap: 16, minHeight: 0 }}>
           <div style={{ background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)', border: '2px solid #334155', borderRadius: 24, padding: 24 }}>
@@ -224,7 +222,7 @@ export default function Emergency({ patient }) {
                 </div>
               </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {ACTION_GUIDES[activeAction].steps.map((step, i) => {
                   const isFirstPending = i === 0 && !completedSteps.includes(i);
                   return (
@@ -236,13 +234,7 @@ export default function Emergency({ patient }) {
                       animation: isFirstPending ? 'step-guide-pulse 2s infinite' : 'none',
                       boxShadow: isFirstPending ? '0 0 20px rgba(56,189,248,0.2)' : 'none'
                     }}>
-                      <div style={{ 
-                        width: 36, height: 36, borderRadius: '50%', 
-                        background: completedSteps.includes(i) ? '#38bdf8' : isFirstPending ? '#38bdf8' : 'rgba(255,255,255,0.1)', 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, 
-                        fontWeight: 950, color: (completedSteps.includes(i) || isFirstPending) ? '#000' : '#fff',
-                        fontSize: 18
-                      }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: completedSteps.includes(i) ? '#38bdf8' : isFirstPending ? '#38bdf8' : 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontWeight: 950, color: (completedSteps.includes(i) || isFirstPending) ? '#000' : '#fff', fontSize: 18 }}>
                         {completedSteps.includes(i) ? <CheckCircle2 size={20}/> : i+1}
                       </div>
                       <div>
@@ -306,15 +298,24 @@ export default function Emergency({ patient }) {
           </div>
         </aside>
 
+        {/* [BOTTOM] 우선순위 버튼 바 - 완벽 고정 레이아웃 */}
         <section style={{ gridColumn: '1 / 4', display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12, paddingTop: 10 }}>
           {Object.keys(ACTION_GUIDES).map(key => (
             <button key={key} onClick={() => {setActiveAction(key); setCompletedSteps([])}} style={{ 
-              background: activeAction === key ? `linear-gradient(135deg, ${ACTION_GUIDES[key].color}, ${ACTION_GUIDES[key].color}dd)` : 'rgba(255,255,255,0.05)', border: activeAction === key ? 'none' : '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '24px 16px', cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', gap: 12
+              background: activeAction === key ? `linear-gradient(135deg, ${ACTION_GUIDES[key].color}, ${ACTION_GUIDES[key].color}dd)` : 'rgba(255,255,255,0.05)', 
+              border: '2px solid',
+              borderColor: activeAction === key ? 'transparent' : 'rgba(255,255,255,0.1)',
+              borderRadius: 24, 
+              height: '104px', // 고정 높이
+              padding: '0 12px',
+              cursor: 'pointer', transition: '0.2s', display: 'flex', alignItems: 'center', gap: 12,
+              width: '100%', minWidth: 0, boxSizing: 'border-box', overflow: 'hidden'
             }} className="action-btn">
-              <div style={{ color: activeAction === key ? '#000' : ACTION_GUIDES[key].color }}><ActionButtonIcon label={key} /></div>
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontSize: 18, fontWeight: 950, color: activeAction === key ? '#000' : '#fff', letterSpacing: '-0.5px', whiteSpace: 'nowrap' }}>{key}</div>
-                <div style={{ fontSize: 11, fontWeight: 800, color: activeAction === key ? '#000' : '#64748b', opacity: 0.7, marginTop: 2 }}>프로토콜</div>
+              <div style={{ color: activeAction === key ? '#000' : ACTION_GUIDES[key].color, flexShrink: 0 }}>
+                <ActionButtonIcon label={key} size={30} />
+              </div>
+              <div style={{ textAlign: 'left', minWidth: 0, flex: 1, display: 'flex', alignItems: 'center' }}>
+                <div style={{ fontSize: 32, fontWeight: 950, color: activeAction === key ? '#000' : '#fff', letterSpacing: '-1.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: 1 }}>{key}</div>
               </div>
             </button>
           ))}
@@ -352,8 +353,7 @@ function VitalMini({ label, value, unit, color, icon, onClick, isManual, status 
   )
 }
 
-function ActionButtonIcon({ label }) {
-  const size = 24
+function ActionButtonIcon({ label, size = 24 }) {
   if (label === '심폐소생술') return <Heart size={size} />
   if (label === '지혈/압박') return <Zap size={size} />
   if (label === '기도 확보') return <Wind size={size} />
