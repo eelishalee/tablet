@@ -49,11 +49,10 @@ export default function Login({ onLogin }) {
             </h2>
           </div>
 
-          <div style={{ display: 'flex', gap: '40px' }}>
+          <div style={{ display: 'flex', gap: '50px' }}>
             <StatItem val="24H" label="실시간 바이탈" />
-            <StatItem val="AI 5종" label="응급처치 분류" />
-            <StatItem val="98.2%" label="판독 정확도" />
-            <StatItem val="심층 24단계" label="처치 프로토콜" />
+            <StatItem val="AI 8종" label="응급처치 분류" />
+            <StatItem val="심층 25단계" label="처치 프로토콜" />
           </div>
         </div>
 
