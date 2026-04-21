@@ -1,7 +1,15 @@
-import { useState } from 'react'
 import { Timer } from 'lucide-react'
 import { StepItem, SymptomTab } from '../../../components/ui'
 import { CardiacIllustration, TraumaIllustration, UnconsciousIllustration, RespiratoryIllustration } from '../../../components/EmergencyIllustrations'
+
+const Anim3D = ({ activeEmergencyGuide, activeStep }) => {
+  const props = { step: activeStep }
+  if (activeEmergencyGuide === 'CARDIAC') return <CardiacIllustration {...props} />
+  if (activeEmergencyGuide === 'TRAUMA') return <TraumaIllustration {...props} />
+  if (activeEmergencyGuide === 'UNCONSCIOUS') return <UnconsciousIllustration {...props} />
+  if (activeEmergencyGuide === 'RESPIRATORY') return <RespiratoryIllustration {...props} />
+  return <div style={{ width: 240, height: 260, background: 'rgba(255,255,255,0.03)', borderRadius: 20 }} />
+}
 
 export default function EmergencyGuide({ activeEmergencyGuide, setActiveEmergencyGuide, activeStep, setActiveStep }) {
   const GUIDES = {
@@ -60,15 +68,6 @@ export default function EmergencyGuide({ activeEmergencyGuide, setActiveEmergenc
   const illus = guide.illustrations[activeStep - 1]
   const { color, bg, border, label } = illus
 
-  const Anim3D = () => {
-    const props = { step: activeStep }
-    if (activeEmergencyGuide === 'CARDIAC') return <CardiacIllustration {...props} />
-    if (activeEmergencyGuide === 'TRAUMA') return <TraumaIllustration {...props} />
-    if (activeEmergencyGuide === 'UNCONSCIOUS') return <UnconsciousIllustration {...props} />
-    if (activeEmergencyGuide === 'RESPIRATORY') return <RespiratoryIllustration {...props} />
-    return <div style={{width:240, height:260, background:'rgba(255,255,255,0.03)', borderRadius:20}} />
-  }
-
   return (
     <div className="fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -91,7 +90,7 @@ export default function EmergencyGuide({ activeEmergencyGuide, setActiveEmergenc
           ))}
         </div>
         <div style={{ background: bg, borderRadius: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: `1px solid ${border}`, minHeight: 280, boxShadow: `0 8px 40px ${color}22`, position: 'relative', overflow: 'hidden', padding: '24px 16px' }}>
-          <Anim3D />
+          <Anim3D activeEmergencyGuide={activeEmergencyGuide} activeStep={activeStep} />
           <div style={{ fontSize: 14, color, fontWeight: 800, letterSpacing: '0.04em', marginTop: 12, textAlign: 'center' }}>{label}</div>
         </div>
       </div>

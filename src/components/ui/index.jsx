@@ -1,4 +1,4 @@
-import { Edit3, ChevronRight } from 'lucide-react'
+import { Edit3, ChevronRight, AlertCircle } from 'lucide-react'
 
 export function NavTab({ label, active, onClick }) {
   return (
@@ -11,15 +11,26 @@ export function NavTab({ label, active, onClick }) {
   )
 }
 
-export function DashboardVital({ label, value, unit, color, editable, onEdit, live }) {
+export function DashboardVital({ label, value, unit, color, editable, onEdit, live, isConnected = true }) {
   return (
     <div style={{
-      background: `linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))`,
+      background: isConnected 
+        ? `linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))` 
+        : 'rgba(251, 191, 36, 0.03)',
       borderRadius: 16, padding: '14px 14px',
-      border: `1px solid rgba(255,255,255,0.07)`,
-      textAlign: 'center', position: 'relative'
+      border: isConnected 
+        ? `1px solid rgba(255,255,255,0.07)` 
+        : '1px solid rgba(251, 191, 36, 0.2)',
+      textAlign: 'center', position: 'relative',
+      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      overflow: 'hidden'
     }}>
-      {live && (
+      {/* 연결 해제 시 배경 애니메이션 효과 */}
+      {!isConnected && (
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'repeating-linear-gradient(45deg, #fbbf24, #fbbf24 10px, transparent 10px, transparent 20px)', pointerEvents: 'none' }} />
+      )}
+
+      {live && isConnected && (
         <div style={{
           position: 'absolute', top: 12, right: 12,
           width: 8, height: 8, borderRadius: '50%',
@@ -27,13 +38,33 @@ export function DashboardVital({ label, value, unit, color, editable, onEdit, li
           animation: 'pulse-dot 1.4s ease-in-out infinite'
         }} />
       )}
-      <div style={{ fontSize: 19, fontWeight: 700, color: '#94a3b8', marginBottom: 2, letterSpacing: '0.3px' }}>{label}</div>
-      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 6 }}>
-        <span style={{ fontSize: 38, fontWeight: 950, color, letterSpacing: '-1px' }}>{value}</span>
-        <span style={{ fontSize: 16, color: `${color}99`, fontWeight: 600 }}>{unit}</span>
-      </div>
-      {editable && (
-        <button onClick={onEdit} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#475569', cursor: 'pointer' }}>
+      
+      {!isConnected && (
+        <div style={{
+          position: 'absolute', top: 10, right: 10,
+          color: '#fbbf24',
+          animation: 'pulse 2s infinite'
+        }}>
+          <AlertCircle size={16} />
+        </div>
+      )}
+
+      <div style={{ fontSize: 18, fontWeight: 800, color: isConnected ? '#64748b' : '#fbbf24', marginBottom: 2, letterSpacing: '0.3px', position: 'relative', zIndex: 1 }}>{label}</div>
+      
+      {isConnected ? (
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4, position: 'relative', zIndex: 1 }}>
+          <span style={{ fontSize: 32, fontWeight: 950, color, letterSpacing: '-1.5px', whiteSpace: 'nowrap' }}>{value}</span>
+          <span style={{ fontSize: 14, color: `${color}99`, fontWeight: 700, flexShrink: 0 }}>{unit}</span>
+        </div>
+      ) : (
+        <div style={{ padding: '4px 0', position: 'relative', zIndex: 1 }}>
+          <div style={{ fontSize: 16, fontWeight: 950, color: '#fbbf24', letterSpacing: '-0.3px' }}>센서 점검 필요</div>
+          <div style={{ fontSize: 11, color: 'rgba(251, 191, 36, 0.5)', fontWeight: 800, marginTop: 4 }}>데이터 수신 대기 중</div>
+        </div>
+      )}
+
+      {editable && isConnected && (
+        <button onClick={onEdit} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#475569', cursor: 'pointer', zIndex: 1 }}>
           <Edit3 size={18} />
         </button>
       )}
@@ -150,7 +181,7 @@ export function SettingCard({ icon, title, desc, children }) {
   )
 }
 
-export function IdPhoto({ name, gender = 'M', size = 52 }) {
+export function IdPhoto({ name, size = 52 }) {
   const bgColors = ['#e2e8f0', '#cbd5e1', '#d1d5db', '#bfdbfe']
   const bgColor = bgColors[name.length % bgColors.length]
   

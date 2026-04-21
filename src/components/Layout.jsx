@@ -1,5 +1,5 @@
-import { Wifi, WifiOff, Brain, LogOut } from 'lucide-react'
-import logoImg from '../assets/logo_new.png'
+import { Wifi, WifiOff, Brain, LogOut, Database } from 'lucide-react'
+import logoImg from '../assets/logo.png'
 
 const NAV = [
   { id: 'main',      label: '메인' },
@@ -68,7 +68,17 @@ export default function Layout({ activePage, onNavigate, auth, onLogout, isOnlin
       </nav>
 
       {/* Right info */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
+        
+        {/* 데이터 동기화 상태 */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#38bdf8' }}>
+            <Database size={12} />
+            <span style={{ fontSize: 11, fontWeight: 800 }}>전송 대기 : 2건</span>
+          </div>
+          <div style={{ fontSize: 10, color: '#475569', fontWeight: 600 }}>최근 전송 : 10:24:15</div>
+        </div>
+
         <div style={{
           display: 'flex', alignItems: 'center', gap: 5,
           padding: '4px 10px', borderRadius: 6,

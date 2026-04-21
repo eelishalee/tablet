@@ -8,13 +8,12 @@ const RX = 1200, RY = 460
 // 30% 스케일 업
 const RS = 1.3
 
-export default function LoginView({ onLogin, loginData, setLoginData, mousePos, setMousePos }) {
+export default function LoginView({ onLogin, loginData, setLoginData }) {
   const [focusedField, setFocusedField] = useState(null)
 
   return (
     <div
       style={{ height:'100vh', display:'flex', flexDirection:'column', color:'#fff', fontFamily:'Pretendard', overflow:'hidden', position:'relative', cursor:'default' }}
-      onMouseMove={e => setMousePos({ x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight })}
     >
       {/* ══ 다크 배경 ══ */}
       <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 100% 90% at 82% 52%, #041c2e 0%, #020e1c 55%, #010810 100%)', pointerEvents:'none' }}/>

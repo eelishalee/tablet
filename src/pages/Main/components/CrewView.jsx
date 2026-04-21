@@ -2,7 +2,7 @@ import { Search, Plus, Edit3, Trash2 } from 'lucide-react'
 
 export default function CrewView({ 
   crewList, crewSearch, setCrewSearch, crewRoleTab, setCrewRoleTab, roles, 
-  filteredCrew, activePatient, switchPatient, setShowModal, setSelectedCrew 
+  filteredCrew, activePatient, switchPatient, setShowModal 
 }) {
   return (
     <div style={{ flex: 1, padding: 45, overflowY: 'auto', background: '#05070a' }}>

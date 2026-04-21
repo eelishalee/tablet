@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Brain, Heart, Zap, Shield, Cpu, AlertCircle, Wind, Clock, Video, Pill, History, User, Info, Activity, Scissors, Plus, Thermometer, Mic, X, ChevronRight, HeartPulse, ChevronLeft, CheckCircle2, AlertTriangle, ArrowDown, FileText, Ruler, Droplets, MapPin, Phone, Upload, Camera, Edit3, Bone, Flame, RefreshCw, Send, Check, LayoutDashboard, AlertOctagon } from 'lucide-react'
 import { CardiacIllustration, TraumaIllustration, UnconsciousIllustration, RespiratoryIllustration } from '../components/EmergencyIllustrations'
 import CameraModal from '../components/CameraModal'
@@ -88,7 +88,7 @@ const ACTION_GUIDES = {
     riskLevel: '2',
     protocol: 'SOP-HYP-05',
     steps: [
-      { title: '젖은 의복 제거', desc: '바람이 없는 따뜻한 곳으로 이동하고, 젖은 옷을 가위로 잘라 제거한 뒤 마른 수건으로 몸을 닦으십시오.', stepImage: 'assets/Hypothermia1.jpeg' },
+      { title: '젖은 의복 제거', desc: '바람이 없는 따뜻하고 건조한 곳으로 이동하고, 젖은 옷을 가위로 잘라 제거한 뒤 마른 수건으로 몸을 닦으십시오.', stepImage: 'assets/Hypothermia1.jpeg' },
       { title: '중심 체온 가온', desc: '담요로 몸을 감싸고, 온팩을 겨드랑이, 사타구니, 목 등 굵은 혈관 부위에 대십시오.', stepImage: 'assets/Hypothermia2.jpeg' },
       { title: '안정 및 수평 이동', desc: '환자를 갑자기 일으키거나 팔다리를 주무르지 마십시오. 차가운 피가 심장으로 흘러가면 위험합니다.', stepImage: 'assets/Hypothermia3.jpeg' }
     ],
@@ -129,19 +129,7 @@ const ACTION_GUIDES = {
 }
 
 export default function Emergency({ patient, initialAction, onNavigate }) {
-  const [triageStep, setTriageStep] = useState('CHECK') 
-  const [activeAction, setActiveAction] = useState(null)
-  const [selectedTriage, setSelectedTriage] = useState(null)
-  const [completedSteps, setCompletedSteps] = useState([])
-  const [sessionLogs, setSessionLogs] = useState([])
-  const [hoveredStepIndex, setHoveredStepIndex] = useState(null)
-  const [showCamera, setShowCamera] = useState(false) 
-  const [showCompletionPanel, setShowCompletionPanel] = useState(false)
-  const [startTime] = useState(new Date().toLocaleTimeString('ko-KR', { hour12: false }))
-  
-  const [syncStatus, setSyncStatus] = useState({ pending: 5, lastSynced: '2026-04-20 10:14:32' })
-
-  useEffect(() => {
+  const [triageStep, setTriageStep] = useState(() => {
     if (initialAction) {
       const mapping = {
         'CARDIAC': '심폐소생술',
@@ -150,44 +138,44 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
         'RESPIRATORY': '기도 확보'
       }
       const targetAction = mapping[initialAction] || initialAction
-      if (ACTION_GUIDES[targetAction]) {
-        setActiveAction(targetAction)
-        setTriageStep('GUIDE')
-      }
+      if (ACTION_GUIDES[targetAction]) return 'GUIDE'
     }
-  }, [initialAction])
+    return 'CHECK'
+  })
 
-  const [bpm, setBpm] = useState(110)
+  const [activeAction, setActiveAction] = useState(() => {
+    if (initialAction) {
+      const mapping = {
+        'CARDIAC': '심폐소생술',
+        'TRAUMA': '지혈/압박',
+        'UNCONSCIOUS': '기도 확보',
+        'RESPIRATORY': '기도 확보'
+      }
+      const targetAction = mapping[initialAction] || initialAction
+      if (ACTION_GUIDES[targetAction]) return targetAction
+    }
+    return null
+  })
+
+  const [selectedTriage, setSelectedTriage] = useState(null)
+  const [completedSteps, setCompletedSteps] = useState([])
+  const [sessionLogs, setSessionLogs] = useState([])
+  const [hoveredStepIndex, setHoveredStepIndex] = useState(null)
+  const [showCompletionPanel, setShowCompletionPanel] = useState(false)
+  const [startTime] = useState(new Date().toLocaleTimeString('ko-KR', { hour12: false }))
+  
+  const [bpm] = useState(110)
   const [beat, setBeat] = useState(false)
   
-  const [vitals, setVitals] = useState({ 
+  const [vitals] = useState({ 
     hr: 96, 
     spo2: '94.2', 
     bp: '158/95', 
     temp: '37.6', 
     rr: 24 
   })
-  const [editingVital, setEditingVital] = useState(null)
-
-  const updateVital = (key, value) => {
-    if (!value) { setEditingVital(null); return; }
-    const now = new Date().toLocaleTimeString('ko-KR', { hour12: false })
-    const labels = { bp: '혈압', temp: '체온' }
-    const units = { bp: 'mmHg', temp: '%' }
-    
-    let formattedValue = value;
-    if ((key === 'temp' || key === 'spo2') && !isNaN(value)) {
-      formattedValue = parseFloat(value).toFixed(1);
-    }
-    
-    setVitals({ ...vitals, [key]: formattedValue })
-    setSessionLogs([{ time: now, text: `${labels[key]} 측정값 기록: ${formattedValue}${units[key]}`, type: 'INFO' }, ...sessionLogs])
-    setEditingVital(null)
-  }
 
   const handleSyncData = () => {
-    const now = new Date().toLocaleString('ko-KR', { hour12: false })
-    setSyncStatus({ pending: 0, lastSynced: now })
     const logTime = new Date().toLocaleTimeString('ko-KR', { hour12: false })
     setSessionLogs([{ time: logTime, text: "모든 처치 데이터 동기화 및 전송 완료 (tb_logs)", type: 'SUCCESS' }, ...sessionLogs])
     setTriageStep('SUMMARY')
@@ -277,7 +265,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
       <div style={{ height: 'calc(100vh - 72px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <div style={{ maxWidth: 850, width: '100%', background: 'rgba(2, 12, 27, 0.9)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 32, padding: 48, position: 'relative', overflow: 'hidden', boxShadow: '0 30px 60px -12px rgba(0,0,0,0.6)' }}>
           
-          {/* 흐르는 빛 효과 애니메이션 레이어 (더 선명하게 수정) */}
+          {/* 흐르는 빛 효과 애니메이션 레이어 */}
           <div style={{ 
             position: 'absolute', 
             top: 0, left: '-150%', width: '60%', height: '100%', 
@@ -469,8 +457,8 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                 <VitalMini label="호흡수" value={vitals.rr || 24} unit="/min" color="#00d4aa" icon={<Activity size={14}/>} isAlert={checkAlert('rr', vitals.rr || 24)} />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={16}/>} onClick={() => setEditingVital('bp')} isManual isAlert={checkAlert('bp', vitals.bp)} />
-                <VitalMini label="체온" value={vitals.temp} unit="%" color="#ff6a00" icon={<Thermometer size={16}/>} onClick={() => setEditingVital('temp')} isManual isAlert={checkAlert('temp', vitals.temp)} />
+                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={16}/>} isManual isAlert={checkAlert('bp', vitals.bp)} />
+                <VitalMini label="체온" value={vitals.temp} unit="%" color="#ff6a00" icon={<Thermometer size={16}/>} isManual isAlert={checkAlert('temp', vitals.temp)} />
               </div>
             </div>
           </div>
@@ -497,7 +485,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
           {Object.keys(ACTION_GUIDES).map(key => (
             <button key={key} onClick={() => {setActiveAction(key); setCompletedSteps([]); setSelectedTriage(null); setShowCompletionPanel(false);}} style={{ background: activeAction === key ? `linear-gradient(135deg, ${ACTION_GUIDES[key].color}, ${ACTION_GUIDES[key].color}dd)` : `${ACTION_GUIDES[key].color}15`, border: '2px solid', borderColor: activeAction === key ? 'transparent' : `${ACTION_GUIDES[key].color}30`, borderRadius: 12, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
               <div style={{ color: activeAction === key ? '#fff' : ACTION_GUIDES[key].color }}><ActionButtonIcon label={key} size={26} /></div>
-              <div style={{ fontSize: 28, fontWeight: 950, color: '#fff', letterSpacing: '-1.5px' }}>{key}</div>
+              <div style={{ fontSize: 28, fontWeight: 950, color: '#fff', letterSpacing: '-1px' }}>{key}</div>
             </button>
           ))}
         </section>

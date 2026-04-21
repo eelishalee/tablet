@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { 
-  Settings as SettingsIcon, Shield, Bell, Database, Wifi, Globe, 
-  Server, Activity, Smartphone, LogOut, ChevronRight, Lock, Eye, 
+  Settings as SettingsIcon, Bell, Database, Wifi, Globe, 
+  Server, Activity, Smartphone, LogOut, ChevronRight, 
   Cloud, HardDrive, Cpu, Radio, Battery, Zap, History, UserCheck, Ship,
   Edit2, Save, CheckCircle2, AlertTriangle
 } from 'lucide-react'
@@ -153,27 +153,8 @@ export default function Settings() {
               <LogItem time="15:32" event="환자 정보가 육상으로 잘 전달되었습니다." type="success" />
               <LogItem time="14:10" event="육상 의료진과 대화 창을 열었습니다." type="info" />
               <LogItem time="12:45" event="경보 : 이선장 선원의 혈압이 조금 높습니다." type="warning" />
-              <LogItem time="09:20" event="보안 시스템이 최신 버전으로 업데이트되었습니다." type="success" />
+              <LogItem time="09:20" event="의료 시스템이 최신 버전으로 업데이트되었습니다." type="success" />
               <button style={{ marginTop: 10, padding: '16px', borderRadius: 16, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', color: '#94a3b8', fontWeight: 700, cursor: 'pointer' }}>더 많은 기록 보기</button>
-            </div>
-          </section>
-
-          {/* [5] 보안 및 설정 */}
-          <section style={{ background: 'rgba(15, 23, 42, 0.5)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 32, padding: '32px' }}>
-            <h2 style={{ fontSize: 22, fontWeight: 900, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 12, color: '#f43f5e' }}>
-              <Shield size={24} /> 비밀번호 및 보안 설정
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <ToggleRow label="지문/얼굴 인식으로 로그인하기" enabled={true} />
-              <ToggleRow label="모든 정보 안전하게 암호화하기" enabled={true} />
-              <ToggleRow label="30분 뒤 자동으로 로그아웃하기" enabled={true} />
-              
-              <div style={{ marginTop: 20, display: 'flex', gap: 15 }}>
-                <button style={{ flex: 1, padding: '20px', borderRadius: 20, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#fff', fontWeight: 800, cursor: 'pointer' }}>비밀번호 바꾸기</button>
-                <button style={{ flex: 1, padding: '20px', borderRadius: 20, background: 'rgba(244,63,94,0.1)', border: '1px solid rgba(244,63,94,0.2)', color: '#f43f5e', fontWeight: 900, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer' }}>
-                  <LogOut size={20} /> 로그아웃
-                </button>
-              </div>
             </div>
           </section>
 
@@ -260,23 +241,3 @@ function LogItem({ time, event, type }) {
   )
 }
 
-function ToggleRow({ label, enabled }) {
-  return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px 0', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
-      <span style={{ fontSize: 16, color: '#94a3b8', fontWeight: 700 }}>{label}</span>
-      <div style={{ 
-        width: 48, height: 26, borderRadius: 13, 
-        background: enabled ? '#0dd9c5' : '#1e293b', 
-        position: 'relative', cursor: 'pointer',
-        transition: '0.3s'
-      }}>
-        <div style={{ 
-          width: 20, height: 20, borderRadius: '50%', background: '#fff',
-          position: 'absolute', top: 3, left: enabled ? 25 : 3,
-          transition: '0.3s',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-        }} />
-      </div>
-    </div>
-  )
-}

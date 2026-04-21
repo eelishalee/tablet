@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Database, Settings, Ship } from 'lucide-react'
-import logoImg from '../assets/logo_new.png'
+import logoImg from '../assets/logo.png'
 
 export default function Login({ onLogin }) {
   const [loginData, setLoginData] = useState({ serial: 'SN-0001', device: 'MED-01', ship: 'KOREA STAR' })
@@ -89,12 +89,18 @@ export default function Login({ onLogin }) {
                 <LoginInput icon={<Settings size={20}/>} placeholder="기기 번호" value={loginData.device} onChange={v => setLoginData({...loginData, device: v})} focused={focusedField === 'device'} onFocus={() => setFocusedField('device')} onBlur={() => setFocusedField(null)} />
                 <LoginInput icon={<Ship size={20}/>} placeholder="선박 번호" value={loginData.ship} onChange={v => setLoginData({...loginData, ship: v})} focused={focusedField === 'ship'} onFocus={() => setFocusedField('ship')} onBlur={() => setFocusedField(null)} />
                 
-                <button type="submit" style={{
-                  marginTop: '10px', padding: '22px', borderRadius: '18px', 
-                  background: 'linear-gradient(90deg, #00c9b1, #00a8e8)', color: '#000', 
-                  border: 'none', fontWeight: '900', fontSize: '19px', cursor: 'pointer',
-                  boxShadow: '0 4px 28px rgba(0, 200, 180, 0.4)'
-                }}>
+                <button 
+                  type="submit"
+                  style={{
+                    marginTop: '10px', padding: '22px', borderRadius: '18px', 
+                    background: 'linear-gradient(90deg, #00c9b1, #00a8e8)', color: '#000', 
+                    border: 'none', fontWeight: '900', fontSize: '19px', cursor: 'pointer',
+                    boxShadow: '0 4px 28px rgba(0, 200, 180, 0.4)',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                >
                   시스템 접속
                 </button>
               </form>
@@ -106,8 +112,12 @@ export default function Login({ onLogin }) {
 
       <style>{`
         @keyframes borderRotate {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </div>

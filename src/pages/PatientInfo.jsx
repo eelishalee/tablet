@@ -27,7 +27,7 @@ const TX_INIT = [
 
 function useVitals(base=84) {
   const [hr,  setHr]   = useState(base)
-  const [hist,setHist] = useState(Array.from({length:20},(_,i)=>({t:i,v:base+Math.round((Math.random()-.5)*4)})))
+  const [hist,setHist] = useState(Array.from({length:20},(_,i)=>({t:i,v:base})))
   useEffect(()=>{
     const id=setInterval(()=>{
       const n=Math.max(60,Math.min(130,hr+Math.round((Math.random()-.5)*3)))

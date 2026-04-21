@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Login from './pages/Login'
 import Layout from './components/Layout'
 import Main from './pages/Main'
@@ -11,7 +11,6 @@ import Settings from './pages/Settings'
 export default function App() {
   const [auth, setAuth] = useState(null)
   const [page, setPage] = useState('main')
-  const [capturedImage, setCapturedImage] = useState(null)
 
   const [activePatient, setActivePatient] = useState({
     id: 'S26-003', name: '박기관', age: 48, role: '기관장', blood: 'B+',
@@ -29,10 +28,8 @@ export default function App() {
   // 페이지 전환 로직
   const handleNavigate = (newPage, data = null) => {
     if (newPage === 'emergency') {
-      setCapturedImage(data?.image || null)
       setEmergencyData(data)
     } else {
-      setCapturedImage(null)
       setEmergencyData(null)
     }
     setPage(newPage)

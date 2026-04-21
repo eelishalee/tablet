@@ -221,7 +221,7 @@ export default function CrewManagement({ onSelectPatient }) {
         <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 10px', padding: '0 20px' }}>
           <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
             <tr style={{ background: '#020617' }}>
-              {['선원 프로필', '소속 및 직급', '신체 정보', '기저질환', '알레르기', '긴급 연락망', '응급 환자 등록'].map((h, i) => (
+              {['선원 프로필', '소속 및 직위', '신체 정보', '기저질환', '알레르기', '긴급 연락망', '응급 환자 등록'].map((h, i) => (
                 <th key={i} style={{ padding: '20px 24px', textAlign: i === 6 ? 'center' : 'left', fontSize: '20px', color: '#64748b', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '1.2px' }}>{h}</th>
               ))}
             </tr>
@@ -339,7 +339,7 @@ export default function CrewManagement({ onSelectPatient }) {
   )
 }
 
-function FormGroup({ label, value, onChange, placeholder, type = 'text', required = false, icon, isDate = false, labelSize = 16 }) {
+function FormGroup({ label, value, onChange, placeholder, type = 'text', required = false, icon, labelSize = 16 }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0 }}>
       <label style={{ fontSize: labelSize, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
