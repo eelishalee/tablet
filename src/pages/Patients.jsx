@@ -58,7 +58,7 @@ export default function Patients() {
   )
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', height: 'calc(100vh - 72px)', background: '#020617', color: '#f1f5f9', overflow: 'hidden', fontFamily: '"Pretendard", sans-serif' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', height: 'calc(100vh - 56px)', background: '#020617', color: '#f1f5f9', overflow: 'hidden', fontFamily: '"Pretendard", sans-serif' }}>
       
       {/* ── 좌측 환자 리스트 영역 ── */}
       <div style={{ borderRight: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', background: '#030816' }}>

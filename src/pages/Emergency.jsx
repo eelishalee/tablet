@@ -279,7 +279,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
       { label: '전혀 반응이 없나요?', desc: '무반응', action: '심폐소생술', color: '#ef4444' },
     ]
     return (
-      <div style={{ height: 'calc(100vh - 72px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <div style={{ height: 'calc(100vh - 56px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 32, border: '1px solid rgba(255,255,255,0.1)' }}><Brain size={50} color="#38bdf8"/></div>
         <h1 style={{ fontSize: 48, fontWeight: 950, color: '#fff', marginBottom: 12, letterSpacing: '-1.5px' }}>환자의 현재 의식 수준을 판별하십시오</h1>
         <p style={{ fontSize: 20, color: '#64748b', fontWeight: 600, marginBottom: 48 }}>AI 가이드 활성화를 위한 첫 번째 단계입니다.</p>
@@ -299,7 +299,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
   // 2. 처치 완료 요약 화면 (SUMMARY)
   if (triageStep === 'SUMMARY') {
     return (
-      <div style={{ height: 'calc(100vh - 72px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+      <div style={{ height: 'calc(100vh - 56px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <div style={{ maxWidth: 850, width: '100%', background: 'rgba(2, 12, 27, 0.9)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 32, padding: 48, position: 'relative', overflow: 'hidden', boxShadow: '0 30px 60px -12px rgba(0,0,0,0.6)' }}>
           
           {/* 흐르는 빛 효과 애니메이션 레이어 */}
@@ -388,7 +388,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
   const stepImage = currentActionData?.steps[activeDisplayIndex]?.stepImage || currentActionData?.image
 
   return (
-    <div style={{ height: 'calc(100vh - 72px)', width: '100%', background: '#020617', color: '#fff', position: 'relative', overflow: 'hidden', fontFamily: '"Pretendard", sans-serif' }}>
+    <div style={{ height: 'calc(100vh - 56px)', width: '100%', background: '#020617', color: '#fff', position: 'relative', overflow: 'hidden', fontFamily: '"Pretendard", sans-serif' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(circle at center, transparent 0%, #020617 98%)' }} />
 
       {/* 상단 긴급 브리핑 바 */}

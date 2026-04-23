@@ -12,20 +12,20 @@ const NAV = [
 export default function Layout({ activePage, onNavigate, auth, onLogout, isOnline = true }) {
   return (
     <header style={{
-      height: 72,
+      height: 56,
       background: 'var(--navy-950)',
       borderBottom: '1px solid var(--border)',
       display: 'flex',
       alignItems: 'center',
-      padding: '0 32px',
+      padding: '0 20px',
       gap: 0,
       flexShrink: 0,
       zIndex: 50,
     }}>
       {/* Logo */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginRight: 48, flexShrink: 0 }}>
-        <img src={logoImg} alt="Logo" style={{ width: 42, height: 42, objectFit: 'contain' }} />
-        <span style={{ fontSize: 24, fontWeight: 950, color: '#fff', letterSpacing: '-0.8px' }}>MDTS</span>
+        <img src={logoImg} alt="Logo" style={{ width: 34, height: 34, objectFit: 'contain' }} />
+        <span style={{ fontSize: 18, fontWeight: 950, color: '#fff', letterSpacing: '-0.8px' }}>MDTS</span>
       </div>
 
       {/* Nav tabs */}
@@ -37,12 +37,12 @@ export default function Layout({ activePage, onNavigate, auth, onLogout, isOnlin
               key={id}
               onClick={() => onNavigate(id)}
               style={{
-                padding: '0 32px',
+                padding: '0 20px',
                 height: '100%',
                 border: 'none', cursor: 'pointer',
                 background: active ? 'rgba(13,217,197,0.1)' : 'transparent',
                 color: active ? 'var(--teal-400)' : 'var(--text-secondary)',
-                fontSize: 28, fontWeight: active ? 950 : 500,
+                fontSize: 15, fontWeight: active ? 700 : 500,
                 transition: 'all 0.15s',
                 position: 'relative',
                 display: 'flex', alignItems: 'center', gap: 10,

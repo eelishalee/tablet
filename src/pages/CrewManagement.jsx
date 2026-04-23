@@ -81,7 +81,7 @@ export default function CrewManagement({ onSelectPatient }) {
   })
 
   return (
-    <div style={{ padding: '30px 40px', display: 'flex', flexDirection: 'column', gap: 24, height: 'calc(100vh - 72px)', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ padding: '30px 40px', display: 'flex', flexDirection: 'column', gap: 24, height: 'calc(100vh - 56px)', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', overflow: 'hidden', position: 'relative' }}>
       
       {/* 상단 헤더 섹션 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>

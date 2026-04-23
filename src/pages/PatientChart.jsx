@@ -30,7 +30,7 @@ export default function PatientChart({ patient: activePatientProp }) {
     : patientData;
 
   return (
-    <div style={{ padding: '0', height: 'calc(100vh - 72px)', overflow: 'auto', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif' }}>
+    <div style={{ padding: '0', height: 'calc(100vh - 56px)', overflow: 'auto', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif' }}>
       
       {/* 상단 고정 헤더 : 환자 선택 셀렉터 및 요약 */}
       <div style={{ position: 'sticky', top: 0, zIndex: 10, background: 'rgba(7, 15, 30, 0.95)', backdropFilter: 'blur(15px)', borderBottom: `1px solid ${patient.isEmergency ? '#ff4d6d40' : 'rgba(13,217,197,0.2)'}`, padding: '20px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

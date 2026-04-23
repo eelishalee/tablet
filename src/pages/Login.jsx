@@ -36,13 +36,13 @@ export default function Login({ onLogin }) {
           </div>
 
           <div style={{ marginBottom: '40px' }}>
-            <h1 style={{ fontSize: '56px', fontWeight: '950', lineHeight: '1.2', letterSpacing: '-2px', margin: 0, color: '#fff' }}>
+            <h1 style={{ fontSize: '38px', fontWeight: '950', lineHeight: '1.2', letterSpacing: '-1.5px', margin: 0, color: '#fff' }}>
               선박용 엣지 AI<br />
               <span style={{
-                fontSize: '56px', // 크기 명시적 일치
+                fontSize: '38px',
                 background: 'linear-gradient(90deg, #39ff6a 0%, #00ffcc 55%, #00e5ff 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                display: 'inline-block' // 그라데이션 렌더링 최적화
+                display: 'inline-block'
               }}>
                 응급진단 및 처치 가이드 KIT
               </span>
@@ -57,7 +57,7 @@ export default function Login({ onLogin }) {
         </div>
 
         {/* 우측 로그인 카드 섹션 (흐르는 빛 효과 구현) */}
-        <div style={{ width: '460px', position: 'relative' }}>
+        <div style={{ width: '380px', position: 'relative' }}>
           <div style={{ 
             position: 'relative', padding: '1.5px', borderRadius: '28px', 
             background: 'rgba(0, 229, 200, 0.1)', overflow: 'hidden' 
