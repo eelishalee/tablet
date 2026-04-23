@@ -102,7 +102,7 @@ export default function PatientChart({ patient: activePatientProp }) {
         </div>
       </div>
 
-      <div style={{ padding: '40px', display: 'grid', gridTemplateColumns: '350px 1fr', gap: 30 }}>
+      <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '280px 1fr', gap: 20 }}>
         
         {/* 왼쪽 사이드바 : 환자 기본 의료 정보 (정적 정보) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>

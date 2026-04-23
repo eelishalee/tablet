@@ -149,7 +149,7 @@ export default function Patients() {
             </div>
 
             {/* 3컬럼 메인 그리드 */}
-            <div style={{ display: 'grid', gridTemplateColumns: '400px 1fr 340px', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr 260px', gap: 14 }}>
               
               {/* 1. 바이탈 수치 */}
               <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 24, padding: '20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
@@ -236,7 +236,7 @@ export default function Patients() {
             {/* 히스토리 */}
             <div style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(255,255,255,0.04)', borderRadius: 24, padding: 24 }}>
               <h3 style={{ fontSize: 18, fontWeight: 900, marginBottom: 20 }}>MEDICAL TIMELINE</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 16 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
                 {selected.history.map((h, i) => (
                   <div key={i} style={{ padding: '16px 20px', borderRadius: 16, background: 'rgba(255,255,255,0.02)', display: 'flex', gap: 16 }}>
                     <AlertCircle size={20} color={h.type === '응급' ? '#ef4444' : '#38bdf8'} />

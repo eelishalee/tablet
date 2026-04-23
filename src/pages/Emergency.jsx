@@ -281,7 +281,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
     return (
       <div style={{ height: 'calc(100vh - 56px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 32, border: '1px solid rgba(255,255,255,0.1)' }}><Brain size={50} color="#38bdf8"/></div>
-        <h1 style={{ fontSize: 48, fontWeight: 950, color: '#fff', marginBottom: 12, letterSpacing: '-1.5px' }}>환자의 현재 의식 수준을 판별하십시오</h1>
+        <h1 style={{ fontSize: 32, fontWeight: 950, color: '#fff', marginBottom: 12, letterSpacing: '-1px' }}>환자의 현재 의식 수준을 판별하십시오</h1>
         <p style={{ fontSize: 20, color: '#64748b', fontWeight: 600, marginBottom: 48 }}>AI 가이드 활성화를 위한 첫 번째 단계입니다.</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 1000, width: '100%' }}>
           {triageData.map((t, i) => (
@@ -321,7 +321,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                 <div style={{ padding: '6px 12px', background: 'rgba(34,197,94,0.15)', color: '#22c55e', borderRadius: 8, fontSize: 13, fontWeight: 900, border: '1px solid rgba(34,197,94,0.3)' }}>SESSION COMPLETED</div>
                 <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700 }}>종료 시각 : {new Date().toLocaleTimeString()}</div>
               </div>
-              <h2 style={{ fontSize: 42, fontWeight: 950, color: '#fff', letterSpacing: '-1px' }}>응급 처치 세션 종료 보고</h2>
+              <h2 style={{ fontSize: 28, fontWeight: 950, color: '#fff', letterSpacing: '-0.5px' }}>응급 처치 세션 종료 보고</h2>
             </div>
             <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #22c55e', boxShadow: '0 0 20px rgba(34,197,94,0.2)' }}>
               <Check size={44} color="#22c55e" strokeWidth={3}/>
@@ -407,7 +407,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
         </div>
       )}
 
-      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '480px 1fr 440px', gridTemplateRows: '1fr 110px', gap: '10px', padding: '10px', height: selectedTriage ? 'calc(100% - 49px)' : '100%', boxSizing: 'border-box' }}>
+      <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '360px 1fr 340px', gridTemplateRows: '1fr 90px', gap: '10px', padding: '10px', height: selectedTriage ? 'calc(100% - 49px)' : '100%', boxSizing: 'border-box' }}>
         
         <section style={{ gridRow: '1', display: 'flex', flexDirection: 'column' }}>
           <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
@@ -441,7 +441,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                     <div style={{ background: currentActionData.color, color: '#000', padding: '4px 12px', borderRadius: 8, fontSize: 14, fontWeight: 950 }}>RISK LEVEL {currentActionData.riskLevel}</div>
                     <div style={{ color: currentActionData.color, fontSize: 18, fontWeight: 800 }}>AI 진단 : {currentActionData.diagnosis}</div>
                   </div>
-                  <h2 style={{ fontSize: 52, fontWeight: 950, letterSpacing: '-2px', margin: 0 }}>{currentActionData.title}</h2>
+                  <h2 style={{ fontSize: 32, fontWeight: 950, letterSpacing: '-1px', margin: 0 }}>{currentActionData.title}</h2>
                 </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 24 }}>
@@ -459,7 +459,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                   <div key={i} onClick={() => handleStepToggle(i)} onMouseEnter={() => setHoveredStepIndex(i)} onMouseLeave={() => setHoveredStepIndex(null)} style={{ display: 'flex', gap: 20, padding: '20px 24px', borderRadius: 24, cursor: 'pointer', background: completedSteps.includes(i) ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `2px solid ${completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.06)'}`, transition: '0.2s' }}>
                     <div style={{ width: 44, height: 44, borderRadius: '50%', background: completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.1)', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: 24, flexShrink: 0, color: completedSteps.includes(i) ? '#000' : '#fff', display: 'flex' }}>{i+1}</div>
                     <div>
-                      <div style={{ fontSize: 30, fontWeight: 950, marginBottom: 4, color: completedSteps.includes(i) ? '#fff' : '#e2e8f0', letterSpacing: '-1px' }}>{step.title}</div>
+                      <div style={{ fontSize: 18, fontWeight: 950, marginBottom: 4, color: completedSteps.includes(i) ? '#fff' : '#e2e8f0', letterSpacing: '-0.5px' }}>{step.title}</div>
                       <div style={{ fontSize: 22, color: completedSteps.includes(i) ? '#fff' : '#94a3b8', fontWeight: 600, lineHeight: 1.4 }}>{step.desc}</div>
                     </div>
                   </div>
@@ -487,7 +487,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
           ) : (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 20 }}>
               <div style={{ width: 120, height: 120, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}><AlertTriangle size={70} color="#ef4444"/></div>
-              <h2 style={{ fontSize: 48, fontWeight: 950, marginBottom: 12 }}>비의료인 자율 대응 모드</h2>
+              <h2 style={{ fontSize: 30, fontWeight: 950, marginBottom: 12 }}>비의료인 자율 대응 모드</h2>
               <p style={{ fontSize: 26, color: '#94a3b8', fontWeight: 700, maxWidth: 650, lineHeight: 1.5 }}>환자의 의식 수준 판별을 통해<br/>적절한 응급처치 가이드를 활성화하십시오.</p>
             </div>
           )}
