@@ -33,7 +33,7 @@ export default function PatientChart({ patient: activePatientProp }) {
     <div style={{ padding: '0', height: 'calc(100vh - 56px)', overflow: 'auto', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif' }}>
       
       {/* 상단 고정 헤더 : 환자 선택 셀렉터 및 요약 */}
-      <div style={{ position: 'sticky', top: 0, zIndex: 10, background: 'rgba(7, 15, 30, 0.95)', backdropFilter: 'blur(15px)', borderBottom: `1px solid ${patient.isEmergency ? '#ff4d6d40' : 'rgba(13,217,197,0.2)'}`, padding: '20px 40px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <div style={{ position: 'sticky', top: 0, zIndex: 10, background: 'rgba(7, 15, 30, 0.95)', backdropFilter: 'blur(15px)', borderBottom: `1px solid ${patient.isEmergency ? '#ff4d6d40' : 'rgba(13,217,197,0.2)'}`, padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
           {/* 환자 선택 셀렉트 박스 */}
           <div style={{ position: 'relative', minWidth: '320px' }}>
@@ -46,7 +46,7 @@ export default function PatientChart({ patient: activePatientProp }) {
               style={{ 
                 width: '100%', padding: '14px 40px 14px 50px', background: patient.isEmergency ? 'rgba(255,77,109,0.08)' : 'rgba(13,217,197,0.05)', 
                 border: `2px solid ${patient.isEmergency ? '#ff4d6d' : 'rgba(13,217,197,0.3)'}`, borderRadius: '16px', color: '#fff', 
-                fontSize: '20px', fontWeight: 900, outline: 'none', cursor: 'pointer', appearance: 'none',
+                fontSize: '14px', fontWeight: 900, outline: 'none', cursor: 'pointer', appearance: 'none',
                 boxShadow: patient.isEmergency ? '0 4px 20px rgba(255,77,109,0.2)' : '0 4px 15px rgba(0,0,0,0.2)',
                 transition: '0.3s'
               }}
@@ -69,7 +69,7 @@ export default function PatientChart({ patient: activePatientProp }) {
               width: 50, height: 50, borderRadius: 15, 
               background: patient.isEmergency ? 'rgba(255,77,109,0.15)' : 'rgba(13,217,197,0.1)', 
               display: 'flex', alignItems: 'center', justifyContent: 'center', 
-              fontSize: 22, fontWeight: 950, 
+              fontSize: 16, fontWeight: 950,
               color: patient.isEmergency ? '#ff4d6d' : '#0dd9c5', 
               border: `1px solid ${patient.isEmergency ? '#ff4d6d40' : 'rgba(13,217,197,0.2)'}`,
               animation: patient.isEmergency ? 'pulse-red 2s infinite' : 'none'
@@ -78,7 +78,7 @@ export default function PatientChart({ patient: activePatientProp }) {
             </div>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ fontSize: '24px', fontWeight: 950, color: '#fff' }}>{patient.name}</div>
+                <div style={{ fontSize: '18px', fontWeight: 950, color: '#fff' }}>{patient.name}</div>
                 {patient.isEmergency && (
                   <span style={{ 
                     background: '#ff4d6d', color: '#fff', padding: '2px 10px', borderRadius: '6px', 
@@ -105,7 +105,7 @@ export default function PatientChart({ patient: activePatientProp }) {
       <div style={{ padding: '20px 24px', display: 'grid', gridTemplateColumns: '280px 1fr', gap: 20 }}>
         
         {/* 왼쪽 사이드바 : 환자 기본 의료 정보 (정적 정보) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <StaticInfoCard title="기본 인적사항" icon={<Info size={20}/>}>
             <InfoRow label="생년월일" value={patient.dob} />
             <InfoRow label="신장/체중" value={`${patient.height}cm / ${patient.weight}kg`} />
@@ -126,7 +126,7 @@ export default function PatientChart({ patient: activePatientProp }) {
         </div>
 
         {/* 메인 차트 영역 : SOAP 기반 기록 (동적 정보) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           
           {/* S: 주관적 기록 (선원용 질문) */}
           <ChartSection title="STEP 1. 환자 증상 파악 (Subjective)" sub="환자가 어디가 어떻게 아프다고 하나요?" icon={<Stethoscope size={24}/>}>

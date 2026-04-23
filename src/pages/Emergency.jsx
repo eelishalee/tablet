@@ -280,14 +280,14 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
     ]
     return (
       <div style={{ height: 'calc(100vh - 56px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-        <div style={{ width: 100, height: 100, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 32, border: '1px solid rgba(255,255,255,0.1)' }}><Brain size={50} color="#38bdf8"/></div>
-        <h1 style={{ fontSize: 32, fontWeight: 950, color: '#fff', marginBottom: 12, letterSpacing: '-1px' }}>환자의 현재 의식 수준을 판별하십시오</h1>
-        <p style={{ fontSize: 20, color: '#64748b', fontWeight: 600, marginBottom: 48 }}>AI 가이드 활성화를 위한 첫 번째 단계입니다.</p>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, maxWidth: 1000, width: '100%' }}>
+        <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, border: '1px solid rgba(255,255,255,0.1)' }}><Brain size={36} color="#38bdf8"/></div>
+        <h1 style={{ fontSize: 22, fontWeight: 950, color: '#fff', marginBottom: 8, letterSpacing: '-0.5px' }}>환자의 현재 의식 수준을 판별하십시오</h1>
+        <p style={{ fontSize: 14, color: '#64748b', fontWeight: 600, marginBottom: 28 }}>AI 가이드 활성화를 위한 첫 번째 단계입니다.</p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, maxWidth: 800, width: '100%' }}>
           {triageData.map((t, i) => (
-            <button key={i} onClick={() => handleTriageSelect(t)} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 28, padding: 32, cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s ease' }} className="triage-btn">
-              <div style={{ fontSize: 24, fontWeight: 950, color: '#fff', marginBottom: 8 }}>{t.label}</div>
-              <div style={{ fontSize: 20, color: t.color, fontWeight: 800 }}>• {t.desc}</div>
+            <button key={i} onClick={() => handleTriageSelect(t)} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 18, padding: '18px 20px', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s ease' }} className="triage-btn">
+              <div style={{ fontSize: 16, fontWeight: 950, color: '#fff', marginBottom: 6 }}>{t.label}</div>
+              <div style={{ fontSize: 13, color: t.color, fontWeight: 800 }}>• {t.desc}</div>
             </button>
           ))}
         </div>
@@ -300,7 +300,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
   if (triageStep === 'SUMMARY') {
     return (
       <div style={{ height: 'calc(100vh - 56px)', background: '#020617', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-        <div style={{ maxWidth: 850, width: '100%', background: 'rgba(2, 12, 27, 0.9)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 32, padding: 48, position: 'relative', overflow: 'hidden', boxShadow: '0 30px 60px -12px rgba(0,0,0,0.6)' }}>
+        <div style={{ maxWidth: 800, width: '100%', background: 'rgba(2, 12, 27, 0.9)', backdropFilter: 'blur(24px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '24px 28px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px -12px rgba(0,0,0,0.6)' }}>
           
           {/* 흐르는 빛 효과 애니메이션 레이어 */}
           <div style={{ 
@@ -315,65 +315,61 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
 
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 6, background: 'linear-gradient(90deg, #38bdf8, #22c55e)', zIndex: 2 }} />
           
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 40, position: 'relative', zIndex: 2 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20, position: 'relative', zIndex: 2 }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
-                <div style={{ padding: '6px 12px', background: 'rgba(34,197,94,0.15)', color: '#22c55e', borderRadius: 8, fontSize: 13, fontWeight: 900, border: '1px solid rgba(34,197,94,0.3)' }}>SESSION COMPLETED</div>
-                <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700 }}>종료 시각 : {new Date().toLocaleTimeString()}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                <div style={{ padding: '4px 10px', background: 'rgba(34,197,94,0.15)', color: '#22c55e', borderRadius: 6, fontSize: 11, fontWeight: 900, border: '1px solid rgba(34,197,94,0.3)' }}>SESSION COMPLETED</div>
+                <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700 }}>종료 시각 : {new Date().toLocaleTimeString()}</div>
               </div>
-              <h2 style={{ fontSize: 28, fontWeight: 950, color: '#fff', letterSpacing: '-0.5px' }}>응급 처치 세션 종료 보고</h2>
+              <h2 style={{ fontSize: 20, fontWeight: 950, color: '#fff', letterSpacing: '-0.5px' }}>응급 처치 세션 종료 보고</h2>
             </div>
-            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #22c55e', boxShadow: '0 0 20px rgba(34,197,94,0.2)' }}>
-              <Check size={44} color="#22c55e" strokeWidth={3}/>
+            <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(34,197,94,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #22c55e', flexShrink: 0 }}>
+              <Check size={28} color="#22c55e" strokeWidth={3}/>
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 40, position: 'relative', zIndex: 2 }}>
-            <div style={{ background: 'rgba(255,255,255,0.04)', padding: 32, borderRadius: 24, border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div style={{ fontSize: 16, color: '#94a3b8', fontWeight: 800, marginBottom: 20 }}>처치 결과 요약</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>대상 선원</span>
-                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{patient?.name} ({patient?.role})</span>
-                </div>
-                
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>처치 내용</span>
-                  <span style={{ fontWeight: 800, color: '#38bdf8', fontSize: 22 }}>{activeAction || '상태 판별'}</span>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>시작 시각</span>
-                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{startTime.toLocaleTimeString('ko-KR', {hour12:false})}</span>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>종료 시각</span>
-                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{endTime?.toLocaleTimeString('ko-KR', {hour12:false})}</span>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
-                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>소요 시간</span>
-                  <span style={{ fontWeight: 900, color: '#38bdf8', fontSize: 26 }}>{getDuration()}</span>
-                </div>
-              </div>
-            </div>
-            <div style={{ background: 'rgba(56,189,248,0.06)', padding: 24, borderRadius: 24, border: '1px solid rgba(56,189,248,0.2)' }}>
-              <div style={{ fontSize: 15, color: '#38bdf8', fontWeight: 800, marginBottom: 16 }}>AI 후속 지침</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 20, position: 'relative', zIndex: 2 }}>
+            <div style={{ background: 'rgba(255,255,255,0.04)', padding: '16px', borderRadius: 16, border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={{ fontSize: 13, color: '#94a3b8', fontWeight: 800, marginBottom: 12 }}>처치 결과 요약</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>환자 상태 안정 시까지 바이탈을 지속적으로 모니터링하십시오.</span></div>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>2차 감염 방지를 위해 외상 부위를 보호하고 체온을 유지하십시오.</span></div>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>환자의 의식 변화와 추가 증상을 상세히 기록하여 보존하십시오.</span></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>대상 선원</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 13 }}>{patient?.name} ({patient?.role})</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 10 }}>
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>처치 내용</span>
+                  <span style={{ fontWeight: 800, color: '#38bdf8', fontSize: 13 }}>{activeAction || '상태 판별'}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 10 }}>
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>시작 시각</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 13 }}>{startTime.toLocaleTimeString('ko-KR', {hour12:false})}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 10 }}>
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>종료 시각</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 13 }}>{endTime?.toLocaleTimeString('ko-KR', {hour12:false})}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 10 }}>
+                  <span style={{ color: '#64748b', fontSize: 13, fontWeight: 700 }}>소요 시간</span>
+                  <span style={{ fontWeight: 900, color: '#38bdf8', fontSize: 18 }}>{getDuration()}</span>
+                </div>
+              </div>
+            </div>
+            <div style={{ background: 'rgba(56,189,248,0.06)', padding: '16px', borderRadius: 16, border: '1px solid rgba(56,189,248,0.2)' }}>
+              <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 800, marginBottom: 12 }}>AI 후속 지침</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ display: 'flex', gap: 8, fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={14} color="#38bdf8" style={{flexShrink:0, marginTop:1}}/> <span>환자 상태 안정 시까지 바이탈을 지속적으로 모니터링하십시오.</span></div>
+                <div style={{ display: 'flex', gap: 8, fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={14} color="#38bdf8" style={{flexShrink:0, marginTop:1}}/> <span>2차 감염 방지를 위해 외상 부위를 보호하고 체온을 유지하십시오.</span></div>
+                <div style={{ display: 'flex', gap: 8, fontSize: 13, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={14} color="#38bdf8" style={{flexShrink:0, marginTop:1}}/> <span>환자의 의식 변화와 추가 증상을 상세히 기록하여 보존하십시오.</span></div>
               </div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: 16, position: 'relative', zIndex: 2 }}>
-            <button onClick={handleResetSession} style={{ flex: 1, padding: '20px', borderRadius: 16, background: '#fff', color: '#000', border: 'none', fontWeight: 950, fontSize: 19, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, boxShadow: '0 10px 20px rgba(255,255,255,0.1)' }}>
-              <RefreshCw size={20}/> 새로운 처치 시작
+          <div style={{ display: 'flex', gap: 12, position: 'relative', zIndex: 2 }}>
+            <button onClick={handleResetSession} style={{ flex: 1, padding: '14px', borderRadius: 12, background: '#fff', color: '#000', border: 'none', fontWeight: 950, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <RefreshCw size={16}/> 새로운 처치 시작
             </button>
-            <button onClick={() => onNavigate('main')} style={{ flex: 1, padding: '20px', borderRadius: 16, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', fontWeight: 950, fontSize: 19, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
-              <LayoutDashboard size={20}/> 메인 대시보드로 복귀
+            <button onClick={() => onNavigate('main')} style={{ flex: 1, padding: '14px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', fontWeight: 950, fontSize: 14, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <LayoutDashboard size={16}/> 메인 대시보드로 복귀
             </button>
           </div>
         </div>
@@ -411,15 +407,15 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
         
         <section style={{ gridRow: '1', display: 'flex', flexDirection: 'column' }}>
           <div style={{ flex: 1, background: 'rgba(255,255,255,0.02)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-              <div style={{ fontSize: 18, fontWeight: 950 }}>처치 동작 시각 가이드</div>
+            <div style={{ padding: '10px 14px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <div style={{ fontSize: 13, fontWeight: 950 }}>처치 동작 시각 가이드</div>
             </div>
             <div style={{ flex: 1, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
               {activeAction === '심폐소생술' && stepImage ? (
                 <img src={stepImage} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="SOP" />
               ) : (
                 <div style={{ textAlign: 'center', color: '#64748b' }}>
-                  <div style={{ fontSize: 22, fontWeight: 950, color: '#38bdf8' }}>{activeAction} 일러스트 준비 중</div>
+                  <div style={{ fontSize: 14, fontWeight: 950, color: '#38bdf8' }}>{activeAction} 일러스트 준비 중</div>
                 </div>
               )}
               {activeAction === '심폐소생술' && stepNum >= 3 && (
@@ -434,32 +430,32 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
 
         <section style={{ gridRow: '1', display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
           {activeAction ? (
-            <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 24, border: '1px solid rgba(255,255,255,0.05)', padding: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+            <div style={{ background: 'rgba(255,255,255,0.02)', borderRadius: 16, border: '1px solid rgba(255,255,255,0.05)', padding: '14px 16px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                 <div>
-                  <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 8 }}>
-                    <div style={{ background: currentActionData.color, color: '#000', padding: '4px 12px', borderRadius: 8, fontSize: 14, fontWeight: 950 }}>RISK LEVEL {currentActionData.riskLevel}</div>
-                    <div style={{ color: currentActionData.color, fontSize: 18, fontWeight: 800 }}>AI 진단 : {currentActionData.diagnosis}</div>
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 6 }}>
+                    <div style={{ background: currentActionData.color, color: '#000', padding: '3px 10px', borderRadius: 6, fontSize: 11, fontWeight: 950 }}>RISK LEVEL {currentActionData.riskLevel}</div>
+                    <div style={{ color: currentActionData.color, fontSize: 13, fontWeight: 800 }}>AI 진단 : {currentActionData.diagnosis}</div>
                   </div>
-                  <h2 style={{ fontSize: 32, fontWeight: 950, letterSpacing: '-1px', margin: 0 }}>{currentActionData.title}</h2>
+                  <h2 style={{ fontSize: 20, fontWeight: 950, letterSpacing: '-0.5px', margin: 0 }}>{currentActionData.title}</h2>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 24 }}>
-                <div style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 20, padding: 18 }}>
-                  <div style={{ color: '#22c55e', fontSize: 20, fontWeight: 900, marginBottom: 10 }}>권고 사항</div>
-                  {currentActionData.dos.map((d, i) => <div key={i} style={{ fontSize: 20, fontWeight: 700, marginBottom: 6, color: '#e2e8f0' }}>• {d}</div>)}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 14 }}>
+                <div style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 12, padding: '10px 12px' }}>
+                  <div style={{ color: '#22c55e', fontSize: 13, fontWeight: 900, marginBottom: 8 }}>권고 사항</div>
+                  {currentActionData.dos.map((d, i) => <div key={i} style={{ fontSize: 13, fontWeight: 700, marginBottom: 4, color: '#e2e8f0' }}>• {d}</div>)}
                 </div>
-                <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid #ef4444', borderRadius: 20, padding: 18 }}>
-                  <div style={{ color: '#ef4444', fontSize: 20, fontWeight: 900, marginBottom: 10 }}>절대 금기</div>
-                  {currentActionData.donts.map((d, i) => <div key={i} style={{ fontSize: 20, fontWeight: 800, color: '#fff', marginBottom: 6 }}>• {d}</div>)}
+                <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid #ef4444', borderRadius: 12, padding: '10px 12px' }}>
+                  <div style={{ color: '#ef4444', fontSize: 13, fontWeight: 900, marginBottom: 8 }}>절대 금기</div>
+                  {currentActionData.donts.map((d, i) => <div key={i} style={{ fontSize: 13, fontWeight: 800, color: '#fff', marginBottom: 4 }}>• {d}</div>)}
                 </div>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {currentActionData.steps.map((step, i) => (
-                  <div key={i} onClick={() => handleStepToggle(i)} onMouseEnter={() => setHoveredStepIndex(i)} onMouseLeave={() => setHoveredStepIndex(null)} style={{ display: 'flex', gap: 20, padding: '20px 24px', borderRadius: 24, cursor: 'pointer', background: completedSteps.includes(i) ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `2px solid ${completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.06)'}`, transition: '0.2s' }}>
+                  <div key={i} onClick={() => handleStepToggle(i)} onMouseEnter={() => setHoveredStepIndex(i)} onMouseLeave={() => setHoveredStepIndex(null)} style={{ display: 'flex', gap: 12, padding: '12px 14px', borderRadius: 14, cursor: 'pointer', background: completedSteps.includes(i) ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `2px solid ${completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.06)'}`, transition: '0.2s' }}>
                     <div style={{ width: 44, height: 44, borderRadius: '50%', background: completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.1)', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: 24, flexShrink: 0, color: completedSteps.includes(i) ? '#000' : '#fff', display: 'flex' }}>{i+1}</div>
                     <div>
-                      <div style={{ fontSize: 18, fontWeight: 950, marginBottom: 4, color: completedSteps.includes(i) ? '#fff' : '#e2e8f0', letterSpacing: '-0.5px' }}>{step.title}</div>
+                      <div style={{ fontSize: 13, fontWeight: 950, marginBottom: 3, color: completedSteps.includes(i) ? '#fff' : '#e2e8f0' }}>{step.title}</div>
                       <div style={{ fontSize: 22, color: completedSteps.includes(i) ? '#fff' : '#94a3b8', fontWeight: 600, lineHeight: 1.4 }}>{step.desc}</div>
                     </div>
                   </div>
@@ -487,7 +483,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
           ) : (
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: 20 }}>
               <div style={{ width: 120, height: 120, borderRadius: '50%', background: 'rgba(239,68,68,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}><AlertTriangle size={70} color="#ef4444"/></div>
-              <h2 style={{ fontSize: 30, fontWeight: 950, marginBottom: 12 }}>비의료인 자율 대응 모드</h2>
+              <h2 style={{ fontSize: 18, fontWeight: 950, marginBottom: 8 }}>비의료인 자율 대응 모드</h2>
               <p style={{ fontSize: 26, color: '#94a3b8', fontWeight: 700, maxWidth: 650, lineHeight: 1.5 }}>환자의 의식 수준 판별을 통해<br/>적절한 응급처치 가이드를 활성화하십시오.</p>
             </div>
           )}

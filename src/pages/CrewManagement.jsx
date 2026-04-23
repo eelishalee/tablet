@@ -31,11 +31,11 @@ const INITIAL_CREW = [
 ]
 
 const TABS = [
-  { id: 'ALL', label: '전체 선원', icon: <Users size={20}/> },
-  { id: 'EMERGENCY', label: '응급 환자', icon: <ShieldAlert size={20}/>, color: '#ef4444' },
-  { id: '항해부', label: '항해부', icon: <Anchor size={20}/>, color: '#38bdf8' },
-  { id: '기관부', label: '기관부', icon: <Cog size={20}/>, color: '#fb923c' },
-  { id: '지원부', label: '조리/지원', icon: <Coffee size={20}/>, color: '#2dd4bf' },
+  { id: 'ALL', label: '전체 선원', icon: <Users size={14}/> },
+  { id: 'EMERGENCY', label: '응급 환자', icon: <ShieldAlert size={14}/>, color: '#ef4444' },
+  { id: '항해부', label: '항해부', icon: <Anchor size={14}/>, color: '#38bdf8' },
+  { id: '기관부', label: '기관부', icon: <Cog size={14}/>, color: '#fb923c' },
+  { id: '지원부', label: '조리/지원', icon: <Coffee size={14}/>, color: '#2dd4bf' },
 ]
 
 export default function CrewManagement({ onSelectPatient }) {
@@ -81,46 +81,46 @@ export default function CrewManagement({ onSelectPatient }) {
   })
 
   return (
-    <div style={{ padding: '30px 40px', display: 'flex', flexDirection: 'column', gap: 24, height: 'calc(100vh - 56px)', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', overflow: 'hidden', position: 'relative' }}>
+    <div style={{ padding: '14px 20px', display: 'flex', flexDirection: 'column', gap: 12, height: 'calc(100vh - 56px)', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif', overflow: 'hidden', position: 'relative' }}>
       
       {/* 상단 헤더 섹션 */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-            <Users size={24} color="#0dd9c5" />
-            <h1 style={{ fontSize: '30px', fontWeight: 950, margin: 0, letterSpacing: '-1px' }}>선원 통합 관리 시스템</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 2 }}>
+            <Users size={18} color="#0dd9c5" />
+            <h1 style={{ fontSize: '20px', fontWeight: 950, margin: 0, letterSpacing: '-0.5px' }}>선원 통합 관리 시스템</h1>
           </div>
-          <p style={{ fontSize: '15px', color: '#64748b', fontWeight: 700, marginLeft: 36 }}>MV KOREA STAR 소속 선원 명부 (총 {crew.length}명 관리 중)</p>
+          <p style={{ fontSize: '13px', color: '#64748b', fontWeight: 700, marginLeft: 28 }}>MV KOREA STAR 소속 선원 명부 (총 {crew.length}명 관리 중)</p>
         </div>
         
-        <button onClick={() => setIsAdding(true)} style={{ padding: '0 24px', height: '52px', background: 'linear-gradient(135deg, #0dd9c5 0%, #00a896 100%)', border: 'none', borderRadius: '16px', cursor: 'pointer', color: '#020617', fontSize: '16px', fontWeight: 950, display: 'flex', alignItems: 'center', gap: 8, boxShadow: '0 10px 25px rgba(13,217,197,0.2)', transition: '0.3s' }} className="add-btn">
-          <Plus size={20} strokeWidth={3} /> 신규 선원 등록
+        <button onClick={() => setIsAdding(true)} style={{ padding: '0 18px', height: '40px', background: 'linear-gradient(135deg, #0dd9c5 0%, #00a896 100%)', border: 'none', borderRadius: '12px', cursor: 'pointer', color: '#020617', fontSize: '13px', fontWeight: 950, display: 'flex', alignItems: 'center', gap: 6, boxShadow: '0 6px 16px rgba(13,217,197,0.2)', transition: '0.3s', flexShrink: 0 }} className="add-btn">
+          <Plus size={16} strokeWidth={3} /> 신규 선원 등록
         </button>
       </div>
 
       {/* 필터 및 검색 바 */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexShrink: 0 }}>
-        <div style={{ display: 'flex', gap: 10 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexShrink: 0 }}>
+        <div style={{ display: 'flex', gap: 6 }}>
           {TABS.map(tab => {
             const active = activeTab === tab.id
             const count = crew.filter(c => tab.id === 'ALL' ? true : tab.id === 'EMERGENCY' ? c.isEmergency : c.dept === tab.id).length
             const tabColor = tab.color || '#0dd9c5'
             return (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 24px', borderRadius: '18px', background: active ? `${tabColor}15` : 'rgba(255,255,255,0.02)', border: `2.5px solid ${active ? tabColor : 'transparent'}`, color: active ? tabColor : '#475569', fontSize: '16px', fontWeight: 900, cursor: 'pointer', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '8px 14px', borderRadius: '12px', background: active ? `${tabColor}15` : 'rgba(255,255,255,0.02)', border: `2px solid ${active ? tabColor : 'transparent'}`, color: active ? tabColor : '#475569', fontSize: '13px', fontWeight: 900, cursor: 'pointer', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', whiteSpace: 'nowrap' }}>
                 <span style={{ color: active ? tabColor : '#4a6080' }}>{tab.icon}</span> {tab.label}
-                <span style={{ marginLeft: 6, fontSize: '11px', padding: '1px 8px', borderRadius: '6px', background: active ? tabColor : 'rgba(255,255,255,0.05)', color: active ? '#020617' : '#4a6080', fontWeight: 950 }}>{count}</span>
+                <span style={{ marginLeft: 4, fontSize: '10px', padding: '1px 6px', borderRadius: '5px', background: active ? tabColor : 'rgba(255,255,255,0.05)', color: active ? '#020617' : '#4a6080', fontWeight: 950 }}>{count}</span>
               </button>
             )
           })}
         </div>
 
-        <div style={{ position: 'relative', flex: 1, maxWidth: '600px' }}>
-          <Search style={{ position: 'absolute', left: 18, top: '50%', transform: 'translateY(-50%)', color: '#4a6080' }} size={18} />
-          <input 
-            placeholder="선원 이름, 고유 ID, 담당 직책으로 검색..." 
-            value={query} 
-            onChange={e => setQuery(e.target.value)} 
-            style={{ width: '100%', padding: '14px 20px 14px 48px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '14px', color: '#fff', fontSize: '15px', outline: 'none', transition: '0.3s', boxSizing: 'border-box' }} 
+        <div style={{ position: 'relative', flex: 1, maxWidth: '400px' }}>
+          <Search style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#4a6080' }} size={15} />
+          <input
+            placeholder="선원 이름, 고유 ID, 직책으로 검색..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            style={{ width: '100%', padding: '9px 16px 9px 38px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', fontSize: '13px', outline: 'none', transition: '0.3s', boxSizing: 'border-box' }}
             className="search-input"
           />
         </div>
@@ -128,7 +128,7 @@ export default function CrewManagement({ onSelectPatient }) {
 
       {/* 등록 모달 */}
       {isAdding && (
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(2,6,23,0.85)', backdropFilter: 'blur(20px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(2,6,23,0.85)', backdropFilter: 'blur(20px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px 20px' }}>
           
           {/* 닫기 버튼 배치용 Wrapper */}
           <div style={{ position: 'relative', width: '100%', maxWidth: 1000 }}>
@@ -136,78 +136,77 @@ export default function CrewManagement({ onSelectPatient }) {
             {/* 닫기(X) 버튼 : 박스 밖 우측 상단 */}
             <button 
               onClick={() => setIsAdding(false)} 
-              style={{ position: 'absolute', top: 0, right: -70, zIndex: 110, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', cursor: 'pointer', borderRadius: '50%', padding: 12, transition: '0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }} 
+              style={{ position: 'absolute', top: 0, right: -54, zIndex: 110, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)', color: '#fff', cursor: 'pointer', borderRadius: '50%', padding: 8, transition: '0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.3)' }}
               className="modal-close-btn-outer"
             >
-              <X size={32} strokeWidth={3} />
+              <X size={22} strokeWidth={3} />
             </button>
 
             <div style={{ background: '#0a1224', border: '2px solid rgba(255,255,255,0.1)', borderRadius: 40, width: '100%', maxHeight: '82vh', overflow: 'hidden', boxShadow: '0 40px 100px rgba(0,0,0,0.7)', animation: 'modalShow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)' }}>
               {/* 스크롤 구역 */}
-              <div style={{ overflowY: 'auto', maxHeight: '82vh', padding: '40px' }} className="modal-scroll-area">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 32 }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(13,217,197,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0dd9c5' }}>
-                    <UserPlus size={36} />
+              <div style={{ overflowY: 'auto', maxHeight: '82vh', padding: '24px' }} className="modal-scroll-area">
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(13,217,197,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0dd9c5', flexShrink: 0 }}>
+                    <UserPlus size={24} />
                   </div>
                   <div>
-                    <h2 style={{ fontSize: 34, fontWeight: 950, margin: 0 }}>신규 선원 프로필 생성</h2>
-                    <p style={{ fontSize: 17, color: '#64748b', margin: '6px 0 0 0', fontWeight: 700 }}>시스템에 등록될 선원의 상세 정보를 입력해 주세요.</p>
+                    <h2 style={{ fontSize: 20, fontWeight: 950, margin: 0 }}>신규 선원 프로필 생성</h2>
+                    <p style={{ fontSize: 13, color: '#64748b', margin: '4px 0 0 0', fontWeight: 700 }}>시스템에 등록될 선원의 상세 정보를 입력해 주세요.</p>
                   </div>
                 </div>
 
-                <form onSubmit={handleAddCrew} style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
-                  {/* (폼 내용은 이전과 동일) */}
-                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '30px', borderRadius: 28, border: '1px solid rgba(255,255,255,0.04)' }}>
-                    <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 24, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 10, letterSpacing: '0.5px' }}><Users size={22}/> 기본 인적사항</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-                      <FormGroup label="선원 성명" value={newCrew.name} onChange={v => setNewCrew({...newCrew, name: v})} placeholder="실명을 입력하세요" required icon={<UserIcon size={18} color="#64748b"/>} />
-                      <FormGroup label="생년월일" type="date" value={newCrew.dob} onChange={v => setNewCrew({...newCrew, dob: v})} required icon={<Calendar size={18} color="#64748b"/>} isDate />
+                <form onSubmit={handleAddCrew} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '16px 18px', borderRadius: 18, border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ fontSize: 14, fontWeight: 900, marginBottom: 12, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '0.5px' }}><Users size={16}/> 기본 인적사항</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                      <FormGroup label="선원 성명" value={newCrew.name} onChange={v => setNewCrew({...newCrew, name: v})} placeholder="실명을 입력하세요" required icon={<UserIcon size={16} color="#64748b"/>} />
+                      <FormGroup label="생년월일" type="date" value={newCrew.dob} onChange={v => setNewCrew({...newCrew, dob: v})} required icon={<Calendar size={16} color="#64748b"/>} isDate />
                       <SelectGroup label="성별" value={newCrew.gender} onChange={v => setNewCrew({...newCrew, gender: v})} options={['남', '여']} />
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20, marginTop: 20 }}>
-                      <FormGroup label="만 나이" type="number" value={newCrew.age} onChange={v => setNewCrew({...newCrew, age: v})} placeholder="세" required labelSize={22} />
-                      <SelectGroup label="혈액형" value={newCrew.blood} onChange={v => setNewCrew({...newCrew, blood: v})} options={['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']} labelSize={22} />
-                      <FormGroup label="신장 (cm)" type="number" value={newCrew.height} onChange={v => setNewCrew({...newCrew, height: v})} placeholder="cm" icon={<Ruler size={18} color="#64748b"/>} />
-                      <FormGroup label="체중 (kg)" type="number" value={newCrew.weight} onChange={v => setNewCrew({...newCrew, weight: v})} placeholder="kg" icon={<Scale size={18} color="#64748b"/>} />
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginTop: 12 }}>
+                      <FormGroup label="만 나이" type="number" value={newCrew.age} onChange={v => setNewCrew({...newCrew, age: v})} placeholder="세" required />
+                      <SelectGroup label="혈액형" value={newCrew.blood} onChange={v => setNewCrew({...newCrew, blood: v})} options={['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']} />
+                      <FormGroup label="신장 (cm)" type="number" value={newCrew.height} onChange={v => setNewCrew({...newCrew, height: v})} placeholder="cm" icon={<Ruler size={16} color="#64748b"/>} />
+                      <FormGroup label="체중 (kg)" type="number" value={newCrew.weight} onChange={v => setNewCrew({...newCrew, weight: v})} placeholder="kg" icon={<Scale size={16} color="#64748b"/>} />
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '30px', borderRadius: 28, border: '1px solid rgba(255,255,255,0.04)' }}>
-                    <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 24, color: '#fb923c', display: 'flex', alignItems: 'center', gap: 10, letterSpacing: '0.5px' }}><Anchor size={22}/> 소속 및 승선 정보</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
+                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '16px 18px', borderRadius: 18, border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ fontSize: 14, fontWeight: 900, marginBottom: 12, color: '#fb923c', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '0.5px' }}><Anchor size={16}/> 소속 및 승선 정보</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
                       <SelectGroup label="소속 부서" value={newCrew.dept} onChange={v => setNewCrew({...newCrew, dept: v})} options={['항해부', '기관부', '지원부']} />
                       <FormGroup label="직급" value={newCrew.role} onChange={v => setNewCrew({...newCrew, role: v})} placeholder="Position" required />
-                      <FormGroup label="승선 일자" type="date" value={newCrew.boardingDate} onChange={v => setNewCrew({...newCrew, boardingDate: v})} icon={<Calendar size={18} color="#64748b"/>} isDate />
-                      <FormGroup label="현재 위치/구역" value={newCrew.location} onChange={v => setNewCrew({...newCrew, location: v})} placeholder="브릿지, 데크 등" icon={<MapPin size={18} color="#64748b"/>} />
+                      <FormGroup label="승선 일자" type="date" value={newCrew.boardingDate} onChange={v => setNewCrew({...newCrew, boardingDate: v})} icon={<Calendar size={16} color="#64748b"/>} isDate />
+                      <FormGroup label="현재 위치/구역" value={newCrew.location} onChange={v => setNewCrew({...newCrew, location: v})} placeholder="브릿지, 데크 등" icon={<MapPin size={16} color="#64748b"/>} />
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '30px', borderRadius: 28, border: '1px solid rgba(255,255,255,0.04)' }}>
-                    <div style={{ fontSize: 20, fontWeight: 900, marginBottom: 24, color: '#2dd4bf', display: 'flex', alignItems: 'center', gap: 10, letterSpacing: '0.5px' }}><ShieldAlert size={22}/> 의료 정보 및 연락처</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-                      <FormGroup label="기저질환" value={newCrew.chronic} onChange={v => setNewCrew({...newCrew, chronic: v})} placeholder="질환명" icon={<Activity size={18} color="#64748b"/>} />
-                      <FormGroup label="알레르기" value={newCrew.allergies} onChange={v => setNewCrew({...newCrew, allergies: v})} placeholder="알레르기" icon={<Heart size={18} color="#64748b"/>} />
-                      <FormGroup label="최근 투약 항목" value={newCrew.lastMed} onChange={v => setNewCrew({...newCrew, lastMed: v})} placeholder="복용 약물" icon={<Pill size={18} color="#64748b"/>} />
+                  <div style={{ background: 'rgba(255,255,255,0.01)', padding: '16px 18px', borderRadius: 18, border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <div style={{ fontSize: 14, fontWeight: 900, marginBottom: 12, color: '#2dd4bf', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '0.5px' }}><ShieldAlert size={16}/> 의료 정보 및 연락처</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+                      <FormGroup label="기저질환" value={newCrew.chronic} onChange={v => setNewCrew({...newCrew, chronic: v})} placeholder="질환명" icon={<Activity size={16} color="#64748b"/>} />
+                      <FormGroup label="알레르기" value={newCrew.allergies} onChange={v => setNewCrew({...newCrew, allergies: v})} placeholder="알레르기" icon={<Heart size={16} color="#64748b"/>} />
+                      <FormGroup label="최근 투약 항목" value={newCrew.lastMed} onChange={v => setNewCrew({...newCrew, lastMed: v})} placeholder="복용 약물" icon={<Pill size={16} color="#64748b"/>} />
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 20 }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        <label style={{ fontSize: 16, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 8 }}><FileText size={18}/> 과거 병력 및 수술 이력</label>
-                        <textarea value={newCrew.pastHistory} onChange={e => setNewCrew({...newCrew, pastHistory: e.target.value})} placeholder="상세 과거력을 입력하세요" style={{ width: '100%', minHeight: 100, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: '16px 20px', color: '#fff', outline: 'none', fontWeight: 700, fontSize: 18, resize: 'none', boxSizing: 'border-box', transition: '0.2s' }} className="form-textarea" />
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        <label style={{ fontSize: 13, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 6 }}><FileText size={15}/> 과거 병력 및 수술 이력</label>
+                        <textarea value={newCrew.pastHistory} onChange={e => setNewCrew({...newCrew, pastHistory: e.target.value})} placeholder="상세 과거력을 입력하세요" style={{ width: '100%', minHeight: 72, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 14px', color: '#fff', outline: 'none', fontWeight: 700, fontSize: 13, resize: 'none', boxSizing: 'border-box', transition: '0.2s' }} className="form-textarea" />
                       </div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                        <label style={{ fontSize: 16, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 8 }}><Pill size={18}/> 관리 특이사항 (메모)</label>
-                        <textarea value={newCrew.note} onChange={e => setNewCrew({...newCrew, note: e.target.value})} placeholder="건강관리 상 주의사항 입력" style={{ width: '100%', minHeight: 100, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 20, padding: '16px 20px', color: '#fff', outline: 'none', fontWeight: 700, fontSize: 18, resize: 'none', boxSizing: 'border-box', transition: '0.2s' }} className="form-textarea" />
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        <label style={{ fontSize: 13, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 6 }}><Pill size={15}/> 관리 특이사항 (메모)</label>
+                        <textarea value={newCrew.note} onChange={e => setNewCrew({...newCrew, note: e.target.value})} placeholder="건강관리 상 주의사항 입력" style={{ width: '100%', minHeight: 72, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 14, padding: '10px 14px', color: '#fff', outline: 'none', fontWeight: 700, fontSize: 13, resize: 'none', boxSizing: 'border-box', transition: '0.2s' }} className="form-textarea" />
                       </div>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 20 }}>
-                      <FormGroup label="본인 연락처" value={newCrew.contact} onChange={v => setNewCrew({...newCrew, contact: v})} placeholder="010-0000-0000" required icon={<Phone size={18} color="#64748b"/>} />
-                      <FormGroup label="비상 연락처 (관계 포함)" value={newCrew.emergency} onChange={v => setNewCrew({...newCrew, emergency: v})} placeholder="010-0000-0000 (관계)" required icon={<Phone size={18} color="#ff4d6d"/>} />
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 12 }}>
+                      <FormGroup label="본인 연락처" value={newCrew.contact} onChange={v => setNewCrew({...newCrew, contact: v})} placeholder="010-0000-0000" required icon={<Phone size={16} color="#64748b"/>} />
+                      <FormGroup label="비상 연락처 (관계 포함)" value={newCrew.emergency} onChange={v => setNewCrew({...newCrew, emergency: v})} placeholder="010-0000-0000 (관계)" required icon={<Phone size={16} color="#ff4d6d"/>} />
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', gap: 20, marginTop: 10 }}>
-                    <button type="button" onClick={() => setIsAdding(false)} style={{ flex: 1, padding: '22px', background: 'rgba(255,255,255,0.03)', border: '1.5px solid rgba(255,255,255,0.05)', borderRadius: 20, color: '#94a3b8', fontSize: 22, fontWeight: 900, cursor: 'pointer', transition: '0.2s' }} className="cancel-btn">등록 취소</button>
-                    <button type="submit" style={{ flex: 2, padding: '22px', background: 'linear-gradient(135deg, #0dd9c5 0%, #00a896 100%)', border: 'none', borderRadius: 20, color: '#020617', fontSize: 22, fontWeight: 950, cursor: 'pointer', boxShadow: '0 12px 30px rgba(13,217,197,0.25)', transition: '0.2s' }} className="submit-btn">선원 데이터 저장 및 시스템 등록</button>
+                  <div style={{ display: 'flex', gap: 12, marginTop: 4 }}>
+                    <button type="button" onClick={() => setIsAdding(false)} style={{ flex: 1, padding: '14px', background: 'rgba(255,255,255,0.03)', border: '1.5px solid rgba(255,255,255,0.05)', borderRadius: 14, color: '#94a3b8', fontSize: 14, fontWeight: 900, cursor: 'pointer', transition: '0.2s' }} className="cancel-btn">등록 취소</button>
+                    <button type="submit" style={{ flex: 2, padding: '14px', background: 'linear-gradient(135deg, #0dd9c5 0%, #00a896 100%)', border: 'none', borderRadius: 14, color: '#020617', fontSize: 14, fontWeight: 950, cursor: 'pointer', boxShadow: '0 8px 20px rgba(13,217,197,0.25)', transition: '0.2s' }} className="submit-btn">선원 데이터 저장 및 시스템 등록</button>
                   </div>
                 </form>
               </div>
@@ -222,84 +221,84 @@ export default function CrewManagement({ onSelectPatient }) {
           <thead style={{ position: 'sticky', top: 0, zIndex: 10 }}>
             <tr style={{ background: '#020617' }}>
               {['선원 프로필', '소속 및 직위', '신체 정보', '기저질환', '알레르기', '긴급 연락망', '응급 환자 등록'].map((h, i) => (
-                <th key={i} style={{ padding: '20px 24px', textAlign: i === 6 ? 'center' : 'left', fontSize: '20px', color: '#64748b', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '1.2px' }}>{h}</th>
+                <th key={i} style={{ padding: '10px 14px', textAlign: i === 6 ? 'center' : 'left', fontSize: '12px', color: '#64748b', fontWeight: 950, textTransform: 'uppercase', letterSpacing: '0.8px' }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((c) => (
               <tr key={c.id} onClick={() => handleSelect(c)} style={{ cursor: 'pointer', transition: '0.2s' }} className="crew-card-row">
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)', borderRadius: '20px 0 0 20px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                    <div style={{ width: 56, height: 70, borderRadius: '12px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.08)', background: '#0a1628', boxShadow: '0 6px 12px rgba(0,0,0,0.3)', position: 'relative' }}>
-                      <img 
-                        src={c.avatar} 
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: '14px 0 0 14px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{ width: 40, height: 50, borderRadius: '10px', overflow: 'hidden', border: '2px solid rgba(255,255,255,0.08)', background: '#0a1628', flexShrink: 0 }}>
+                      <img
+                        src={c.avatar}
                         onError={(e) => {
-                          e.target.onerror = null; 
+                          e.target.onerror = null;
                           e.target.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(c.name || 'User') + '&background=0ea5e9&color=fff&size=128';
                         }}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         alt={c.name}
                       />
                     </div>
                     <div>
-                      <div style={{ fontSize: '22px', fontWeight: 950, color: '#fff', marginBottom: 2 }}>{c.name}</div>
-                      <span style={{ fontSize: '13px', color: '#0dd9c5', background: 'rgba(13,217,197,0.1)', padding: '2px 8px', borderRadius: '6px', fontWeight: 900 }}>{c.id}</span>
+                      <div style={{ fontSize: '14px', fontWeight: 950, color: '#fff', marginBottom: 2 }}>{c.name}</div>
+                      <span style={{ fontSize: '11px', color: '#0dd9c5', background: 'rgba(13,217,197,0.1)', padding: '1px 6px', borderRadius: '5px', fontWeight: 900 }}>{c.id}</span>
                     </div>
                   </div>
                 </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)' }}>
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      {c.dept === '항해부' && <Anchor size={14} color="#38bdf8" />}
+                      {c.dept === '기관부' && <Cog size={14} color="#fb923c" />}
+                      {c.dept === '지원부' && <Coffee size={14} color="#2dd4bf" />}
+                      <span style={{ fontSize: '13px', color: '#94a3b8', fontWeight: 800 }}>{c.dept}</span>
+                    </div>
+                    <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '13px' }}>/</span>
+                    <div style={{ fontSize: '13px', color: '#fff', fontWeight: 900 }}>{c.role}</div>
+                  </div>
+                </td>
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                      {c.dept === '항해부' && <Anchor size={20} color="#38bdf8" />}
-                      {c.dept === '기관부' && <Cog size={20} color="#fb923c" />}
-                      {c.dept === '지원부' && <Coffee size={20} color="#2dd4bf" />}
-                      <span style={{ fontSize: '22px', color: '#94a3b8', fontWeight: 800 }}>{c.dept}</span>
-                    </div>
-                    <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '20px' }}>/</span>
-                    <div style={{ fontSize: '22px', color: '#fff', fontWeight: 900 }}>{c.role}</div>
-                  </div>
-                </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '18px', color: '#64748b', fontWeight: 950, marginBottom: 2 }}>나이</div>
-                      <div style={{ fontSize: '30px', fontWeight: 950, color: '#f1f5f9' }}>{c.age}</div>
+                      <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 950, marginBottom: 1 }}>나이</div>
+                      <div style={{ fontSize: '18px', fontWeight: 950, color: '#f1f5f9' }}>{c.age}</div>
                     </div>
-                    <div style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.06)' }} />
+                    <div style={{ width: 1, height: 28, background: 'rgba(255,255,255,0.06)' }} />
                     <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontSize: '18px', color: '#64748b', fontWeight: 950, marginBottom: 2 }}>혈액형</div>
-                      <div style={{ fontSize: '30px', fontWeight: 950, color: '#ff4d6d' }}>{c.blood}</div>
+                      <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 950, marginBottom: 1 }}>혈액형</div>
+                      <div style={{ fontSize: '18px', fontWeight: 950, color: '#ff4d6d' }}>{c.blood}</div>
                     </div>
                   </div>
                 </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                     {c.chronic && c.chronic !== '없음' && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#fb923c', background: 'rgba(251,146,60,0.12)', padding: '8px 14px', borderRadius: '12px', width: 'fit-content', border: '1px solid rgba(251,146,60,0.2)' }}>
-                        <ShieldAlert size={18} /> <span style={{ fontSize: '20px', fontWeight: 800 }}>{c.chronic}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#fb923c', background: 'rgba(251,146,60,0.12)', padding: '5px 10px', borderRadius: '8px', width: 'fit-content', border: '1px solid rgba(251,146,60,0.2)' }}>
+                        <ShieldAlert size={13} /> <span style={{ fontSize: '13px', fontWeight: 800 }}>{c.chronic}</span>
                       </div>
                     )}
                   </div>
                 </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                     {c.allergies && c.allergies !== '없음' && (
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#ff708d', background: 'rgba(255,112,141,0.12)', padding: '8px 14px', borderRadius: '12px', width: 'fit-content', border: '1px solid rgba(255,112,141,0.2)' }}>
-                        <Heart size={18} /> <span style={{ fontSize: '20px', fontWeight: 800 }}>{c.allergies}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#ff708d', background: 'rgba(255,112,141,0.12)', padding: '5px 10px', borderRadius: '8px', width: 'fit-content', border: '1px solid rgba(255,112,141,0.2)' }}>
+                        <Heart size={13} /> <span style={{ fontSize: '13px', fontWeight: 800 }}>{c.allergies}</span>
                       </div>
                     )}
                   </div>
                 </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: '#cbd5e1' }}>
-                    <Phone size={18} color="#ff4d6d" />
-                    <span style={{ fontSize: '20px', fontWeight: 800 }}>{c.emergency}</span>
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#cbd5e1' }}>
+                    <Phone size={13} color="#ff4d6d" />
+                    <span style={{ fontSize: '12px', fontWeight: 800 }}>{c.emergency}</span>
                   </div>
                 </td>
-                <td style={{ padding: '20px 24px', background: 'rgba(255,255,255,0.02)', borderRadius: '0 20px 20px 0', textAlign: 'center' }}>
-                  <button onClick={e => { e.stopPropagation(); handleSelect(c); }} className="register-btn" style={{ padding: '14px 28px', borderRadius: '16px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: '#38bdf8', fontSize: '20px', fontWeight: 950, cursor: 'pointer', transition: '0.2s', display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-                    <UserPlus size={20} strokeWidth={3} /> 응급 환자 등록
+                <td style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.02)', borderRadius: '0 14px 14px 0', textAlign: 'center' }}>
+                  <button onClick={e => { e.stopPropagation(); handleSelect(c); }} className="register-btn" style={{ padding: '8px 14px', borderRadius: '10px', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: '#38bdf8', fontSize: '13px', fontWeight: 950, cursor: 'pointer', transition: '0.2s', display: 'inline-flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
+                    <UserPlus size={14} strokeWidth={3} /> 응급 환자 등록
                   </button>
                 </td>
               </tr>
@@ -347,24 +346,24 @@ export default function CrewManagement({ onSelectPatient }) {
   )
 }
 
-function FormGroup({ label, value, onChange, placeholder, type = 'text', required = false, icon, labelSize = 16 }) {
+function FormGroup({ label, value, onChange, placeholder, type = 'text', required = false, icon }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0 }}>
-      <label style={{ fontSize: labelSize, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+      <label style={{ fontSize: 13, color: '#64748b', fontWeight: 950, marginLeft: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
         {label}
       </label>
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        {icon && <div style={{ position: 'absolute', left: 16, zIndex: 1 }}>{icon}</div>}
-        <input 
+        {icon && <div style={{ position: 'absolute', left: 12, zIndex: 1 }}>{icon}</div>}
+        <input
           type={type}
           value={value}
           onChange={e => onChange(e.target.value)}
           placeholder={placeholder}
           required={required}
-          style={{ 
-            width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', 
-            borderRadius: 18, padding: icon ? '18px 18px 18px 48px' : '18px 20px', color: '#fff', outline: 'none', 
-            fontWeight: 800, fontSize: 18, boxSizing: 'border-box', transition: '0.2s'
+          style={{
+            width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 12, padding: icon ? '10px 12px 10px 36px' : '10px 14px', color: '#fff', outline: 'none',
+            fontWeight: 800, fontSize: 13, boxSizing: 'border-box', transition: '0.2s'
           }}
           className="form-input"
         />
@@ -373,25 +372,25 @@ function FormGroup({ label, value, onChange, placeholder, type = 'text', require
   )
 }
 
-function SelectGroup({ label, value, onChange, options, labelSize = 16 }) {
+function SelectGroup({ label, value, onChange, options }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, minWidth: 0 }}>
-      <label style={{ fontSize: labelSize, color: '#64748b', fontWeight: 950, marginLeft: 4 }}>{label}</label>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0 }}>
+      <label style={{ fontSize: 13, color: '#64748b', fontWeight: 950, marginLeft: 4 }}>{label}</label>
       <div style={{ position: 'relative' }}>
-        <select 
-          value={value} 
-          onChange={e => onChange(e.target.value)} 
-          style={{ 
-            width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', 
-            borderRadius: 18, padding: '18px 48px 18px 20px', color: '#fff', outline: 'none', 
-            fontWeight: 800, fontSize: 18, boxSizing: 'border-box', cursor: 'pointer',
+        <select
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          style={{
+            width: '100%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 12, padding: '10px 36px 10px 14px', color: '#fff', outline: 'none',
+            fontWeight: 800, fontSize: 13, boxSizing: 'border-box', cursor: 'pointer',
             appearance: 'none', transition: '0.2s'
           }}
           className="form-select"
         >
           {options.map(opt => <option key={opt} value={opt} style={{background: '#0a1224'}}>{opt}{label === '혈액형' ? '형' : ''}</option>)}
         </select>
-        <ChevronDown size={20} color="#4a6080" style={{ position: 'absolute', right: 18, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+        <ChevronDown size={16} color="#4a6080" style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
       </div>
     </div>
   )
