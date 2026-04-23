@@ -11,10 +11,10 @@ const ACTION_GUIDES = {
     protocol: 'SOP-CPR-01',
     hasMetronome: true,
     steps: [
-      { title: '의식 및 호흡 확인', desc: '어깨를 두드리며 "괜찮으세요?"라고 묻고, 가슴이 오르내리는지 10초간 확인하십시오.', tip: '숨을 안 쉬면 즉시 시작합니다.', stepImage: 'assets/CPR1.jpeg' },
-      { title: '도움 및 AED 요청', desc: '주변 사람 중 한 명을 지목해 "119 신고"와 "AED(심장충격기)"를 가져와 달라고 지시하십시오.', stepImage: 'assets/CPR2.jpeg' },
-      { title: '가슴 압박 시행', desc: '가슴 중앙에 깍지 낀 손을 대고, 팔꿈치를 펴서 수직으로 5~6cm 깊이로 강하게 누르십시오.', tip: '분당 100~120회 속도를 유지하세요.', stepImage: 'assets/CPR3.jpeg' },
-      { title: 'AED 패드 부착', desc: '전원을 켜고 패드 하나는 오른쪽 쇄골 아래, 다른 하나는 왼쪽 옆구리에 붙인 뒤 음성 지시에 따르십시오.', tip: '분석 중에는 환자에게서 떨어지십시오.', stepImage: 'assets/CPR4.jpeg' }
+      { title: '의식 및 호흡 확인', desc: '어깨를 두드리며 "괜찮으세요?"라고 묻고, 가슴이 오르내리는지 10초간 확인하십시오.', tip: '숨을 안 쉬면 즉시 시작합니다.', stepImage: '/assets/CPR1.jpeg' },
+      { title: '도움 및 AED 요청', desc: '주변 사람 중 한 명을 지목해 "비상 상황 전파" 및 "AED(심장충격기)"를 가져와 달라고 지시하십시오.', stepImage: '/assets/CPR2.jpeg' },
+      { title: '가슴 압박 시행', desc: '가슴 중앙에 깍지 낀 손을 대고, 팔꿈치를 펴서 수직으로 5~6cm 깊이로 강하게 누르십시오.', tip: '분당 100~120회 속도를 유지하세요.', stepImage: '/assets/CPR3.jpeg' },
+      { title: 'AED 패드 부착', desc: '전원을 켜고 패드 하나는 오른쪽 쇄골 아래, 다른 하나는 왼쪽 옆구리에 붙인 뒤 음성 지시에 따르십시오.', tip: '분석 중에는 환자에게서 떨어지십시오.', stepImage: '/assets/CPR4.jpeg' }
     ],
     dos: ['1초당 2번 속도로 강하게 압박하세요', '압박 후 가슴이 완전히 올라오게 하세요', 'AED의 음성 지시에 따라 행동하십시오'],
     donts: ['환자가 의식이 있다면 하지 마세요', '맥박 확인을 위해 시간을 허비하지 마세요', '압박 중 팔꿈치를 굽히지 마세요'],
@@ -73,12 +73,12 @@ const ACTION_GUIDES = {
     riskLevel: '2',
     protocol: 'SOP-BRN-08',
     steps: [
-      { title: '즉시 흐르는 물 냉각', desc: '흐르는 찬물에 20분 이상 환부의 열을 식히십시오. 얼음물은 피하십시오.', stepImage: 'assets/Burn1.jpeg' },
+      { title: '즉시 흐르는 물 냉각', desc: '흐르는 찬물에 20분 이상 외상 부위의 열을 식히십시오. 얼음물은 피하십시오.', stepImage: 'assets/Burn1.jpeg' },
       { title: '의복 및 장신구 제거', desc: '상처 부위 옷을 가위로 자르고, 부종이 생기기 전 반지나 시계를 신속히 제거하십시오.', tip: '피부에 붙은 옷은 억지로 떼지 마세요.', stepImage: 'assets/Burn2.jpeg' },
-      { title: '환부 보호', desc: '연고를 바르지 말고, 깨끗한 거즈나 비닐 랩으로 환부를 느슨하게 덮어 외부 오염을 차단하십시오.', stepImage: 'assets/Burn3.jpeg' }
+      { title: '외상 부위 보호', desc: '연고를 바르지 말고, 깨끗한 거즈나 비닐 랩으로 외상 부위를 느슨하게 덮어 외부 오염을 차단하십시오.', stepImage: 'assets/Burn3.jpeg' }
     ],
     dos: ['물집이 있다면 터뜨리지 말고 보호하세요', '통증이 심하면 시원한 물수건으로 계속 덮으세요'],
-    donts: ['얼음을 환부에 직접 대지 마세요', '버터, 치약, 간장 등을 바르는 민간요법은 금물입니다'],
+    donts: ['얼음을 외상 부위에 직접 대지 마세요', '버터, 치약, 간장 등을 바르는 민간요법은 금물입니다'],
     warning: '안면 화상이나 연기 흡입 시 즉시 산소를 공급하고 호흡을 감시하십시오.',
     color: '#f59e0b'
   },
@@ -107,13 +107,13 @@ const ACTION_GUIDES = {
       { title: '부목 적용', desc: '나무판자나 종이박스로 다친 관절의 위아래를 포함하도록 대고 끈으로 묶어 고정하십시오.', stepImage: 'assets/Fracture2.jpeg' },
       { title: '말단 순환 확인', desc: '고정 후 손가락이나 발가락 끝을 눌러 혈색이 돌아오는지 확인하고 감각을 체크하십시오.', stepImage: 'assets/Fracture3.jpeg' }
     ],
-    dos: ['뼈가 튀어나왔다면 멸균 거즈로 먼저 덮으세요', '환부를 심장보다 높게 올리세요'],
+    dos: ['뼈가 튀어나왔다면 멸균 거즈로 먼저 덮으세요', '외상 부위를 심장보다 높게 올리세요'],
     donts: ['부러진 뼈를 맞추려 하거나 밀어 넣지 마세요', '환자를 일으켜 세우거나 걷게 하지 마세요'],
     warning: '척추 손상이 의심되는 경우 절대로 환자를 움직이지 마십시오.',
     color: '#38bdf8'
   },
   '상처 세척': {
-    title: '환부 세척 및 감염 방지',
+    title: '외상 부위 세척 및 감염 방지',
     diagnosis: '국소 외상 및 찰과상',
     riskLevel: '1',
     protocol: 'SOP-WND-06',
@@ -162,12 +162,13 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
   const [sessionLogs, setSessionLogs] = useState([])
   const [hoveredStepIndex, setHoveredStepIndex] = useState(null)
   const [showCompletionPanel, setShowCompletionPanel] = useState(false)
-  const [startTime] = useState(new Date().toLocaleTimeString('ko-KR', { hour12: false }))
+  const [startTime] = useState(new Date())
+  const [endTime, setEndTime] = useState(null)
   
   const [bpm] = useState(110)
   const [beat, setBeat] = useState(false)
   
-  const [vitals] = useState({ 
+  const [vitals, setVitals] = useState({ 
     hr: 96, 
     spo2: '94.2', 
     bp: '158/95', 
@@ -175,10 +176,46 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
     rr: 24 
   })
 
+  // ─── 수동 입력 상태 ───
+  const [editTarget, setEditTarget] = useState(null) // { key, label, value, unit }
+  const [inputValue, setInputValue] = useState('')
+
+  const handleOpenEdit = (key, label, currentVal, unit) => {
+    setEditTarget({ key, label, unit })
+    setInputValue(currentVal)
+  }
+
+  const handleSaveVital = () => {
+    if (!editTarget) return
+    const now = new Date().toLocaleTimeString('ko-KR', { hour12: false })
+    setVitals(prev => ({ ...prev, [editTarget.key]: inputValue }))
+    setSessionLogs([{ 
+      time: now, 
+      text: `${editTarget.label} 수동 업데이트 : ${inputValue}${editTarget.unit}`, 
+      type: 'INFO' 
+    }, ...sessionLogs])
+    setEditTarget(null)
+  }
+
   const handleSyncData = () => {
-    const logTime = new Date().toLocaleTimeString('ko-KR', { hour12: false })
+    const now = new Date()
+    setEndTime(now)
+    const logTime = now.toLocaleTimeString('ko-KR', { hour12: false })
     setSessionLogs([{ time: logTime, text: "모든 처치 데이터 동기화 및 전송 완료 (tb_logs)", type: 'SUCCESS' }, ...sessionLogs])
     setTriageStep('SUMMARY')
+  }
+
+  const handleFinish = () => {
+    setEndTime(new Date())
+    setTriageStep('SUMMARY')
+  }
+
+  const getDuration = () => {
+    if (!startTime || !endTime) return '0분 0초'
+    const diff = Math.floor((endTime - startTime) / 1000)
+    const m = Math.floor(diff / 60)
+    const s = diff % 60
+    return `${m}분 ${s}초`
   }
 
   const checkAlert = (key, value) => {
@@ -292,21 +329,41 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 40, position: 'relative', zIndex: 2 }}>
-            <div style={{ background: 'rgba(255,255,255,0.04)', padding: 24, borderRadius: 24, border: '1px solid rgba(255,255,255,0.06)' }}>
-              <div style={{ fontSize: 15, color: '#94a3b8', fontWeight: 800, marginBottom: 16 }}>시행 데이터 요약</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#64748b' }}>처치 대상</span><span style={{ fontWeight: 800, color: '#fff' }}>{patient?.name} ({patient?.role})</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#64748b' }}>적용 프로토콜</span><span style={{ fontWeight: 800, color: '#38bdf8' }}>{activeAction || '판별 전 종료'}</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#64748b' }}>시작/종료 시각</span><span style={{ fontWeight: 800, color: '#fff' }}>{startTime} ~ {new Date().toLocaleTimeString('ko-KR', {hour12:false})}</span></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: '#64748b' }}>기록 건수</span><span style={{ fontWeight: 800, color: '#22c55e' }}>{sessionLogs.length}건 (동기화 완료)</span></div>
+            <div style={{ background: 'rgba(255,255,255,0.04)', padding: 32, borderRadius: 24, border: '1px solid rgba(255,255,255,0.06)' }}>
+              <div style={{ fontSize: 16, color: '#94a3b8', fontWeight: 800, marginBottom: 20 }}>처치 결과 요약</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>대상 선원</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{patient?.name} ({patient?.role})</span>
+                </div>
+                
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
+                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>처치 내용</span>
+                  <span style={{ fontWeight: 800, color: '#38bdf8', fontSize: 22 }}>{activeAction || '상태 판별'}</span>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
+                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>시작 시각</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{startTime.toLocaleTimeString('ko-KR', {hour12:false})}</span>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
+                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>종료 시각</span>
+                  <span style={{ fontWeight: 800, color: '#fff', fontSize: 22 }}>{endTime?.toLocaleTimeString('ko-KR', {hour12:false})}</span>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 16 }}>
+                  <span style={{ color: '#64748b', fontSize: 22, fontWeight: 700 }}>소요 시간</span>
+                  <span style={{ fontWeight: 900, color: '#38bdf8', fontSize: 26 }}>{getDuration()}</span>
+                </div>
               </div>
             </div>
             <div style={{ background: 'rgba(56,189,248,0.06)', padding: 24, borderRadius: 24, border: '1px solid rgba(56,189,248,0.2)' }}>
               <div style={{ fontSize: 15, color: '#38bdf8', fontWeight: 800, marginBottom: 16 }}>AI 후속 지침</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>구조팀 도착 시까지 바이탈을 5분 간격으로 체크하십시오.</span></div>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>환자의 체온 유지를 위해 담요를 덮어주십시오.</span></div>
-                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>의료진에게 데이터 전송이 완료되었습니다.</span></div>
+                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>환자 상태 안정 시까지 바이탈을 지속적으로 모니터링하십시오.</span></div>
+                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>2차 감염 방지를 위해 외상 부위를 보호하고 체온을 유지하십시오.</span></div>
+                <div style={{ display: 'flex', gap: 10, fontSize: 16, fontWeight: 700, color: '#e2e8f0' }}><AlertCircle size={18} color="#38bdf8" style={{flexShrink:0}}/> <span>환자의 의식 변화와 추가 증상을 상세히 기록하여 보존하십시오.</span></div>
               </div>
             </div>
           </div>
@@ -386,7 +443,6 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                   </div>
                   <h2 style={{ fontSize: 52, fontWeight: 950, letterSpacing: '-2px', margin: 0 }}>{currentActionData.title}</h2>
                 </div>
-                <button onClick={() => setTriageStep('SUMMARY')} style={{ background: 'rgba(255,255,255,0.05)', border: 'none', color: '#64748b', cursor: 'pointer', padding: 12, borderRadius: '50%' }}><X size={32}/></button>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 24 }}>
                 <div style={{ background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: 20, padding: 18 }}>
@@ -401,7 +457,7 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {currentActionData.steps.map((step, i) => (
                   <div key={i} onClick={() => handleStepToggle(i)} onMouseEnter={() => setHoveredStepIndex(i)} onMouseLeave={() => setHoveredStepIndex(null)} style={{ display: 'flex', gap: 20, padding: '20px 24px', borderRadius: 24, cursor: 'pointer', background: completedSteps.includes(i) ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `2px solid ${completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.06)'}`, transition: '0.2s' }}>
-                    <div style={{ width: 44, height: 40, borderRadius: '50%', background: completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.1)', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: 24, flexShrink: 0, color: completedSteps.includes(i) ? '#000' : '#fff', display: 'flex' }}>{i+1}</div>
+                    <div style={{ width: 44, height: 44, borderRadius: '50%', background: completedSteps.includes(i) ? '#38bdf8' : 'rgba(255,255,255,0.1)', alignItems: 'center', justifyContent: 'center', fontWeight: 950, fontSize: 24, flexShrink: 0, color: completedSteps.includes(i) ? '#000' : '#fff', display: 'flex' }}>{i+1}</div>
                     <div>
                       <div style={{ fontSize: 30, fontWeight: 950, marginBottom: 4, color: completedSteps.includes(i) ? '#fff' : '#e2e8f0', letterSpacing: '-1px' }}>{step.title}</div>
                       <div style={{ fontSize: 22, color: completedSteps.includes(i) ? '#fff' : '#94a3b8', fontWeight: 600, lineHeight: 1.4 }}>{step.desc}</div>
@@ -415,10 +471,9 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
                     <div style={{ width: 72, height: 72, background: '#38bdf8', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(56,189,248,0.4)' }}><Send size={36} color="#000"/></div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 24, fontWeight: 950, color: '#fff', marginBottom: 4 }}>응급처치 세션 종료 및 전송 (Session Sync)</div>
-                      <div style={{ fontSize: 17, color: '#94a3b8', fontWeight: 700, lineHeight: 1.5 }}>
-                        현재까지 시행된 모든 처치 로그와 바이탈 기록을 <span style={{ color: '#38bdf8' }}>의료 서버(tb_logs)로 즉시 전송</span>합니다.<br/>
-                        <span style={{ fontSize: 14, opacity: 0.8 }}>미전송 데이터: {sessionLogs.length}건 대기 중</span>
+                      <div style={{ fontSize: 24, fontWeight: 950, color: '#fff', marginBottom: 4 }}>처치 및 바이탈 데이터 전송</div>
+                      <div style={{ fontSize: 18, color: '#94a3b8', fontWeight: 700, lineHeight: 1.5 }}>
+                        전송 대기 : <span style={{ color: '#38bdf8' }}>{sessionLogs.length}건</span>
                       </div>
                     </div>
                     <div style={{ display: 'flex', gap: 12 }}>
@@ -450,20 +505,50 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
                 <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 700 }}>ID : {patient?.id}</div>
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, position: 'relative' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
                 <VitalMini label="심박수" value={vitals.hr} unit="bpm" color="#ff3b5c" icon={<HeartPulse size={14}/>} isAlert={checkAlert('hr', vitals.hr)} />
                 <VitalMini label="산소포화도" value={vitals.spo2} unit="%" color="#00aaff" icon={<Wind size={14}/>} isAlert={checkAlert('spo2', vitals.spo2)} />
                 <VitalMini label="호흡수" value={vitals.rr || 24} unit="/min" color="#00d4aa" icon={<Activity size={14}/>} isAlert={checkAlert('rr', vitals.rr || 24)} />
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
-                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={16}/>} isManual isAlert={checkAlert('bp', vitals.bp)} />
-                <VitalMini label="체온" value={vitals.temp} unit="%" color="#ff6a00" icon={<Thermometer size={16}/>} isManual isAlert={checkAlert('temp', vitals.temp)} />
+                <VitalMini label="혈압" value={vitals.bp} unit="mmHg" color="#c084fc" icon={<Activity size={16}/>} isManual isAlert={checkAlert('bp', vitals.bp)} onClick={() => handleOpenEdit('bp', '혈압', vitals.bp, 'mmHg')} />
+                <VitalMini label="체온" value={vitals.temp} unit="°C" color="#ff6a00" icon={<Thermometer size={16}/>} isManual isAlert={checkAlert('temp', vitals.temp)} onClick={() => handleOpenEdit('temp', '체온', vitals.temp, '°C')} />
               </div>
+
+              {/* 플로팅 입력 폼 (메인 대시보드와 동일한 스타일 적용) */}
+              {editTarget && (
+                <div style={{ 
+                  position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%) translateY(15px)', 
+                  zIndex: 1000, width: 360, background: '#1e293b', border: '2px solid #38bdf8', borderRadius: 24,
+                  padding: 28, boxShadow: '0 20px 50px rgba(0,0,0,0.6)', animation: 'fadeIn 0.2s ease'
+                }}>
+                  <div style={{ fontSize: 17, fontWeight: 900, color: '#fff', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 10 }}>
+                    {editTarget.key === 'bp' ? <Activity size={20} color="#38bdf8" /> : <Thermometer size={20} color="#38bdf8" />}
+                    {editTarget.label} 입력
+                  </div>
+                  <input 
+                    autoFocus
+                    value={inputValue} 
+                    placeholder={editTarget.key === 'bp' ? '예: 120/80' : '예: 36.5'}
+                    onChange={e => setInputValue(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleSaveVital()}
+                    style={{
+                      width: '100%', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.15)',
+                      borderRadius: 14, padding: '16px 20px', color: '#fff', fontSize: 24, fontWeight: 800,
+                      outline: 'none', marginBottom: 20, textAlign: 'center', letterSpacing: '1px', boxSizing: 'border-box'
+                    }}
+                  />
+                  <div style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+                    <button onClick={() => setEditTarget(null)} style={{ flex: 1, padding: '14px', borderRadius: 12, background: 'rgba(255,255,255,0.05)', color: '#94a3b8', border: 'none', fontWeight: 800, fontSize: 16, cursor: 'pointer' }}>취소</button>
+                    <button onClick={handleSaveVital} style={{ flex: 2, padding: '14px', borderRadius: 12, background: '#38bdf8', color: '#000', border: 'none', fontWeight: 950, fontSize: 16, cursor: 'pointer' }}>데이터 저장</button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
           <div style={{ flex: 1, background: 'rgba(255,255,255,0.03)', borderRadius: 24, padding: '20px', display: 'flex', flexDirection: 'column', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', minHeight: 0 }}>
-            <div style={{ fontWeight: 900, marginBottom: 16, color: '#00d4aa', display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+            <div style={{ fontWeight: 900, marginBottom: 16, color: '#38bdf8', display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
               <History size={18} />
               <span>대응 타임라인</span>
             </div>
@@ -471,9 +556,9 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
               {sessionLogs.map((log, i) => (
                 <div key={i} style={{ display: 'flex', gap: 14, marginBottom: 14 }}>
                   <div style={{ width: '16px', height: '16px', borderRadius: '50%', background: '#020617', border: `3px solid ${log.type === 'SUCCESS' ? '#22c55e' : '#38bdf8'}`, flexShrink: 0, marginTop: '4px' }} />
-                  <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between' }}>
-                    <div style={{ fontSize: '18px', color: '#e2e8f0', fontWeight: 750 }}>{log.text}</div>
-                    <div style={{ fontSize: '13px', color: '#64748b' }}>{log.time}</div>
+                  <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'flex-start' }}>
+                    <div style={{ fontSize: '18px', color: '#e2e8f0', fontWeight: 750, lineHeight: 1.3 }}>{log.text}</div>
+                    <div style={{ fontSize: '13px', color: '#64748b', whiteSpace: 'nowrap', flexShrink: 0, fontWeight: 600 }}>{log.time}</div>
                   </div>
                 </div>
               ))}
@@ -511,14 +596,42 @@ export default function Emergency({ patient, initialAction, onNavigate }) {
 
 function VitalMini({ label, value, unit, color, icon, onClick, isManual, isAlert }) {
   return (
-    <div onClick={onClick} style={{ background: isAlert ? 'rgba(239,68,68,0.1)' : 'rgba(255,255,255,0.02)', padding: '16px 14px', borderRadius: 16, border: isAlert ? '2px solid #ef4444' : '1px solid rgba(255,255,255,0.04)', cursor: isManual ? 'pointer' : 'default', transition: 'all 0.3s ease', animation: isAlert ? 'pulse-alert 0.8s infinite' : 'none' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
-        <span style={{ color: isAlert ? '#ef4444' : color, opacity: 0.9 }}>{icon}</span>
-        <div style={{ fontSize: 18, color: isAlert ? '#ef4444' : '#94a3b8', fontWeight: 900 }}>{label}</div>
+    <div onClick={onClick} style={{ 
+      background: isAlert ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.03)', 
+      padding: '14px 12px', 
+      borderRadius: 20, 
+      border: isAlert ? '2px solid #ef4444' : '1px solid rgba(255,255,255,0.06)', 
+      cursor: isManual ? 'pointer' : 'default', 
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', 
+      animation: isAlert ? 'pulse-alert 0.8s infinite' : 'none',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      minHeight: 85
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ color: isAlert ? '#ef4444' : color, display: 'flex', alignItems: 'center' }}>{icon}</span>
+          <div style={{ fontSize: 13, color: isAlert ? '#ef4444' : '#94a3b8', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase', opacity: 0.8 }}>
+            {label} {isManual && <span style={{ fontSize: 11, color: '#fff', marginLeft: 2 }}>(입력)</span>}
+          </div>
+        </div>
+        {isManual && <Edit3 size={12} color="#475569" style={{ opacity: 0.7 }} />}
       </div>
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 3 }}>
-        <span style={{ fontSize: 24, fontWeight: 950, color: isAlert ? '#ef4444' : color }}>{value}</span>
-        <span style={{ fontSize: 11, color: isAlert ? '#ef4444' : '#475569', fontWeight: 800 }}>{unit}</span>
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'flex-start', gap: 4 }}>
+        <span style={{ 
+          fontSize: 32, 
+          fontWeight: 950, 
+          color: isAlert ? '#fff' : color, 
+          letterSpacing: '-1px',
+          lineHeight: 1
+        }}>{value}</span>
+        <span style={{ 
+          fontSize: 12, 
+          color: isAlert ? '#fff' : '#475569', 
+          fontWeight: 800, 
+          opacity: isAlert ? 0.9 : 0.6 
+        }}>{unit}</span>
       </div>
     </div>
   )

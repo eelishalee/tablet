@@ -6,15 +6,15 @@ export default function Main({ patient, onNavigate }) {
   const [hr, setHr] = useState(patient?.hr || 82)
   const [spo2] = useState(patient?.spo2 || 98)
   const [rr] = useState(17)
-  const [bp] = useState(patient?.bp || '128/84')
-  const [bt] = useState(patient?.temp || '36.7')
+  const [bp, setBp] = useState(patient?.bp || '128/84')
+  const [bt, setBt] = useState(patient?.temp || '36.7')
 
   // ─── AI 어시스턴트 상태 ───
   const [prompt, setPrompt] = useState('')
   const [chat, setChat] = useState([
     {
       role: 'ai',
-      text: `김항해 기관장 (55세, 고혈압·고지혈증) 환자 데이터가 로드되었습니다.\n\n⚠ 현재 사고 발생 중 — 기관실 제2엔진 추락 외상. 즉각 대응이 필요합니다.`
+      text: `박기관 기관장 (55세, 고혈압·고지혈증) 환자 데이터가 로드되었습니다.\n\n⚠ 현재 사고 발생 중 — 기관실 제2엔진 추락 외상. 즉각 대응이 필요합니다.`
     },
     {
       role: 'user',
@@ -79,12 +79,20 @@ export default function Main({ patient, onNavigate }) {
     }, 1500)
   }
 
+  // ─── 바이탈 수동 수정 핸들러 ───
+  const handleBpEdit = () => {
+    const newVal = window.prompt('새로운 혈압 수치를 입력하세요 (예: 120/80)', bp)
+    if (newVal) setBp(newVal)
+  }
+
+  const handleBtEdit = () => {
+    const newVal = window.prompt('새로운 체온 수치를 입력하세요 (예: 36.5)', bt)
+    if (newVal) setBt(newVal)
+  }
+
   return (
     <DashboardView
-      activePatient={{
-        ...patient,
-        history: patient?.chronic || '고혈압 (2022~)\n페니실린 알레르기 있음'
-      }}
+      activePatient={patient}
       hr={hr}
       spo2={spo2}
       rr={rr}
@@ -101,6 +109,10 @@ export default function Main({ patient, onNavigate }) {
       scanResult={scanResult}
       scanError={scanError}
       setScanError={setScanError}
+      onBpEdit={handleBpEdit}
+      onBtEdit={handleBtEdit}
+      setBp={setBp}
+      setBt={setBt}
     />
   )
 }

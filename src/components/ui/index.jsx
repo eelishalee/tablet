@@ -15,21 +15,16 @@ export function DashboardVital({ label, value, unit, color, editable, onEdit, li
   return (
     <div style={{
       background: isConnected 
-        ? `linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))` 
+        ? 'rgba(255,255,255,0.03)' 
         : 'rgba(251, 191, 36, 0.03)',
-      borderRadius: 16, padding: '14px 14px',
+      borderRadius: 18, padding: '16px 14px',
       border: isConnected 
-        ? `1px solid rgba(255,255,255,0.07)` 
-        : '1px solid rgba(251, 191, 36, 0.2)',
+        ? '1px solid rgba(255,255,255,0.07)' 
+        : '1px solid rgba(251, 191, 36, 0.3)',
       textAlign: 'center', position: 'relative',
-      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      transition: 'all 0.3s ease',
       overflow: 'hidden'
     }}>
-      {/* 연결 해제 시 배경 애니메이션 효과 */}
-      {!isConnected && (
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.05, backgroundImage: 'repeating-linear-gradient(45deg, #fbbf24, #fbbf24 10px, transparent 10px, transparent 20px)', pointerEvents: 'none' }} />
-      )}
-
       {live && isConnected && (
         <div style={{
           position: 'absolute', top: 12, right: 12,
@@ -49,24 +44,27 @@ export function DashboardVital({ label, value, unit, color, editable, onEdit, li
         </div>
       )}
 
-      <div style={{ fontSize: 18, fontWeight: 800, color: isConnected ? '#64748b' : '#fbbf24', marginBottom: 2, letterSpacing: '0.3px', position: 'relative', zIndex: 1 }}>{label}</div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 6, position: 'relative', zIndex: 1 }}>
+        <div style={{ fontSize: 20, fontWeight: 900, color: isConnected ? '#e2e8f0' : '#fbbf24', letterSpacing: '0.5px', textTransform: 'uppercase' }}>{label}</div>
+        {editable && isConnected && (
+          <button onClick={onEdit} style={{ background: 'none', border: 'none', color: '#475569', cursor: 'pointer', display: 'flex', alignItems: 'center', padding: 0 }}>
+            <Edit3 size={18} />
+          </button>
+        )}
+      </div>
       
       {isConnected ? (
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 4, position: 'relative', zIndex: 1 }}>
-          <span style={{ fontSize: 32, fontWeight: 950, color, letterSpacing: '-1.5px', whiteSpace: 'nowrap' }}>{value}</span>
-          <span style={{ fontSize: 14, color: `${color}99`, fontWeight: 700, flexShrink: 0 }}>{unit}</span>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'center', gap: 6, position: 'relative', zIndex: 1 }}>
+          <span style={{ 
+            fontSize: 34, fontWeight: 950, color: color, letterSpacing: '-1px', whiteSpace: 'nowrap'
+          }}>{value}</span>
+          <span style={{ fontSize: 15, color: color, fontWeight: 900, flexShrink: 0, opacity: 0.9 }}>{unit}</span>
         </div>
       ) : (
         <div style={{ padding: '4px 0', position: 'relative', zIndex: 1 }}>
           <div style={{ fontSize: 16, fontWeight: 950, color: '#fbbf24', letterSpacing: '-0.3px' }}>센서 점검 필요</div>
           <div style={{ fontSize: 11, color: 'rgba(251, 191, 36, 0.5)', fontWeight: 800, marginTop: 4 }}>데이터 수신 대기 중</div>
         </div>
-      )}
-
-      {editable && isConnected && (
-        <button onClick={onEdit} style={{ position: 'absolute', top: 12, right: 12, background: 'none', border: 'none', color: '#475569', cursor: 'pointer', zIndex: 1 }}>
-          <Edit3 size={18} />
-        </button>
       )}
     </div>
   )

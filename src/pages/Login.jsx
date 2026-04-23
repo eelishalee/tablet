@@ -32,21 +32,21 @@ export default function Login({ onLogin }) {
             marginBottom: '16px'
           }}>
             <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#00e5cc', boxShadow: '0 0 8px #00e5cc' }} />
-            <span style={{ fontSize: '13px', fontWeight: '700', color: '#00e5cc', letterSpacing: '2.5px' }}>Maritime Medical AI System</span>
+            <span style={{ fontSize: '13px', fontWeight: '700', color: '#00e5cc', letterSpacing: '2px' }}>MDTS (Medical + Digitising)</span>
           </div>
 
           <div style={{ marginBottom: '40px' }}>
-            <h1 style={{ fontSize: '60px', fontWeight: '950', lineHeight: '1.1', letterSpacing: '-2px', margin: 0 }}>
-              선박 탑재형<br />엣지 의료 지원
+            <h1 style={{ fontSize: '56px', fontWeight: '950', lineHeight: '1.2', letterSpacing: '-2px', margin: 0, color: '#fff' }}>
+              선박용 엣지 AI<br />
+              <span style={{
+                fontSize: '56px', // 크기 명시적 일치
+                background: 'linear-gradient(90deg, #39ff6a 0%, #00ffcc 55%, #00e5ff 100%)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
+                display: 'inline-block' // 그라데이션 렌더링 최적화
+              }}>
+                응급진단 및 처치 가이드 KIT
+              </span>
             </h1>
-            <h2 style={{ 
-              fontSize: '60px', fontWeight: '800', lineHeight: '1.1', fontStyle: 'italic', 
-              letterSpacing: '-1px', marginTop: '8px', 
-              background: 'linear-gradient(90deg, #39ff6a 0%, #00ffcc 55%, #00e5ff 100%)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text'
-            }}>
-              AI Medical System
-            </h2>
           </div>
 
           <div style={{ display: 'flex', gap: '50px' }}>
@@ -127,8 +127,8 @@ export default function Login({ onLogin }) {
 function StatItem({ val, label }) {
   return (
     <div>
-      <div style={{ fontSize: '26px', fontWeight: '950', color: '#fff', lineHeight: '1', letterSpacing: '-0.5px' }}>{val}</div>
-      <div style={{ fontSize: '11px', color: 'rgba(255, 255, 255, 0.4)', marginTop: '3px' }}>{label}</div>
+      <div style={{ fontSize: '28px', fontWeight: '950', color: '#fff', lineHeight: '1', letterSpacing: '-0.5px' }}>{val}</div>
+      <div style={{ fontSize: '12px', color: 'rgba(255, 255, 255, 0.4)', marginTop: '4px', fontWeight: '700' }}>{label}</div>
     </div>
   )
 }

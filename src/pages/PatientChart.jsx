@@ -9,7 +9,7 @@ import {
 const ALL_CREW = [
   { id: 'S26-001', name: '이선장', age: 52, role: '선장', dept: '항해부', blood: 'O+', chronic: ['고혈압'], allergies: ['없음'], vitals: { bp: '138/85', hr: 78, temp: 36.5, spo2: 98 }, dob: '1974-05-12', height: 175, weight: 78, emergency_contact: '배우자 (010-1234-5678)', isEmergency: false },
   { id: 'S26-002', name: '김항해', age: 45, role: '1등 항해사', dept: '항해부', blood: 'A+', chronic: ['없음'], allergies: ['페니실린'], vitals: { bp: '120/80', hr: 72, temp: 36.6, spo2: 99 }, dob: '1981-11-20', height: 180, weight: 82, emergency_contact: '부친 (010-9876-5432)', isEmergency: false },
-  { id: 'S26-003', name: '박기관', age: 55, role: '기관장', dept: '기관부', blood: 'B+', chronic: ['고혈압', '고지혈증'], allergies: ['아스피린'], vitals: { bp: '158/95', hr: 92, temp: 37.8, spo2: 94 }, dob: '1971-08-05', height: 172, weight: 70, emergency_contact: '배우자 (010-3344-5566)', isEmergency: true },
+  { id: 'S26-003', name: '박기관', age: 55, role: '기관장', dept: '기관부', blood: 'B+', chronic: ['고혈압', '고지혈증'], allergies: ['아스피린'], vitals: { bp: '158/95', hr: 92, temp: 37.8, spo2: 94 }, dob: '1971-08-05', height: 172, weight: 70, emergency_contact: '양정희 (010-8765-4321)', isEmergency: true },
   { id: 'S26-004', name: '최갑판', age: 41, role: '갑판장', dept: '항해부', blood: 'AB+', chronic: ['허리디스크'], allergies: ['없음'], vitals: { bp: '132/88', hr: 85, temp: 36.8, spo2: 97 }, dob: '1985-03-15', height: 178, weight: 75, emergency_contact: '배우자 (010-1122-3344)', isEmergency: false },
 ]
 
@@ -17,7 +17,17 @@ export default function PatientChart({ patient: activePatientProp }) {
   const [selectedId, setSelectedId] = useState(activePatientProp?.id || 'S26-003')
   
   // 선택된 환자 데이터 매칭
-  const patient = ALL_CREW.find(c => c.id === selectedId) || ALL_CREW[0]
+  const patientData = ALL_CREW.find(c => c.id === selectedId) || ALL_CREW[0]
+  
+  // 프롭스로 전달받은 환자와 현재 선택된 환자가 같으면 프롭스 데이터 우선 적용 (비상연락망 연동을 위해)
+  const patient = (selectedId === activePatientProp?.id) 
+    ? { 
+        ...patientData, 
+        emergency_contact: activePatientProp.emergencyContact 
+          ? `${activePatientProp.emergencyContact.name} (${activePatientProp.emergencyContact.phone})`
+          : patientData.emergency_contact 
+      }
+    : patientData;
 
   return (
     <div style={{ padding: '0', height: 'calc(100vh - 72px)', overflow: 'auto', background: '#020617', color: '#fff', fontFamily: '"Pretendard", sans-serif' }}>

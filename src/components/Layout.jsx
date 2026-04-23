@@ -71,26 +71,23 @@ export default function Layout({ activePage, onNavigate, auth, onLogout, isOnlin
       <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
         
         {/* 데이터 동기화 상태 */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 2 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#38bdf8' }}>
-            <Database size={12} />
-            <span style={{ fontSize: 11, fontWeight: 800 }}>전송 대기 : 2건</span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#38bdf8' }}>
+            <Database size={16} />
+            <span style={{ fontSize: 16, fontWeight: 900 }}>전송 대기 : 2건</span>
           </div>
-          <div style={{ fontSize: 10, color: '#475569', fontWeight: 600 }}>최근 전송 : 10:24:15</div>
+          <div style={{ fontSize: 13, color: '#475569', fontWeight: 700 }}>최근 전송 : 10:24:15</div>
         </div>
 
         <div style={{
           display: 'flex', alignItems: 'center', gap: 5,
           padding: '4px 10px', borderRadius: 6,
-          background: isOnline ? 'rgba(38,222,129,0.1)' : 'rgba(255,77,109,0.1)',
-          border: `1px solid ${isOnline ? 'rgba(38,222,129,0.3)' : 'rgba(255,77,109,0.3)'}`,
+          background: 'rgba(255,77,109,0.1)',
+          border: '1px solid rgba(255,77,109,0.3)',
         }}>
-          {isOnline
-            ? <Wifi size={11} color="var(--green-400)" />
-            : <WifiOff size={11} color="var(--red-400)" />
-          }
-          <span style={{ fontSize: 11, fontWeight: 600, color: isOnline ? 'var(--green-400)' : 'var(--red-400)' }}>
-            {isOnline ? 'ON LINE' : 'OFF LINE'}
+          <WifiOff size={11} color="var(--red-400)" />
+          <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--red-400)' }}>
+            OFF LINE
           </span>
         </div>
         {auth && (

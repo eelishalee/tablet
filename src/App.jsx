@@ -13,14 +13,31 @@ export default function App() {
   const [page, setPage] = useState('main')
 
   const [activePatient, setActivePatient] = useState({
-    id: 'S26-003', name: '박기관', age: 48, role: '기관장', blood: 'B+',
-    dob: '1978-05-12', height: 176, weight: 78,
-    chronic: '고지혈증, 가벼운 고혈압',
-    allergies: '아스피린 (민감)',
-    lastMed: '리피토 (21:00)',
-    location: '기관실 제2엔진',
-    hr: 96, bp: '158/95', temp: 37.6, spo2: 94,
-    avatar: 'CE.jpeg'
+    id: 'S2026-026',
+    name: '박기관',
+    age: 55,
+    role: '기관장',
+    blood: 'A+',
+    dob: '1971-04-23',
+    height: 178,
+    weight: 82,
+    chronic: '고혈압 (2022~), 고지혈증',
+    history: '고혈압 (2022~)\n페니실린 알레르기 있음',
+    allergies: '페니실린 알레르기 있음',
+    lastMed: '암로디핀 (08:00)',
+    workLocation: '제2엔진실 (Engine Room B2)',
+    emergencyContact: {
+      name: '양정희',
+      phone: '010-8765-4321',
+      relation: '배우자'
+    },
+    recentHistory: {
+      date: '2026-03-15',
+      title: '단순 감기',
+      detail: '처방 : 타이레놀 500mg\n특이사항 : 알레르기 반응 없음'
+    },
+    hr: 82, bp: '128/84', temp: 36.7, spo2: 98,
+    avatar: '/CE.jpeg'
   })
 
   const [emergencyData, setEmergencyData] = useState(null)

@@ -129,7 +129,7 @@ export default function PatientInfo({ patient }) {
               <IR label="연락처"  value={patient.contact} full/>
             </div>
             <div style={{ gridColumn:'span 2' }}>
-              <IR label="비상연락" value={patient.emergency} full/>
+              <IR label="비상연락" value={`${patient.emergencyContact?.name} (${patient.emergencyContact?.phone})`} full/>
             </div>
             <div style={{ gridColumn:'span 2', padding:'8px 10px', background:'rgba(255,77,109,0.08)', borderRadius:8, border:'1px solid rgba(255,77,109,0.16)' }}>
               <div style={{ fontSize:9, color:'#ff4d6d', fontWeight:800, textTransform:'uppercase', letterSpacing:'0.5px', marginBottom:2 }}>현재 위치</div>
